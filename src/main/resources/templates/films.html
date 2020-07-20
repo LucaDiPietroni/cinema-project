@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table th:each="film: ${filmList}">
+    <tr th:text="${film.getTitle()}"></tr>&nbsp
+<tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), date)}">
+    <form th:action="@{/poop}" th:object="${cinemaHall}" method="post">
+        <input type="hidden" th:value="${hour.getCinemahallid()}" th:field="*{id}">
+        <input type="submit" th:value="${hour.getTimeofstart()}">
+        &nbsp
+    </form>
+</tr>
+</table>
+</body>
+</html>
