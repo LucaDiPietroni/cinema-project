@@ -8,9 +8,8 @@
 <table th:each="film: ${filmList}">
     <tr th:text="${film.getTitle()}"></tr>&nbsp
 <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), date)}">
-    <form th:action="@{/poop}" th:object="${cinemaHall}" method="post">
-        <input type="hidden" th:value="${hour.getCinemahallid()}" th:field="*{id}">
-        <input type="submit" th:value="${hour.getTimeofstart()}">
+    <form th:action="@{/setHall}" method="post">
+        <button type="submit" name="action" th:value="${hour.getCinemahallid()}" th:text="${hour.getTimeofstart()}"></button>>
         &nbsp
     </form>
 </tr>

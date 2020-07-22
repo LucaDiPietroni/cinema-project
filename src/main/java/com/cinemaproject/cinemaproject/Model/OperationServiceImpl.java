@@ -44,15 +44,16 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public void findSeatsByCinemaHallId(int cinemaHallId){
+    public List<Seat> findSeatsByCinemaHallId(int cinemaHallId){
         List<Seat> seatList = operationDao.findSeatsByCinemaHallId(cinemaHallId);
+        return seatList;
 
-        for (Seat oneSeat:seatList){
-            System.out.print(oneSeat.getId() + " ");
-            System.out.print(oneSeat.getCinemahallid() + " ");
-            System.out.print(oneSeat.getNumber() + " ");
-            System.out.println(oneSeat.getRow() + " ");
-        }
+//        for (Seat oneSeat:seatList){
+//            System.out.print(oneSeat.getId() + " ");
+//            System.out.print(oneSeat.getCinemahallid() + " ");
+//            System.out.print(oneSeat.getNumber() + " ");
+//            System.out.println(oneSeat.getRow() + " ");
+//        }
     }
 
     @Override
