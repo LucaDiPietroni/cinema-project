@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
- <a th:text="${cinemaHall.getId()}"/>
+ <a th:text="${resShow.getCinemahallid()}"/>
+
+ <form th:action="@{/addRes}" th:object="${newReservation}" method="post">
+     <p>Model: <input type="text" th:field="*{clientName}"></p>
+     <p>Mark: <input type="text" th:field="*{clientMail}"></p>
+     <p><input type="submit" value="Dodaj rezerwację"></p>
+ </form>>
+<form th:action="@{/addSeat}" method="post">
+    <table>
+        <tr th:each="seat: ${seats}">
+            <td th:each="oneSeat:${seat}"><button type="submit" name="action" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/></td>
+        </tr>
+    </table>
+</form>
+
+<div th:each="resSeat: ${resSeats}">
+    <a th:text="${resSeat}"/>
+</div>
+
 </body>
 </html>

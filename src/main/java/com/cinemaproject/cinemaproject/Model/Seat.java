@@ -6,7 +6,7 @@ public class Seat {
     private int cinemahallid;
     private double normlprice;
     private double reducedprice;
-    private String row;
+    private int line;
 
     public Seat(){
 
@@ -52,11 +52,11 @@ public class Seat {
         this.reducedprice = reducedprice;
     }
 
-    public String getRow() {
-        return row;
+    public int getRow() {
+        return line;
     }
 
-    public void setRow(String row) {
-        this.row = row;
+    public void setRow(int line) {
+        this.line = line;
     }
 }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OperationServiceImpl implements OperationService {
@@ -44,9 +44,16 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public List<Seat> findSeatsByCinemaHallId(int cinemaHallId){
-        List<Seat> seatList = operationDao.findSeatsByCinemaHallId(cinemaHallId);
-        return seatList;
+    public List<List<Seat>> findSeatsByCinemaHallId(int cinemaHallId){
+        List<Integer> lines = operationDao.findRowsByCinemaHall(cinemaHallId);
+        List<List<Seat>> result = new ArrayList<List<Seat>>();
+        
+        for (Integer line:lines) {
+            List<Seat> seats = operationDao.findSeatsInLineByCinemaHallId(cinemaHallId, line);
+            result.add(seats);
+        }
+
+        return result;
 
 //        for (Seat oneSeat:seatList){
 //            System.out.print(oneSeat.getId() + " ");
@@ -64,5 +71,11 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public void insertReservedSeats(List<ReservedSeat> rSeatList){
         operationDao.insertReservedSeats(rSeatList);
+    }
+
+    @Override
+    public Showing findShowingById(int id){
+        Showing showing = operationDao.findShowingById(id);
+        return showing;
     }
 }

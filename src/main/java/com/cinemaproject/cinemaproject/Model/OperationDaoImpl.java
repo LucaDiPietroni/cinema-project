@@ -2,11 +2,13 @@ package com.cinemaproject.cinemaproject.Model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -72,12 +74,14 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     }
 
     @Override
-    public List<Seat> findSeatsByCinemaHallId(int cinemaHallId) {
-        String sql = "SELECT * " +
-                "FROM \"CinemaMng\".\"Seat\" " +
-                "WHERE cinemahallid = ?;";
+    public List<Seat> findSeatsInLineByCinemaHallId(int cinemaHallId, int line) {
+        String sql = "SELECT *\n" +
+                "FROM \"CinemaMng\".\"Seat\"\n" +
+                "WHERE cinemahallid = ?\n" +
+                "AND line = ?\n" +
+                "ORDER BY number";
 
-        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, cinemaHallId);
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, cinemaHallId, line);
         List<Seat> result = new ArrayList<Seat>();
 
         for (Map<String, Object> row : rows) {
@@ -87,8 +91,26 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             seat.setCinemahallid((int) row.get("cinemahallid"));
             seat.setNormlprice((double) row.get("normalprice"));
             seat.setReducedprice((double) row.get("reducedprice"));
-            seat.setRow((String) row.get("row"));
+            seat.setRow((int) row.get("line"));
             result.add(seat);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Integer> findRowsByCinemaHall(int cinemaHallId) {
+        String sql = "SELECT line\n" +
+                "FROM \"CinemaMng\".\"Seat\"\n" +
+                "WHERE cinemahallid = ?\n" +
+                "GROUP BY line\n" +
+                "ORDER BY line";
+
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, cinemaHallId);
+        List<Integer> result = new ArrayList<Integer>();
+
+        for (Map<String, Object> row : rows) {
+            Integer line = (Integer) row.get("line");
+            result.add(line);
         }
         return result;
     }
@@ -119,6 +141,25 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             @Override
             public int getBatchSize() {
                 return rSeatList.size();
+            }
+        });
+    }
+
+    @Override
+    public Showing findShowingById(int id){
+        String sql = "SELECT * " +
+                "FROM \"CinemaMng\".\"Showing\" " +
+                "WHERE id = ?;";
+
+        return (Showing)getJdbcTemplate().queryForObject(sql, new Object[]{id}, new RowMapper<Showing>(){
+            @Override
+            public Showing mapRow(ResultSet rs, int rwNumber) throws SQLException {
+                Showing show = new Showing();
+                show.setId(rs.getInt("id"));
+                show.setFilmid(rs.getInt("filmid"));
+                show.setCinemahallid(rs.getInt("cinemahallid"));
+                show.setTimeofstart(rs.getTimestamp("timeofstart"));
+                return show;
             }
         });
     }
