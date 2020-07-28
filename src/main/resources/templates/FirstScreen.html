@@ -1,22 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/styleMain.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
 </head>
-<body style="background-color: lightgrey">
+<body onload="odliczanie()">
 
-    <h1 align="center"> STRONA STARTOWA </h1>
-    <h1 align="center"> ... </h1>
 
-    <br/>
-    <div style="width:100%;text-align:center;">
-        <img src = "https://jastrzebieonline.pl/files/images/newsy/listopad_2019/cinema-city-big.jpg" />
+
+<div id="container">
+
+    <div class = "rectangle">
+        <div id="logo"> MULTIKOMPLEKS KINOWY </div>
+        <div id="zegar"> 12:00:00</div>
+        <div id="help"> HELP</div>
+        <div style="clear: both"></div>
     </div>
-    <br/>
 
-    <div style="width:100%;text-align:center;">
-    <a href="/FilmListFirst">Nacisnij aby przejsc do wyboru filmu</a>
+
+    <div class = "ad">
+        <div class="tile1">
+            <img src = "image/reklama.png" alt="Reklama" width="600" />
+        </div>
     </div>
+
+
+
+    <div class = "start">
+        <div id="startKafelek">
+            <a href = "FilmListFirst" class="tilelink">
+                <div class="tile2">
+                    <i class= "icon icon-left"><br/></i>SPRAWDŹ PROMOCJE
+                </div></a>
+        </div>
+        <div id="startKafelek">
+            <a href = "FilmListFirst" class="tilelink">
+                <div class="tile2">
+                    <i class= "icon icon-up"><br/></i>PRZEJDŹ DO WYBORU SEANSU
+                </div></a>
+            </div>
+        <div id="startKafelek">
+            <a href = "FilmListFirst" class="tilelink">
+                <div class="tile2">
+                    <i class= "icon icon-right"><br/></i>WKRÓTCE W KINIE
+                </div></a>
+            </div>
+        <div style="clear: both"></div>
+    </div>
+
+
+
+    <div class = "rectangle">
+        @Stron kinowa Rafal&Marcin 2020
+    </div>
+
+</div>
+
+
 </body>
 </html>

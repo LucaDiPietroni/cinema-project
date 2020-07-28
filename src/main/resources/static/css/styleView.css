@@ -1,0 +1,183 @@
+body
+{
+    background-color: aliceblue ;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+}
+
+#container
+{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rectangle
+{
+    background-color: darkgray ;
+    width: 1200px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 25px;
+}
+
+.rectanglePusty
+{
+    background-color: lightcoral ;
+    width: 1200px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 25px;
+}
+
+.square
+{
+    width: 50%;
+    float: left;
+}
+
+#logo
+{
+    float: left;
+    font-family: 'Rowdies', cursive;
+    font-size: 30px;
+    width: 800px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#zegar
+{
+    float: left;
+    width: 250px;
+    font-family: 'Rowdies', cursive;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+
+#help
+{
+    float: left;
+    width: 100px;
+    font-family: 'Rowdies', cursive;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.tile1
+{
+    margin: 10px;
+    width: 1200px;
+    height: 300px;
+    text-align: center;
+    padding: 10px;
+}
+.tile2
+{
+    float: left;
+    margin: 10px;
+    width: 340px;
+    height: 30px;
+    text-align: center;
+    padding: 10px;
+    background: olivedrab;
+    border-radius: 25px;
+}
+
+.tile2:hover
+{
+    background-color: darkgreen;
+}
+
+.tekst
+{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.tekst2
+{
+    float: left;
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.tekst3
+{
+    text-align: right;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+#image
+{
+
+}
+
+.tile4
+{
+    float: left;
+    padding: 10px;
+    margin: 10px;
+    width: 350px;
+    height: 350px;
+}
+
+.seat
+{
+    margin: 5px;
+    float: left;
+    padding: 20px;
+    width: 20px;
+    height: 30px;
+    border-radius: 10px;
+    background: lightskyblue;
+    text-align: center;
+}
+
+.seat:hover
+{
+    background: blue;
+}
+
+.hour
+{
+    margin: 5px;
+    padding: 20px;
+    width: 80px;
+    height: 25px;
+    border-radius: 10px;
+    background: lightskyblue;
+    text-align: center;
+}
+
+.hour:hover
+{
+    background: blue;
+}
+
+.ticket
+{
+    margin: 5px;
+    float: left;
+    padding: 20px;
+    width: 160px;
+    height: 30px;
+    border-radius: 10px;
+    background: white;
+    text-align: center;
+}
