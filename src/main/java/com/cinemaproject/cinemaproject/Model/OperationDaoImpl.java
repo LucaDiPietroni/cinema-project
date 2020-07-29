@@ -34,7 +34,8 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 "where date(sh.timeofstart) = ? " +
                 "group by fi.id;";
 
-        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, new Object[]{dateOfFilm});
+        assert getJdbcTemplate() != null;
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, dateOfFilm);
         List<Film> result = new ArrayList<Film>();
 
         for (Map<String, Object> row : rows) {
@@ -116,7 +117,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     }
 
     @Override
-    public void insertReservation(String clientName, String clientMail, int token, int showingId) {
+    public void insertReservation(String clientName, String clientMail, String token, int showingId) {
         String sql = "INSERT INTO \"CinemaMng\".\"Reservation\" \n" +
                 "(clientname, clientmail, token, showingid)\n" +
                 "VALUES (?, ?, ?, ?)";
@@ -127,13 +128,13 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     @Override
     public void insertReservedSeats(List<ReservedSeat> rSeatList) {
         String sql = "INSERT INTO \"CinemaMng\".\"ReservedSeat\" \n" +
-                "(reservationid, seatid, isreduced)\n" +
+                "(token, seatid, isreduced)\n" +
                 "VALUES (?, ?, ?)";
 
         getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ReservedSeat rSeat = rSeatList.get(i);
-                ps.setInt(1, rSeat.getReservationId());
+                ps.setString(1, rSeat.getToken());
                 ps.setInt(2, rSeat.getSeatId());
                 ps.setBoolean(3, rSeat.isReduced());
             }

@@ -14,33 +14,12 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public List<Film> findFilmByDate(LocalDate dateOfFilm) {
-        List<Film> filmList = operationDao.findFilmByDate(dateOfFilm);
-        return filmList;
-
-//        for (Film oneFilm:filmList){
-//            System.out.print(oneFilm.getId() + " ");
-//            System.out.print(oneFilm.getTitle() + " ");
-//            System.out.print(oneFilm.getYearOfPremiere() + " ");
-//            System.out.print(oneFilm.getDirector() + " ");
-//            System.out.print(oneFilm.getMainRole() + " ");
-//            System.out.print(oneFilm.getFilmGenre() + " ");
-//            System.out.print(oneFilm.getScenarist() + " ");
-//            System.out.println(oneFilm.getProduction() + " ");
-//        }
+        return operationDao.findFilmByDate(dateOfFilm);
     }
 
     @Override
     public List<Showing> findShowingsByDateAndId(int filmid, LocalDate date){
-        List<Showing> showList = operationDao.findShowingsByDateAndId(filmid, date);
-        return showList;
-
-//        for (Showing oneShow:showList){
-//            System.out.print(oneShow.getId() + " ");
-//            System.out.print(oneShow.getFilmid() + " ");
-//            System.out.print(oneShow.getCinemahallid() + " ");
-//            System.out.println(oneShow.getTimeofstart().toLocalDateTime().getHour() + ":" +
-//                    oneShow.getTimeofstart().toLocalDateTime().getMinute() + " ");
-//        }
+        return operationDao.findShowingsByDateAndId(filmid, date);
     }
 
     @Override
@@ -54,17 +33,10 @@ public class OperationServiceImpl implements OperationService {
         }
 
         return result;
-
-//        for (Seat oneSeat:seatList){
-//            System.out.print(oneSeat.getId() + " ");
-//            System.out.print(oneSeat.getCinemahallid() + " ");
-//            System.out.print(oneSeat.getNumber() + " ");
-//            System.out.println(oneSeat.getRow() + " ");
-//        }
     }
 
     @Override
-    public void insertReservation(String clientName, String clientMail, int token, int showingId){
+    public void insertReservation(String clientName, String clientMail, String token, int showingId){
         operationDao.insertReservation(clientName, clientMail, token, showingId);
     }
 
@@ -75,7 +47,6 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public Showing findShowingById(int id){
-        Showing showing = operationDao.findShowingById(id);
-        return showing;
+        return operationDao.findShowingById(id);
     }
 }

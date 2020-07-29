@@ -1,5 +1,6 @@
 package com.cinemaproject.cinemaproject.Controller;
 
+import com.cinemaproject.cinemaproject.Model.Counter;
 import com.cinemaproject.cinemaproject.Model.Reservation;
 import com.cinemaproject.cinemaproject.Model.ReservedSeat;
 import com.cinemaproject.cinemaproject.Model.Showing;
@@ -36,4 +37,17 @@ public class FirstConfig {
     public List<Integer> resSeatIds(){
         return new ArrayList<Integer>();
     }
+
+    @Bean
+    @SessionScope
+    public Counter reducedSeats(){
+        return new Counter();
+    }
+
+    @Bean
+    @SessionScope
+    public Counter normalSeats(){
+        return new Counter();
+    }
+
 }

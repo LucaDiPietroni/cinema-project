@@ -4,7 +4,7 @@ public class Reservation {
     private int id;
     private String clientName;
     private String clientMail;
-    private int token;
+    private String token;
     private int showingId;
 
     public Reservation(){
@@ -35,11 +35,11 @@ public class Reservation {
         this.clientMail = clientMail;
     }
 
-    public int getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(int token) {
+    public void setToken(String token) {
         this.token = token;
     }
 

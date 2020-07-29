@@ -1,8 +1,8 @@
 package com.cinemaproject.cinemaproject.Model;
 
-public class ReservedSeat {
+public class ReservedSeat implements Comparable<ReservedSeat>{
     private int id;
-    private int reservationId;
+    private String token;
     private int seatId;
     private boolean isReduced;
 
@@ -18,12 +18,12 @@ public class ReservedSeat {
         this.id = id;
     }
 
-    public int getReservationId() {
-        return reservationId;
+    public String getToken() {
+        return token;
     }
 
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getSeatId() {
@@ -40,5 +40,11 @@ public class ReservedSeat {
 
     public void setReduced(boolean reduced) {
         isReduced = reduced;
+    }
+
+    @Override
+    public int compareTo(ReservedSeat reservedSeat) {
+        int result = Integer.compare(this.seatId, reservedSeat.getSeatId());
+        return result;
     }
 }

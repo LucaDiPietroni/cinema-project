@@ -5,24 +5,29 @@
     <title>Title</title>
 </head>
 <body>
- <a th:text="${resShow.getCinemahallid()}"/>
-
- <form th:action="@{/addRes}" th:object="${newReservation}" method="post">
-     <p>Model: <input type="text" th:field="*{clientName}"></p>
-     <p>Mark: <input type="text" th:field="*{clientMail}"></p>
-     <p><input type="submit" value="Dodaj rezerwację"></p>
- </form>>
+<a th:text="${resShow.getCinemahallid()}"/>
 <form th:action="@{/addSeat}" method="post">
     <table>
         <tr th:each="seat: ${seats}">
-            <td th:each="oneSeat:${seat}"><button type="submit" name="action" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/></td>
+            <td th:each="oneSeat:${seat}">
+                <button type="submit" name="action" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/>
+            </td>
         </tr>
     </table>
 </form>
 
-<div th:each="resSeat: ${resSeats}">
-    <a th:text="${resSeat}"/>
+<div th:each="resSeat: ${reservedSeats}">
+    <a th:text="${resSeat.getSeatId()}"/>
 </div>
+
+<form th:action="@{/removeSeats}" method="post">
+    <button type="submit" name="remove">Usuń miejsca</button>
+    &nbsp
+</form>
+<form th:action="@{/goToReduction}" th:object="${reservedSeats}" method="post">
+    <button type="submit" name="action">Zarezerwuj</button>
+    &nbsp
+</form>
 
 </body>
 </html>
