@@ -16,7 +16,7 @@ public class FirstConfig {
 
     @Bean
     @SessionScope
-    public Showing resShow(){
+    public Showing reservedShow(){
         return new Showing();
     }
 
@@ -40,7 +40,7 @@ public class FirstConfig {
 
     @Bean
     @SessionScope
-    public Counter reducedSeats(){
+    public Counter seatsWithDiscount(){
         return new Counter();
     }
 

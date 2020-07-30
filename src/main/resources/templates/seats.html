@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<a th:text="${resShow.getCinemahallid()}"/>
+<a th:text="${reservedShow.getCinemahallid()}"/>
 <form th:action="@{/addSeat}" method="post">
     <table>
         <tr th:each="seat: ${seats}">
             <td th:each="oneSeat:${seat}">
-                <button type="submit" name="action" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/>
+                <button type="submit" name="chosenSeat" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/>
             </td>
         </tr>
     </table>

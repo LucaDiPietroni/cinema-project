@@ -9,47 +9,78 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Kontroler aplikacji, sterujący działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin&Rafał
+ * @version 1.0
+ */
 @Controller
 public class FirstController {
-//    private Showing resShow = new Showing();
-//    private Reservation reservation = new Reservation();
-//    private List<ReservedSeat> reservedSeats = new ArrayList<ReservedSeat>();
-//    private List<Integer> resSeatIds = new ArrayList<Integer>();
 
-    @Resource(name = "resShow")
-    Showing resShow;
+    /**
+     * ?Pole? przechowujące wybrany seans.
+     */
+    @Resource(name = "reservedShow")
+    Showing reservedShow;
 
+    /**
+     * ?Pole? przechowujące obiekt rezerwacji miejsc w kinie na określony seans.
+     */
     @Resource(name = "reservation")
     Reservation reservation;
 
+    /**
+     * ?Pole? przechowujące listę zarezerwowanych miejsc.
+     */
     @Resource(name = "reservedSeats")
     List<ReservedSeat> reservedSeats;
 
-//    @Resource(name = "resSeatIds")
-//    List<Integer> resSeatIds;
+    /**
+     * ?Pole? przechowujące liczbę miejsc objętych zniżką.
+     */
+    @Resource(name = "seatsWithDiscount")
+    Counter seatsWithDiscount;
 
-    @Resource(name = "reducedSeats")
-    Counter reducedSeats;
-
+    /**
+     * ?Pole? przechowujące liczbę miejsc nie objętych zniżką.
+     */
     @Resource(name = "normalSeats")
     Counter normalSeats;
 
+    /**
+     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
+     */
     @Autowired
     private ApplicationContext context;
 
+    /**
+     * Wstrzyknięcie interfejsu obsługującego dodatkowe funkcjonalności takie jak: tworzenie tokenów, sprawdzanie sąsiedztwa miejsc na sali kinowej.
+     */
     @Autowired
     private AdditionalService additionalService;
 
+    /**
+     * Metoda nawigująca do strony startowej.
+     * @author Marcin&Rafał
+     * @return Odnośnik do podstrony startowej.
+     */
     @GetMapping("/start")
     public String getStart() {
         return "start";
     }
 
+    /**
+     * Metoda nawigująca do strony z wyborem filmów.
+     * W pierwszej kolejności pobierane z bazy danych są wszystkie filmy wyświetlane w kinie danego dnia.
+     * Kolejno tworzone są atrybuty wyświetlane na stronie HTML i jeden przechowujący informację o wyborze seansu.
+     * @author Marcin&Rafał
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie z wyborem filmów
+     * @return Odnośnik do podstrony z wyborem filmów.
+     */
     @GetMapping("/films")
     public String getFilms(Model model) {
         OperationService filmService = context.getBean(OperationService.class);
@@ -63,71 +94,103 @@ public class FirstController {
         return "films";
     }
 
-    @GetMapping("/seats")
-    public String getSeats(Model model) {
-        model.addAttribute("resShow", resShow);
-        model.addAttribute("reservedSeats", reservedSeats);
-//        model.addAttribute("resSeats", resSeatIds);
-
-        OperationService seatService = context.getBean(OperationService.class);
-        List<List<Seat>> seats = seatService.findSeatsByCinemaHallId(resShow.getCinemahallid());
-        model.addAttribute("seats", seats);
-
-        return "seats";
-    }
-
+    /**
+     * Metoda nawigująca do strony z formularzem użytkownika.
+     * @author Marcin&Rafał
+     * @param model obiekt przechowujący atrybut nowej rezerwacji.
+     * @return Odnośnik do podstrony z formularzem użytkownika.
+     */
     @GetMapping("/reservation")
     public String getReservation(Model model){
         model.addAttribute("newReservation", new Reservation());
         return "reservation";
     }
 
+    /**
+     * Metoda nawigująca do strony z wyborem miejsc na sali kinowej.
+     * @author Marcin&Rafał
+     * @param model obiekt przechowujący atrybuty: wybrany seans oraz lista zarezerwowanych miejsc.
+     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     */
+    @GetMapping("/seats")
+    public String getSeats(Model model) {
+        model.addAttribute("reservedShow", reservedShow);
+        model.addAttribute("reservedSeats", reservedSeats);
+
+        OperationService seatService = context.getBean(OperationService.class);
+        List<List<Seat>> seats = seatService.findSeatsByCinemaHallId(reservedShow.getCinemahallid());
+        model.addAttribute("seats", seats);
+
+        return "seats";
+    }
+
+    /**
+     * Metoda nawigująca do strony z wyborem ilości biletów ulgowych.
+     * @author Marcin&Rafał
+     * @param model obiekt przechowujący atrybuty: liczba miejsc ze zniżką, liczba miejsc normalnych.
+     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     */
     @GetMapping("/reduction")
     public String getReduction(Model model){
-        model.addAttribute("reducedSeats", reducedSeats);
+        model.addAttribute("seatsWithDiscount", seatsWithDiscount);
         model.addAttribute("normalSeats", normalSeats);
 
         return "reduction";
     }
 
+    /**
+     * Metoda zapisująca wybór seansu przez użykownika.
+     * Po wyborze seansu przekazywany jest identyfikator na podstawie którego z bazy pobierane są szczegółowe informacje o wybranym seansie, a następnie zapisywane są one w odpowiednim obiekcie.
+     * @author Marcin&Rafał
+     * @param selectedShow obiekt przechowujący identyfikator wybranego przez użytkownika seansu.
+     * @return Odnośnik do podstrony z formularzem użytkownika.
+     */
     @PostMapping(value = "/setShow")
-    public String setShow(@RequestParam(value = "action") String action) {
-        System.out.println(action);
-        Integer id = Integer.valueOf(action);
+    public String setShow(@RequestParam(value = "selectedShow") String selectedShow) {
+        int id = Integer.parseInt(selectedShow);
         OperationService filmService = context.getBean(OperationService.class);
 
-        Showing tempShow = filmService.findShowingById(id);
+        Showing chosenShow = filmService.findShowingById(id);
 
-        resShow.setId(tempShow.getId());
-        resShow.setFilmid(tempShow.getFilmid());
-        resShow.setCinemahallid(tempShow.getCinemahallid());
-        resShow.setTimeofstart(tempShow.getTimeofstart());
+        reservedShow.setId(chosenShow.getId());
+        reservedShow.setFilmid(chosenShow.getFilmid());
+        reservedShow.setCinemahallid(chosenShow.getCinemahallid());
+        reservedShow.setTimeofstart(chosenShow.getTimeofstart());
 
-        // this.cinemaHall.setId(Integer.valueOf(action));
         return "redirect:/reservation";
     }
 
+    /**
+     * Metoda zapisująca dane wprowadzone orzez użytkownika w formularzu rezerwacyjnym.
+     * Dane wprowadzone przez użytkownika są odbierane, a następnie zapisywane w odpowiednim obiekcie.
+     * Obiektowi rezerwacji przypisywany jest wygenerowany losowo token.
+     * @author Marcin&Rafał
+     * @param newReservation obiekt przechowujący identyfikator wybranego przez użytkownika seansu.
+     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     */
     @PostMapping("/addRes")
-    public String addRes(@ModelAttribute Reservation reqReservation) {
-//        OperationService filmService = context.getBean(OperationService.class);
+    public String addRes(@ModelAttribute Reservation newReservation) {
 
-        reservation.setClientName(reqReservation.getClientName());
-        reservation.setClientMail(reqReservation.getClientMail());
-        reservation.setShowingId(resShow.getId());
+        reservation.setClientName(newReservation.getClientName());
+        reservation.setClientMail(newReservation.getClientMail());
+        reservation.setShowingId(reservedShow.getId());
 
         reservation.setToken(additionalService.createToken());
-
-//        filmService.insertReservation(reservation.getClientName(),
-//                reservation.getClientMail(),
-//                reservation.getToken(),
-//                reservation.getShowingId());
 
         return "redirect:/seats";
     }
 
+    /**
+     * Metoda zapisująca do listy miejsce na sali konowej zarezerwowane przez użytkownika.
+     * Do metody przekazywany jest identyfikator miejsca w kinie. Jeżeli miejsce znajduje się obok miejsca wcześniej wybranego lub jest to pierwsze wybrane miejsce, to jest ono zapisywane do listy wybranych miejsc.
+     * Na koniec lista wybranych miejsc kinowych jest sortowana.
+     * @author Marcin&Rafał
+     * @param chosenSeat obiekt przechowujący identyfikator wybranego przez użytkownika miejsca.
+     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     */
     @PostMapping("/addSeat")
-    public String addSeat(@RequestParam(value = "action") String action){
-        Integer id = Integer.valueOf(action);
+    public String addSeat(@RequestParam(value = "chosenSeat") String chosenSeat){
+        int id = Integer.parseInt(chosenSeat);
         if(additionalService.isSeatNextTo(reservedSeats, id)){
             ReservedSeat newReservedSeat = new ReservedSeat();
             newReservedSeat.setSeatId(id);
@@ -137,46 +200,58 @@ public class FirstController {
         return "redirect:/seats";
     }
 
+    /**
+     * Metoda ustawijąca domyślną liczbę biletów ulgowych i normalnych.
+     * @author Marcin&Rafał
+     * @return Odnośnik do podstrony z wyborem liczby biletów ulgowych.
+     */
     @PostMapping("/goToReduction")
     public String goToReduction(){
-        reducedSeats.setCounter(0);
+        seatsWithDiscount.setCounter(0);
         normalSeats.setCounter(reservedSeats.size());
-
-//        List<ReservedSeat> reservedSeats = new ArrayList<ReservedSeat>();
-//
-//        for (ReservedSeat resSeat : reservedSeats) {
-//            resSeat.setToken(reservation.getToken());
-//            reservedSeats.add(resSeat);
-//        }
-
-//        OperationService filmService = context.getBean(OperationService.class);
-//        filmService.insertReservedSeats(reservedSeats);
 
         return "redirect:/reduction";
     }
 
+    /**
+     * Metoda ustawiająca liczbę biletów ulgowych i normalnych według użytkownika.
+     * Do metody przekazywany jest parametr definiujący, czy należy zwiększyć liczbę biletów ulgowych, czy normalnych
+     * Następnie jeżeli liczba biletów wybranej kategorii nie przekracza liczby wybranych miejsc dodawany jest kolejny bilet i odejmowany ten drugi.
+     * @author Marcin&Rafał
+     * @param discount obiekt przechowujący identyfikator wybranego przez użytkownika seansu.
+     * @return Odnośnik do podstrony z wyborem liczby biletów ulgowych.
+     */
     @PostMapping(value = "/setReduction")
     public String setReduction(@RequestParam(value = "discount") String discount) {
         System.out.println(discount);
         if(discount.equals("1")){
-            if(normalSeats.equals(reservedSeats.size())){
+            if(normalSeats.getCounter() == (reservedSeats.size())){
                 System.out.println("cokolwiek");
             }else{
                 normalSeats.increment();
-                reducedSeats.decrement();
+                seatsWithDiscount.decrement();
             }
         }else if (discount.equals("2")){
-            if(normalSeats.equals(reservedSeats.size())){
+            if(seatsWithDiscount.getCounter() == (reservedSeats.size())){
                 System.out.println("cokolwiek");
             }else{
                 normalSeats.decrement();
-                reducedSeats.increment();
+                seatsWithDiscount.increment();
             }
         }
 
         return "redirect:/reduction";
     }
 
+    /**
+     * Metoda zapisująca do bazy wszystkie informacje na temat dokonanej rezerwacji.
+     * Najpierw zapisywany jest obiekt rezerwacji.
+     * Następnie obiektom zarezerwowanych miejsc przypisywany jest token jednolity dla nich i samej rezerwacji.
+     * Następnie wybranej przez użytkownika liczbie zarezerwowanych miejsc przypisywana jest ulga.
+     * Na końcu lista zarezerwowanych miejsc jest zapisywana do bazy danych.
+     * @author Marcin&Rafał
+     * @return Odnośnik do podstrony końcowej.
+     */
     @PostMapping(value = "/reserveSeats")
     public String reserveSeats(){
         OperationService filmService = context.getBean(OperationService.class);
@@ -184,14 +259,12 @@ public class FirstController {
                 reservation.getClientMail(),
                 reservation.getToken(),
                 reservation.getShowingId());
-        //List<ReservedSeat> reservedSeats = new ArrayList<ReservedSeat>();
 
         for (ReservedSeat resSeat : reservedSeats) {
             resSeat.setToken(reservation.getToken());
-            //reservedSeats.add(resSeat);
         }
 
-        for (int i = 0; i < reducedSeats.getCounter(); i++){
+        for (int i = 0; i < seatsWithDiscount.getCounter(); i++){
             reservedSeats.get(i).setReduced(true);
         }
         filmService.insertReservedSeats(reservedSeats);
@@ -199,6 +272,11 @@ public class FirstController {
         return "end";
     }
 
+    /**
+     * Metoda usuwająca wszystkie zarezerwowane miejsca z listy.
+     * @author Marcin&Rafał
+     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     */
     @PostMapping("/removeSeats")
     public String removeSeats(){
         reservedSeats.clear();

@@ -6,11 +6,10 @@
 </head>
 <body>
 <table th:each="film: ${filmList}">
-    <!--/*@thymesVar id="getTitle" type=""*/-->
     <tr th:text="${film.getTitle()}"></tr>&nbsp
 <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), date)}">
     <form th:action="@{/setShow}" method="post">
-        <button type="submit" name="action" th:value="${hour.getId()}" th:text="${hour.getTimeofstart()}"></button>
+        <button type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeofstart()}"></button>
         &nbsp
     </form>
 </tr>

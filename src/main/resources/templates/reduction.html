@@ -8,11 +8,13 @@
 <form th:action="@{/setReduction}" method="post">
     <table>
         <tr>
+            <td>Bilety normalne: </td>
             <td><button th:text="${normalSeats.getCounter()}"/></td>
             <td><button type="submit" name="discount" th:value="${1}">+</button></td>
         </tr>
         <tr>
-            <td><button th:text="${reducedSeats.getCounter()}"/></td>
+            <td>Bilety ulgowe: </td>
+            <td><button th:text="${seatsWithDiscount.getCounter()}"/></td>
             <td><button type="submit" name="discount" th:value="${2}">+</button></td>
         </tr>
     </table>
