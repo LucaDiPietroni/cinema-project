@@ -10,7 +10,7 @@
     <table>
         <tr th:each="seat: ${seats}">
             <td th:each="oneSeat:${seat}">
-                <button type="submit" name="chosenSeat" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/>
+                <button type="submit" th:style="${oneSeat.getTaken() == 1 ? 'background-color:red' : (oneSeat.getTaken() == 2 ? 'background-color:yellow' : 'background-color:green')}" name="chosenSeat" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/>
             </td>
         </tr>
     </table>

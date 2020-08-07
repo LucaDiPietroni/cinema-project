@@ -3,6 +3,7 @@ package com.cinemaproject.cinemaproject.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -36,8 +37,8 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public void insertReservation(String clientName, String clientMail, String token, int showingId){
-        operationDao.insertReservation(clientName, clientMail, token, showingId);
+    public void insertReservation(String clientName, String clientSecondName, String clientMail, String token, int showingId){
+        operationDao.insertReservation(clientName, clientSecondName, clientMail, token, showingId);
     }
 
     @Override
@@ -48,5 +49,18 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public Showing findShowingById(int id){
         return operationDao.findShowingById(id);
+    }
+
+    @Override
+    public Integer takenSeat(int showingId, int seatId) {return operationDao.takenSeat(showingId, seatId); }
+
+    @Override
+    public List<Date> findDatesOfShowings(){
+        return operationDao.findDatesOfShowings();
+    }
+
+    @Override
+    public Seat findSeatById(int id){
+        return operationDao.findSeatById(id);
     }
 }

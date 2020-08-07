@@ -1,15 +1,14 @@
 package com.cinemaproject.cinemaproject.Model;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Showing {
     private int id;
     private int filmid;
     private int cinemahallid;
-    private Timestamp timeofstart;
+    private Date dateOfShowing;
+    private Time timeOfStart;
 
     public Showing(){
 
@@ -39,11 +38,19 @@ public class Showing {
         this.cinemahallid = cinemahallid;
     }
 
-    public Timestamp getTimeofstart() {
-        return timeofstart;
+    public Date getDateOfShowing() {
+        return dateOfShowing;
     }
 
-    public void setTimeofstart(Timestamp timeofstart) {
-        this.timeofstart = timeofstart;
+    public void setDateOfShowing(Date dateOfShowing) {
+        this.dateOfShowing = dateOfShowing;
+    }
+
+    public Time getTimeOfStart() {
+        return timeOfStart;
+    }
+
+    public void setTimeOfStart(Time timeOfStart) {
+        this.timeOfStart = timeOfStart;
     }
 }

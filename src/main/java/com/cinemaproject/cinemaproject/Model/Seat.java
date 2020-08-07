@@ -7,6 +7,7 @@ public class Seat {
     private double normlprice;
     private double reducedprice;
     private int line;
+    private int taken = 0;
 
     public Seat(){
 
@@ -58,5 +59,21 @@ public class Seat {
 
     public void setRow(int line) {
         this.line = line;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public int getTaken() {
+        return taken;
+    }
+
+    public void setTaken(int taken) {
+        this.taken = taken;
     }
 }

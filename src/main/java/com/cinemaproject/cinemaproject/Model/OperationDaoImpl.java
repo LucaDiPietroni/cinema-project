@@ -1,16 +1,14 @@
 package com.cinemaproject.cinemaproject.Model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     public List<Film> findFilmByDate(LocalDate dateOfFilm) {
         String sql = "Select fi.* " +
                 "from \"CinemaMng\".\"Film\" as fi left join \"CinemaMng\".\"Showing\" as sh on fi.id = sh.filmid " +
-                "where date(sh.timeofstart) = ? " +
+                "where date(sh.dateofshowing) = ? " +
                 "group by fi.id;";
 
         assert getJdbcTemplate() != null;
@@ -57,7 +55,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     public List<Showing> findShowingsByDateAndId(int filmid, LocalDate date) {
         String sql = "SELECT * " +
                 "FROM \"CinemaMng\".\"Showing\" " +
-                "WHERE date(timeofstart) = ? " +
+                "WHERE date(dateofshowing) = ? " +
                 "AND filmid = ?;";
 
         List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, date, filmid);
@@ -68,7 +66,8 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             show.setId((int) row.get("id"));
             show.setFilmid((int) row.get("filmid"));
             show.setCinemahallid((int) row.get("cinemahallid"));
-            show.setTimeofstart((Timestamp) row.get("timeofstart"));
+            show.setDateOfShowing((Date) row.get("dateOfShowing"));
+            show.setTimeOfStart((Time) row.get("timeofstart"));
             result.add(show);
         }
         return result;
@@ -117,12 +116,12 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     }
 
     @Override
-    public void insertReservation(String clientName, String clientMail, String token, int showingId) {
+    public void insertReservation(String clientName, String clientSecondName, String clientMail, String token, int showingId) {
         String sql = "INSERT INTO \"CinemaMng\".\"Reservation\" \n" +
-                "(clientname, clientmail, token, showingid)\n" +
-                "VALUES (?, ?, ?, ?)";
+                "(clientname, clientsecondname, clientmail, token, showingid)\n" +
+                "VALUES (?, ?, ?, ?, ?)";
 
-        getJdbcTemplate().update(sql, clientName, clientMail, token, showingId);
+        getJdbcTemplate().update(sql, clientName, clientSecondName, clientMail, token, showingId);
     }
 
     @Override
@@ -159,8 +158,68 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 show.setId(rs.getInt("id"));
                 show.setFilmid(rs.getInt("filmid"));
                 show.setCinemahallid(rs.getInt("cinemahallid"));
-                show.setTimeofstart(rs.getTimestamp("timeofstart"));
+                show.setDateOfShowing(rs.getDate("dateOfShowing"));
+                show.setTimeOfStart(rs.getTime("timeofstart"));
                 return show;
+            }
+        });
+    }
+
+    @Override
+    public Integer takenSeat(int showingId, int seatId){
+        String sql = "SELECT se.seatid\n" +
+                "FROM (\"CinemaMng\".\"Showing\" AS sh \n" +
+                "\t  LEFT JOIN \n" +
+                "\t  (SELECT clientname, clientmail, showingid, token\n" +
+                "\t  FROM \"CinemaMng\".\"Reservation\") AS re \n" +
+                "\t  ON sh.id = re.showingid) AS t1\n" +
+                "LEFT JOIN \"CinemaMng\".\"ReservedSeat\" AS se ON t1.token = se.token\n" +
+                "WHERE t1.id = ?\n" +
+                "AND seatid = ?;";
+
+        assert getJdbcTemplate() != null;
+        try{
+            return getJdbcTemplate().queryForObject(sql, new Object[]{showingId, seatId}, Integer.class);
+        } catch(EmptyResultDataAccessException e){
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<Date> findDatesOfShowings(){
+        String sql = "SELECT dateofshowing\n" +
+                "FROM \"CinemaMng\".\"Showing\"\n" +
+                "GROUP BY dateofshowing\n" +
+                "ORDER BY dateofshowing;";
+
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+        List<Date> result = new ArrayList<Date>();
+
+        for (Map<String, Object> row : rows) {
+            Date date = (Date) row.get("dateofshowing");
+            result.add(date);
+        }
+        return result;
+    }
+
+    @Override
+    public Seat findSeatById(int id){
+        String sql = "SELECT *\n" +
+                "FROM \"CinemaMng\".\"Seat\"\n" +
+                "WHERE id = ?;";
+
+        return (Seat)getJdbcTemplate().queryForObject(sql, new Object[]{id}, new RowMapper<Seat>(){
+            @Override
+            public Seat mapRow(ResultSet rs, int rowNumber) throws SQLException {
+                Seat seat = new Seat();
+                seat.setId(rs.getInt("id"));
+                seat.setNumber(rs.getInt("number"));
+                seat.setCinemahallid(rs.getInt("cinemahallid"));
+                seat.setNormlprice(rs.getDouble("normalprice"));
+                seat.setReducedprice(rs.getDouble("reducedprice"));
+                seat.setLine(rs.getInt("line"));
+                return seat;
             }
         });
     }

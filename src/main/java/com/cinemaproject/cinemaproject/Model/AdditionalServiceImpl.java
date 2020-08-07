@@ -1,11 +1,16 @@
 package com.cinemaproject.cinemaproject.Model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AdditionalServiceImpl implements AdditionalService {
+
+    @Autowired
+    private ApplicationContext context;
 
     @Override
     public String createToken() {
@@ -22,15 +27,45 @@ public class AdditionalServiceImpl implements AdditionalService {
     @Override
     public boolean isSeatNextTo(List<ReservedSeat> reservedSeats, Integer seatNumber) {
         boolean checker;
+        OperationService seatService = context.getBean(OperationService.class);
+        Seat leftSeat;
+        Seat rightSeat;
+
+        if(!reservedSeats.isEmpty()){
+            leftSeat = seatService.findSeatById(reservedSeats.get(0).getSeatId());
+            rightSeat = seatService.findSeatById(reservedSeats.get(reservedSeats.size() - 1).getSeatId());
+        }else{
+            leftSeat = new Seat();
+            rightSeat = new Seat();
+        }
+
+        Seat selectedSeat = seatService.findSeatById(seatNumber);
+
         if(reservedSeats.isEmpty()){
             checker = true;
-        }else if (reservedSeats.get(0).getSeatId()==(seatNumber + 1)) {
+        }else if (leftSeat.getId()==(seatNumber + 1) && leftSeat.getLine()==selectedSeat.getLine()) {
             checker = true;
-        } else if (reservedSeats.get(reservedSeats.size() - 1).getSeatId() == (seatNumber - 1)) {
+        } else if (rightSeat.getId() == (seatNumber - 1) && rightSeat.getLine()==selectedSeat.getLine()) {
             checker = true;
         } else {
             checker = false;
         }
         return checker;
+    }
+
+    @Override
+    public boolean isSeatReservedAlready(List<List<Seat>> seats, int selectedSeatId){
+        boolean result = true;
+
+        for(List<Seat> line:seats){
+            for(Seat seat:line){
+                if (seat.getId() == selectedSeatId && seat.getTaken() == 1) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+
+        return result;
     }
 }

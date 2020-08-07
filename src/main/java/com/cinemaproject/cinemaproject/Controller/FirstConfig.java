@@ -1,13 +1,11 @@
 package com.cinemaproject.cinemaproject.Controller;
 
-import com.cinemaproject.cinemaproject.Model.Counter;
-import com.cinemaproject.cinemaproject.Model.Reservation;
-import com.cinemaproject.cinemaproject.Model.ReservedSeat;
-import com.cinemaproject.cinemaproject.Model.Showing;
+import com.cinemaproject.cinemaproject.Model.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +23,10 @@ public class FirstConfig {
     public Reservation reservation(){
         return new Reservation();
     }
+
+    @Bean
+    @SessionScope
+    public List<List<Seat>> seats(){ return new ArrayList<List<Seat>>(); }
 
     @Bean
     @SessionScope
@@ -48,6 +50,12 @@ public class FirstConfig {
     @SessionScope
     public Counter normalSeats(){
         return new Counter();
+    }
+
+    @Bean
+    @SessionScope
+    public SelectedDate selectedDate(){
+        return new SelectedDate();
     }
 
 }

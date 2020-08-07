@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,6 +50,12 @@ public class FirstController {
     @Resource(name = "normalSeats")
     Counter normalSeats;
 
+    @Resource(name = "seats")
+    List<List<Seat>> seats;
+
+    @Resource(name = "selectedDate")
+    SelectedDate selectedDate;
+
     /**
      * Wstrzyknięcie interfejsu ApplicationContext.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
@@ -84,13 +90,18 @@ public class FirstController {
     @GetMapping("/films")
     public String getFilms(Model model) {
         OperationService filmService = context.getBean(OperationService.class);
-        LocalDate date = LocalDate.of(2020, 9, 7);
-        List<Film> filmList = filmService.findFilmByDate(date);
+
+        List<Date> datesOfShowings = filmService.findDatesOfShowings();
+
+        //LocalDate date = selectedDate;
+
+        List<Film> filmList = filmService.findFilmByDate(selectedDate.getSelectedDate().toLocalDate());
 
         model.addAttribute("filmList", filmList);
         model.addAttribute("Service", filmService);
-        model.addAttribute("date", date);
+        model.addAttribute("newSelectedDate", selectedDate);
         model.addAttribute("showing", new Showing());
+        model.addAttribute("datesOfShowings", datesOfShowings);
         return "films";
     }
 
@@ -118,7 +129,17 @@ public class FirstController {
         model.addAttribute("reservedSeats", reservedSeats);
 
         OperationService seatService = context.getBean(OperationService.class);
-        List<List<Seat>> seats = seatService.findSeatsByCinemaHallId(reservedShow.getCinemahallid());
+
+        for (List<Seat> line: seats){
+            for (Seat seat:line) {
+                if (seatService.takenSeat(reservedShow.getId(), seat.getId()) == null && seat.getTaken() != 2){
+                    seat.setTaken(0);
+                }
+                else if (seat.getTaken() != 2) {
+                    seat.setTaken(1);
+                }
+            }
+        }
         model.addAttribute("seats", seats);
 
         return "seats";
@@ -155,7 +176,8 @@ public class FirstController {
         reservedShow.setId(chosenShow.getId());
         reservedShow.setFilmid(chosenShow.getFilmid());
         reservedShow.setCinemahallid(chosenShow.getCinemahallid());
-        reservedShow.setTimeofstart(chosenShow.getTimeofstart());
+        reservedShow.setDateOfShowing(chosenShow.getDateOfShowing());
+        reservedShow.setTimeOfStart(chosenShow.getTimeOfStart());
 
         return "redirect:/reservation";
     }
@@ -172,10 +194,14 @@ public class FirstController {
     public String addRes(@ModelAttribute Reservation newReservation) {
 
         reservation.setClientName(newReservation.getClientName());
+        reservation.setClientSecondName(newReservation.getClientSecondName());
         reservation.setClientMail(newReservation.getClientMail());
         reservation.setShowingId(reservedShow.getId());
 
         reservation.setToken(additionalService.createToken());
+
+        OperationService seatService = context.getBean(OperationService.class);
+        seats = seatService.findSeatsByCinemaHallId(reservedShow.getCinemahallid());
 
         return "redirect:/seats";
     }
@@ -191,12 +217,22 @@ public class FirstController {
     @PostMapping("/addSeat")
     public String addSeat(@RequestParam(value = "chosenSeat") String chosenSeat){
         int id = Integer.parseInt(chosenSeat);
-        if(additionalService.isSeatNextTo(reservedSeats, id)){
+
+        if(additionalService.isSeatNextTo(reservedSeats, id) && additionalService.isSeatReservedAlready(seats, id)){
             ReservedSeat newReservedSeat = new ReservedSeat();
             newReservedSeat.setSeatId(id);
             reservedSeats.add(newReservedSeat);
+
+            for (List<Seat> line: seats){
+                for (Seat seat:line) {
+                    if (seat.getId() == id){
+                        seat.setTaken(2);
+                    }
+                }
+            }
         }
         Collections.sort(reservedSeats);
+
         return "redirect:/seats";
     }
 
@@ -256,6 +292,7 @@ public class FirstController {
     public String reserveSeats(){
         OperationService filmService = context.getBean(OperationService.class);
         filmService.insertReservation(reservation.getClientName(),
+                reservation.getClientSecondName(),
                 reservation.getClientMail(),
                 reservation.getToken(),
                 reservation.getShowingId());
@@ -269,6 +306,11 @@ public class FirstController {
         }
         filmService.insertReservedSeats(reservedSeats);
 
+        reservedSeats.clear();
+        selectedDate = new SelectedDate();
+        reservation = new Reservation();
+        reservedShow = new Showing();
+
         return "end";
     }
 
@@ -280,7 +322,21 @@ public class FirstController {
     @PostMapping("/removeSeats")
     public String removeSeats(){
         reservedSeats.clear();
+
+        for (List<Seat> line: seats){
+            for (Seat seat:line) {
+                seat.setTaken(0);
+            }
+        }
         return "redirect:/seats";
+    }
+
+    @PostMapping("/setDate")
+    public String setDate(@ModelAttribute SelectedDate newSelectedDate){
+
+        this.selectedDate.setSelectedDate(newSelectedDate.getSelectedDate());
+        System.out.println("Działa");
+        return "redirect:/films";
     }
 
 }

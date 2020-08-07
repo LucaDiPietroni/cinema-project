@@ -5,11 +5,23 @@
     <title>Title</title>
 </head>
 <body>
+
+<form th:action="@{/setDate}" th:object="${newSelectedDate}" method="post">
+
+    <select th:field="*{selectedDate}">
+        <option th:each="oneDate : ${datesOfShowings}"
+                th:value="${oneDate}"
+                th:text="${oneDate.toString()}"></option>
+    </select>
+    <input type="submit" value="Wybierz datę">
+
+</form>
+
 <table th:each="film: ${filmList}">
     <tr th:text="${film.getTitle()}"></tr>&nbsp
-<tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), date)}">
+<tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
     <form th:action="@{/setShow}" method="post">
-        <button type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeofstart()}"></button>
+        <button type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
         &nbsp
     </form>
 </tr>

@@ -3,6 +3,7 @@ package com.cinemaproject.cinemaproject.Model;
 public class Reservation {
     private int id;
     private String clientName;
+    private String clientSecondName;
     private String clientMail;
     private String token;
     private int showingId;
@@ -49,5 +50,13 @@ public class Reservation {
 
     public void setShowingId(int showingId) {
         this.showingId = showingId;
+    }
+
+    public String getClientSecondName() {
+        return clientSecondName;
+    }
+
+    public void setClientSecondName(String clientSecondName) {
+        this.clientSecondName = clientSecondName;
     }
 }
