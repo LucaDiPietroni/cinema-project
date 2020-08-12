@@ -63,4 +63,16 @@ public class OperationServiceImpl implements OperationService {
     public Seat findSeatById(int id){
         return operationDao.findSeatById(id);
     }
+
+    @Override
+    public Reservation findReservationByMailAndToken(String email, String token){return operationDao.findReservationByMailAndToken(email, token); }
+
+    @Override
+    public List<ReservedSeat> findReservedSeatsByToken(String token){return operationDao.findReservedSeatsByToken(token);}
+
+    @Override
+    public Film findFilmById(int id){return operationDao.findFilmById(id);}
+
+    @Override
+    public void deleteReservation(int id){operationDao.deleteReservation(id);}
 }

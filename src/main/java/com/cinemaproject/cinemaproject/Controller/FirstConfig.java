@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class FirstConfig {
 
     @Bean
     @SessionScope
-    public List<List<Seat>> seats(){ return new ArrayList<List<Seat>>(); }
+    public AllSeats seats(){ return new AllSeats(); }
 
     @Bean
     @SessionScope
@@ -56,6 +55,16 @@ public class FirstConfig {
     @SessionScope
     public SelectedDate selectedDate(){
         return new SelectedDate();
+    }
+
+    @Bean
+    @SessionScope
+    public AuthorizationData authorizationData() {return new AuthorizationData(); }
+
+    @Bean
+    @SessionScope
+    public Reservation reservationToDelete(){
+        return new Reservation();
     }
 
 }

@@ -223,4 +223,80 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             }
         });
     }
+
+    @Override
+    public Reservation findReservationByMailAndToken(String email, String token){
+        String sql = "SELECT *\n" +
+                "FROM \"CinemaMng\".\"Reservation\"\n" +
+                "WHERE clientmail = ?\n" +
+                "AND token = ?";
+
+        return (Reservation)getJdbcTemplate().queryForObject(sql, new Object[]{email, token}, new RowMapper<Reservation>(){
+            @Override
+            public Reservation mapRow(ResultSet rs, int rowNumber) throws SQLException {
+                Reservation reservation = new Reservation();
+                reservation.setId(rs.getInt("id"));
+                reservation.setClientName(rs.getString("clientname"));
+                reservation.setClientSecondName(rs.getString("clientsecondname"));
+                reservation.setClientMail(rs.getString("clientmail"));
+                reservation.setShowingId(rs.getInt("showingid"));
+                reservation.setToken(rs.getString("token"));
+
+                return reservation;
+            }
+        });
+    }
+
+    @Override
+    public List<ReservedSeat> findReservedSeatsByToken(String token){
+        String sql = "SELECT *\n" +
+                "FROM \"CinemaMng\".\"ReservedSeat\"\n" +
+                "WHERE token = ?";
+
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql, token);
+        List<ReservedSeat> result = new ArrayList<ReservedSeat>();
+
+        for (Map<String, Object> row : rows) {
+            ReservedSeat reservedSeat = new ReservedSeat();
+            reservedSeat.setId((int) row.get("id"));
+            reservedSeat.setSeatId((int) row.get("seatid"));
+            reservedSeat.setReduced((boolean) row.get("isreduced"));
+            reservedSeat.setToken((String) row.get("token"));
+
+            result.add(reservedSeat);
+        }
+        return result;
+    }
+
+    @Override
+    public Film findFilmById(int id){
+        String sql = "SELECT *\n" +
+                "FROM \"CinemaMng\".\"Film\"\n" +
+                "WHERE id = ?";
+
+        return (Film)getJdbcTemplate().queryForObject(sql, new Object[]{id}, new RowMapper<Film>(){
+            @Override
+            public Film mapRow(ResultSet rs, int rowNumber) throws SQLException {
+                Film film = new Film();
+                film.setId(rs.getInt("id"));
+                film.setTitle(rs.getString("title"));
+                film.setYearOfPremiere(rs.getInt("yearOfPremiere"));
+                film.setDirector(rs.getString("director"));
+                film.setMainRole(rs.getString("mainRole"));
+                film.setFilmGenre(rs.getString("filmGenre"));
+                film.setScenarist(rs.getString("scenarist"));
+                film.setProduction(rs.getString("production"));
+
+                return film;
+            }
+        });
+    }
+
+    @Override
+    public void deleteReservation(int id){
+        String sql = "DELETE FROM \"CinemaMng\".\"Reservation\"\n" +
+                "WHERE id = ?";
+
+        getJdbcTemplate().update(sql, id);
+    }
 }

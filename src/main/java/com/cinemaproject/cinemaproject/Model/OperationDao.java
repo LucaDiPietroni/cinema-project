@@ -15,5 +15,9 @@ public interface OperationDao {
     Integer takenSeat(int showingId, int seatId);
     List<Date> findDatesOfShowings();
     Seat findSeatById(int id);
+    Reservation findReservationByMailAndToken(String email, String token);
+    List<ReservedSeat> findReservedSeatsByToken(String token);
+    Film findFilmById(int id);
+    void deleteReservation(int id);
 
 }
