@@ -38,19 +38,19 @@ public class FilmsController {
      */
     @GetMapping("/films")
     public String getFilms(Model model, HttpSession session) {
-        SelectedDate sessionSelectedDate = (SelectedDate) session.getAttribute("sessionSelectedDate");
-        if(sessionSelectedDate == null){
-            sessionSelectedDate = new SelectedDate();
+        SelectedDate selectedDate = (SelectedDate) session.getAttribute("selectedDate");
+        if(selectedDate == null){
+            selectedDate = new SelectedDate();
         }
 
         OperationService filmService = context.getBean(OperationService.class);
 
         List<Date> datesOfShowings = filmService.findDatesOfShowings();
-        List<Film> filmList = filmService.findFilmByDate(sessionSelectedDate.getSelectedDate().toLocalDate());
+        List<Film> filmList = filmService.findFilmByDate(selectedDate.getSelectedDate().toLocalDate());
 
         model.addAttribute("filmList", filmList);
         model.addAttribute("Service", filmService);
-        model.addAttribute("newSelectedDate", sessionSelectedDate);
+        model.addAttribute("newSelectedDate", selectedDate);
         model.addAttribute("showing", new Showing());
         model.addAttribute("datesOfShowings", datesOfShowings);
         return "films";
@@ -59,15 +59,14 @@ public class FilmsController {
     @PostMapping("/setDate")
     public String setDate(@ModelAttribute SelectedDate newSelectedDate, HttpServletRequest request){
 
-        SelectedDate sessionSelectedDate = (SelectedDate) request.getSession().getAttribute("sessionSelectedDate");
-        if(sessionSelectedDate == null){
-            sessionSelectedDate = new SelectedDate();
-            request.getSession().setAttribute("sessionSelectedDate", sessionSelectedDate);
+        SelectedDate selectedDate = (SelectedDate) request.getSession().getAttribute("selectedDate");
+        if(selectedDate == null){
+            selectedDate = new SelectedDate();
+            request.getSession().setAttribute("selectedDate", selectedDate);
         }
-        sessionSelectedDate = newSelectedDate;
-        request.getSession().setAttribute("sessionSelectedDate", sessionSelectedDate);
+        selectedDate = newSelectedDate;
+        request.getSession().setAttribute("selectedDate", selectedDate);
 
-//        this.selectedDate.setSelectedDate(newSelectedDate.getSelectedDate());
         return "redirect:/films";
     }
 
@@ -83,13 +82,8 @@ public class FilmsController {
         int id = Integer.parseInt(selectedShow);
         OperationService operationService = context.getBean(OperationService.class);
 
-        Showing sessionSelectedShow = (Showing) request.getSession().getAttribute("sessionSelectedShow");
-        if(sessionSelectedShow == null){
-            sessionSelectedShow = new Showing();
-            request.getSession().setAttribute("sessionSelectedShow", sessionSelectedShow);
-        }
-        sessionSelectedShow = operationService.findShowingById(id);
-        request.getSession().setAttribute("sessionSelectedShow", sessionSelectedShow);
+        Showing chosenShow = operationService.findShowingById(id);
+        request.getSession().setAttribute("chosenShow", chosenShow);
 
         return "redirect:/reservation";
     }

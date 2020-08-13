@@ -2,7 +2,6 @@ package com.cinemaproject.cinemaproject.Controller;
 
 import com.cinemaproject.cinemaproject.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,27 +30,27 @@ public class SeatsController {
      */
     @GetMapping("/seats")
     public String getSeats(Model model, HttpServletRequest request) {
-        Showing sessionSelectedShow = (Showing) request.getSession().getAttribute("sessionSelectedShow");
-        if(sessionSelectedShow == null){
-            sessionSelectedShow = new Showing();
+        Showing chosenShow = (Showing) request.getSession().getAttribute("selectedShow");
+        if(chosenShow == null){
+            chosenShow = new Showing();
         }
 
-        AllSeats sessionSeats = (AllSeats) request.getSession().getAttribute("sessionSeats");
-        if(sessionSeats == null){
-            sessionSeats = new AllSeats();
+        AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
+        if(seats == null){
+            seats = new AllSeats();
         }
 
-        request.getSession().setAttribute("sessionSeats", sessionSeats);
+        request.getSession().setAttribute("seats", seats);
 
-        model.addAttribute("reservedShow", sessionSelectedShow);
-        model.addAttribute("seats", sessionSeats);
+        model.addAttribute("selectedShow", chosenShow);
+        model.addAttribute("seats", seats);
 
-        List<ReservedSeat> sessionSelectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("sessionSelectedSeats");
-        if(sessionSelectedSeats == null){
-            sessionSelectedSeats = new ArrayList<ReservedSeat>();
+        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+        if(selectedSeats == null){
+            selectedSeats = new ArrayList<ReservedSeat>();
         }
-        request.getSession().setAttribute("sessionSelectedSeats", sessionSelectedSeats);
-        model.addAttribute("reservedSeats", sessionSelectedSeats);
+        request.getSession().setAttribute("selectedSeats", selectedSeats);
+        model.addAttribute("selectedSeats", selectedSeats);
 
         return "seats";
     }
@@ -68,22 +67,22 @@ public class SeatsController {
     public String addSeat(@RequestParam(value = "selectedSeat") String selectedSeat, HttpServletRequest request){
         int id = Integer.parseInt(selectedSeat);
 
-        List<ReservedSeat> sessionSelectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("sessionSelectedSeats");
+        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
 
-        AllSeats sessionSeats = (AllSeats) request.getSession().getAttribute("sessionSeats");
+        AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
 
-        if(additionalService.isSeatNextTo(sessionSelectedSeats, id) && additionalService.isSeatReservedAlready(sessionSeats.getSeats(), id)){
+        if(additionalService.isSeatNextTo(selectedSeats, id) && additionalService.isSeatReservedAlready(seats.getSeats(), id)){
             ReservedSeat newReservedSeat = new ReservedSeat();
             newReservedSeat.setSeatId(id);
-            sessionSelectedSeats.add(newReservedSeat);
+            selectedSeats.add(newReservedSeat);
 
-            sessionSeats.setSeatsSelected(id);
+            seats.setSeatsSelected(id);
 
         }
-        Collections.sort(sessionSelectedSeats);
+        Collections.sort(selectedSeats);
 
-        request.getSession().setAttribute("sessionSelectedSeats", sessionSelectedSeats);
+        request.getSession().setAttribute("selectedSeats", selectedSeats);
 
         return "redirect:/seats";
     }
@@ -96,14 +95,14 @@ public class SeatsController {
     @PostMapping("/removeSeats")
     public String removeSeats(HttpServletRequest request){
 
-        List<ReservedSeat> sessionSelectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("sessionSelectedSeats");
-        AllSeats sessionSeats = (AllSeats) request.getSession().getAttribute("sessionSeats");
+        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+        AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
-        sessionSelectedSeats.clear();
-        sessionSeats.setAllSeatsAvailable();
+        selectedSeats.clear();
+        seats.setAllSeatsAvailable();
 
-        request.getSession().setAttribute("sessionSelectedSeats", sessionSelectedSeats);
-        request.getSession().setAttribute("sessionSeats", sessionSeats);
+        request.getSession().setAttribute("selectedSeats", selectedSeats);
+        request.getSession().setAttribute("sests", seats);
 
         return "redirect:/seats";
     }
@@ -115,15 +114,15 @@ public class SeatsController {
      */
     @PostMapping("/goToReduction")
     public String goToReduction(HttpSession session){
-        Counter sessionSeatsWithDiscount = new Counter();
-        Counter sessionNormalSeats = new Counter();
-        List<ReservedSeat> sessionSelectedSeats = (List<ReservedSeat>) session.getAttribute("sessionSelectedSeats");
+        Counter seatsWithDiscount = new Counter();
+        Counter normalSeats = new Counter();
+        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
 
-        sessionSeatsWithDiscount.setCounter(0);
-        sessionNormalSeats.setCounter(sessionSelectedSeats.size());
+        seatsWithDiscount.setCounter(0);
+        normalSeats.setCounter(selectedSeats.size());
 
-        session.setAttribute("seatsWithDiscount", sessionSeatsWithDiscount);
-        session.setAttribute("normalSeats", sessionNormalSeats);
+        session.setAttribute("seatsWithDiscount", seatsWithDiscount);
+        session.setAttribute("normalSeats", normalSeats);
 
         return "redirect:/reduction";
     }

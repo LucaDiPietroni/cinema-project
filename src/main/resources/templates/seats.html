@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<a th:text="${reservedShow.getCinemahallid()}"/>
+<a th:text="${selectedShow.getCinemahallid()}"/>
 <form th:action="@{/addSeat}" method="post">
     <table>
         <tr th:each="seat: ${seats.getSeats()}">
@@ -16,7 +16,7 @@
     </table>
 </form>
 
-<div th:each="resSeat: ${reservedSeats}">
+<div th:each="resSeat: ${selectedSeats}">
     <a th:text="${resSeat.getSeatId()}"/>
 </div>
 
@@ -24,8 +24,8 @@
     <button type="submit" name="remove">Usuń miejsca</button>
     &nbsp
 </form>
-<form th:action="@{/goToReduction}" th:object="${reservedSeats}" method="post">
-    <button type="submit" name="action">Zarezerwuj</button>
+<form th:action="@{/goToReduction}" th:object="${selectedSeats}" method="post">
+    <button type="submit" name="action" th:disabled="${selectedSeats.size() == 0 ? 'true' : 'false'}">Zarezerwuj</button>
     &nbsp
 </form>
 

@@ -66,7 +66,7 @@ public class ReductionController {
 
         Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
         Counter normalSeats = (Counter) request.getSession().getAttribute("normalSeats");
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("sessionSelectedSeats");
+        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
 
         if(discount.equals("1")){
             if(normalSeats.getCounter() == (selectedSeats.size())){
@@ -102,18 +102,18 @@ public class ReductionController {
     public String reserveSeats(HttpServletRequest request){
         OperationService filmService = context.getBean(OperationService.class);
 
-        Reservation reservation = (Reservation) request.getSession().getAttribute("sessionReservation");
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("sessionSelectedSeats");
+        Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
+        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
         Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
 
-        filmService.insertReservation(reservation.getClientName(),
-                reservation.getClientSecondName(),
-                reservation.getClientMail(),
-                reservation.getToken(),
-                reservation.getShowingId());
+        filmService.insertReservation(userReservation.getClientName(),
+                userReservation.getClientSecondName(),
+                userReservation.getClientMail(),
+                userReservation.getToken(),
+                userReservation.getShowingId());
 
         for (ReservedSeat resSeat : selectedSeats) {
-            resSeat.setToken(reservation.getToken());
+            resSeat.setToken(userReservation.getToken());
         }
 
         for (int i = 0; i < seatsWithDiscount.getCounter(); i++){

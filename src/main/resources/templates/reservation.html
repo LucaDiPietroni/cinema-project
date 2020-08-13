@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
     <title>Title</title>
     <link href="../static/bootstrap.min.css" rel="stylesheet" th:href="@{bootstrap.min.css}"/>
 </head>
 <body>
-<form th:action="@{/addRes}" th:object="${reservation}" method="post">
+<form th:action="@{/addRes}" th:object="${userReservation}" method="post">
     <p>Imię: <input type="text" th:field="*{clientName}" required></p>
     <p>Nazwisko: <input type="text" th:field="*{clientSecondName}" required></p>
     <p>Adres e-mail: <input type="email" th:field="*{clientMail}" required></p>

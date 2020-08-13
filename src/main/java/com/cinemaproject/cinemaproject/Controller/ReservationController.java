@@ -40,12 +40,12 @@ public class ReservationController {
      */
     @GetMapping("/reservation")
     public String getReservation(Model model, HttpSession session){
-        Reservation sessionReservation = (Reservation) session.getAttribute("sessionReservation");
-        if(sessionReservation == null){
-            sessionReservation = new Reservation();
+        Reservation userReservation = (Reservation) session.getAttribute("userReservation");
+        if(userReservation == null){
+            userReservation = new Reservation();
         }
 
-        model.addAttribute("reservation", sessionReservation);
+        model.addAttribute("userReservation", userReservation);
         return "reservation";
     }
 
@@ -58,25 +58,25 @@ public class ReservationController {
      * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
      */
     @PostMapping("/addRes")
-    public String addRes(@ModelAttribute Reservation newReservation, HttpServletRequest request, HttpSession session) {
-        Reservation sessionReservation = (Reservation) request.getSession().getAttribute("sessionReservation");
-        if(sessionReservation == null){
-            sessionReservation = new Reservation();
-            request.getSession().setAttribute("sessionReservation", sessionReservation);
+    public String addRes(@ModelAttribute Reservation newReservation, HttpServletRequest request) {
+        Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
+        if(userReservation == null){
+            userReservation = new Reservation();
+            request.getSession().setAttribute("userReservation", userReservation);
         }
-        Showing sessionSelectedShow = (Showing) request.getSession().getAttribute("sessionSelectedShow");
+        Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
 
-        sessionReservation = newReservation;
-        sessionReservation.setShowingId(sessionSelectedShow.getId());
-        sessionReservation.setToken(additionalService.createToken());
+        userReservation = newReservation;
+        userReservation.setShowingId(chosenShow.getId());
+        userReservation.setToken(additionalService.createToken());
 
-        request.getSession().setAttribute("sessionReservation", sessionReservation);
+        request.getSession().setAttribute("userReservation", userReservation);
 
         OperationService seatService = context.getBean(OperationService.class);
 
-        seats.setSeats(seatService.findSeatsByCinemaHallId(sessionSelectedShow.getCinemahallid()));
-        seats.setSeatsNotAvailable(sessionSelectedShow);
-        request.getSession().setAttribute("sessionSeats", seats);
+        seats.setSeats(seatService.findSeatsByCinemaHallId(chosenShow.getCinemahallid()));
+        seats.setSeatsNotAvailable(chosenShow);
+        request.getSession().setAttribute("seats", seats);
 
         return "redirect:/seats";
     }
