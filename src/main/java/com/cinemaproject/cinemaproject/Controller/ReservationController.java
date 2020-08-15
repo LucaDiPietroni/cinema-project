@@ -40,13 +40,17 @@ public class ReservationController {
      */
     @GetMapping("/reservation")
     public String getReservation(Model model, HttpSession session){
-        Reservation userReservation = (Reservation) session.getAttribute("userReservation");
-        if(userReservation == null){
-            userReservation = new Reservation();
-        }
+        try{
+            Reservation userReservation = (Reservation) session.getAttribute("userReservation");
+            if(userReservation == null){
+                userReservation = new Reservation();
+            }
 
-        model.addAttribute("userReservation", userReservation);
-        return "reservation";
+            model.addAttribute("userReservation", userReservation);
+            return "reservation";
+        }catch (Exception e){
+            return "error";
+        }
     }
 
     /**
@@ -59,25 +63,29 @@ public class ReservationController {
      */
     @PostMapping("/addRes")
     public String addRes(@ModelAttribute Reservation newReservation, HttpServletRequest request) {
-        Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
-        if(userReservation == null){
-            userReservation = new Reservation();
+        try{
+            Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
+            if(userReservation == null){
+                userReservation = new Reservation();
+                request.getSession().setAttribute("userReservation", userReservation);
+            }
+            Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
+
+            userReservation = newReservation;
+            userReservation.setShowingId(chosenShow.getId());
+            userReservation.setToken(additionalService.createToken());
+
             request.getSession().setAttribute("userReservation", userReservation);
+
+            OperationService seatService = context.getBean(OperationService.class);
+
+            seats.setSeats(seatService.findSeatsByCinemaHallId(chosenShow.getCinemahallid()));
+            seats.setSeatsNotAvailable(chosenShow);
+            request.getSession().setAttribute("seats", seats);
+
+            return "redirect:/seats";
+        }catch (Exception e){
+            return "error";
         }
-        Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
-
-        userReservation = newReservation;
-        userReservation.setShowingId(chosenShow.getId());
-        userReservation.setToken(additionalService.createToken());
-
-        request.getSession().setAttribute("userReservation", userReservation);
-
-        OperationService seatService = context.getBean(OperationService.class);
-
-        seats.setSeats(seatService.findSeatsByCinemaHallId(chosenShow.getCinemahallid()));
-        seats.setSeatsNotAvailable(chosenShow);
-        request.getSession().setAttribute("seats", seats);
-
-        return "redirect:/seats";
     }
 }

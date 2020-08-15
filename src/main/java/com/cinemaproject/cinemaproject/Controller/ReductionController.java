@@ -34,22 +34,26 @@ public class ReductionController {
      */
     @GetMapping("/reduction")
     public String getReduction(Model model, HttpSession session){
-        Counter seatsWithDiscount = (Counter) session.getAttribute("seatsWithDiscount");
-        if(seatsWithDiscount == null){
-            seatsWithDiscount = new Counter();
+        try{
+            Counter seatsWithDiscount = (Counter) session.getAttribute("seatsWithDiscount");
+            if(seatsWithDiscount == null){
+                seatsWithDiscount = new Counter();
+            }
+            session.setAttribute("seatsWithDiscount", seatsWithDiscount);
+
+            Counter normalSeats = (Counter) session.getAttribute("normalSeats");
+            if(normalSeats == null){
+                normalSeats = new Counter();
+            }
+            session.setAttribute("seatsWithDiscount", seatsWithDiscount);
+
+            model.addAttribute("seatsWithDiscount", seatsWithDiscount);
+            model.addAttribute("normalSeats", normalSeats);
+
+            return "reduction";
+        }catch (Exception e){
+            return "error";
         }
-        session.setAttribute("seatsWithDiscount", seatsWithDiscount);
-
-        Counter normalSeats = (Counter) session.getAttribute("normalSeats");
-        if(normalSeats == null){
-            normalSeats = new Counter();
-        }
-        session.setAttribute("seatsWithDiscount", seatsWithDiscount);
-
-        model.addAttribute("seatsWithDiscount", seatsWithDiscount);
-        model.addAttribute("normalSeats", normalSeats);
-
-        return "reduction";
     }
 
     /**
@@ -62,31 +66,33 @@ public class ReductionController {
      */
     @PostMapping(value = "/setReduction")
     public String setReduction(@RequestParam(value = "discount") String discount, HttpServletRequest request) {
-        System.out.println(discount);
+        try{
+            Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
+            Counter normalSeats = (Counter) request.getSession().getAttribute("normalSeats");
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
 
-        Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
-        Counter normalSeats = (Counter) request.getSession().getAttribute("normalSeats");
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            if(discount.equals("1")){
+                if(normalSeats.getCounter() == (selectedSeats.size())){
+                    System.out.println("cokolwiek");
+                }else{
+                    normalSeats.increment();
+                    seatsWithDiscount.decrement();
+                }
+            }else if (discount.equals("2")){
+                if(seatsWithDiscount.getCounter() == (selectedSeats.size())){
+                    System.out.println("cokolwiek");
+                }else{
+                    normalSeats.decrement();
+                    seatsWithDiscount.increment();
+                }
+            }
+            request.getSession().setAttribute("seatsWithDiscount", seatsWithDiscount);
+            request.getSession().setAttribute("normalSeats", normalSeats);
 
-        if(discount.equals("1")){
-            if(normalSeats.getCounter() == (selectedSeats.size())){
-                System.out.println("cokolwiek");
-            }else{
-                normalSeats.increment();
-                seatsWithDiscount.decrement();
-            }
-        }else if (discount.equals("2")){
-            if(seatsWithDiscount.getCounter() == (selectedSeats.size())){
-                System.out.println("cokolwiek");
-            }else{
-                normalSeats.decrement();
-                seatsWithDiscount.increment();
-            }
+            return "redirect:/reduction";
+        }catch (Exception e){
+            return "error";
         }
-        request.getSession().setAttribute("seatsWithDiscount", seatsWithDiscount);
-        request.getSession().setAttribute("normalSeats", normalSeats);
-
-        return "redirect:/reduction";
     }
 
     /**
@@ -100,27 +106,31 @@ public class ReductionController {
      */
     @PostMapping(value = "/reserveSeats")
     public String reserveSeats(HttpServletRequest request){
-        OperationService filmService = context.getBean(OperationService.class);
+        try{
+            OperationService filmService = context.getBean(OperationService.class);
 
-        Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
-        Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
+            Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
 
-        filmService.insertReservation(userReservation.getClientName(),
-                userReservation.getClientSecondName(),
-                userReservation.getClientMail(),
-                userReservation.getToken(),
-                userReservation.getShowingId());
+            filmService.insertReservation(userReservation.getClientName(),
+                    userReservation.getClientSecondName(),
+                    userReservation.getClientMail(),
+                    userReservation.getToken(),
+                    userReservation.getShowingId());
 
-        for (ReservedSeat resSeat : selectedSeats) {
-            resSeat.setToken(userReservation.getToken());
+            for (ReservedSeat resSeat : selectedSeats) {
+                resSeat.setToken(userReservation.getToken());
+            }
+
+            for (int i = 0; i < seatsWithDiscount.getCounter(); i++){
+                selectedSeats.get(i).setReduced(true);
+            }
+            filmService.insertReservedSeats(selectedSeats);
+
+            return "redirect:/end";
+        }catch (Exception e){
+            return "error";
         }
-
-        for (int i = 0; i < seatsWithDiscount.getCounter(); i++){
-            selectedSeats.get(i).setReduced(true);
-        }
-        filmService.insertReservedSeats(selectedSeats);
-
-        return "end";
     }
 }

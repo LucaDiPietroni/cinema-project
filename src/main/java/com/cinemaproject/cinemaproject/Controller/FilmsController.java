@@ -38,36 +38,43 @@ public class FilmsController {
      */
     @GetMapping("/films")
     public String getFilms(Model model, HttpSession session) {
-        SelectedDate selectedDate = (SelectedDate) session.getAttribute("selectedDate");
-        if(selectedDate == null){
-            selectedDate = new SelectedDate();
+        try{
+            SelectedDate selectedDate = (SelectedDate) session.getAttribute("selectedDate");
+            if(selectedDate == null){
+                selectedDate = new SelectedDate();
+            }
+
+            OperationService filmService = context.getBean(OperationService.class);
+
+            List<Date> datesOfShowings = filmService.findDatesOfShowings();
+            List<Film> filmList = filmService.findFilmByDate(selectedDate.getSelectedDate().toLocalDate());
+
+            model.addAttribute("filmList", filmList);
+            model.addAttribute("Service", filmService);
+            model.addAttribute("newSelectedDate", selectedDate);
+            model.addAttribute("showing", new Showing());
+            model.addAttribute("datesOfShowings", datesOfShowings);
+            return "films";
+        }catch (Exception e){
+            return "error";
         }
-
-        OperationService filmService = context.getBean(OperationService.class);
-
-        List<Date> datesOfShowings = filmService.findDatesOfShowings();
-        List<Film> filmList = filmService.findFilmByDate(selectedDate.getSelectedDate().toLocalDate());
-
-        model.addAttribute("filmList", filmList);
-        model.addAttribute("Service", filmService);
-        model.addAttribute("newSelectedDate", selectedDate);
-        model.addAttribute("showing", new Showing());
-        model.addAttribute("datesOfShowings", datesOfShowings);
-        return "films";
     }
 
     @PostMapping("/setDate")
     public String setDate(@ModelAttribute SelectedDate newSelectedDate, HttpServletRequest request){
-
-        SelectedDate selectedDate = (SelectedDate) request.getSession().getAttribute("selectedDate");
-        if(selectedDate == null){
-            selectedDate = new SelectedDate();
+        try{
+            SelectedDate selectedDate = (SelectedDate) request.getSession().getAttribute("selectedDate");
+            if(selectedDate == null){
+                selectedDate = new SelectedDate();
+                request.getSession().setAttribute("selectedDate", selectedDate);
+            }
+            selectedDate = newSelectedDate;
             request.getSession().setAttribute("selectedDate", selectedDate);
-        }
-        selectedDate = newSelectedDate;
-        request.getSession().setAttribute("selectedDate", selectedDate);
 
-        return "redirect:/films";
+            return "redirect:/films";
+        }catch (Exception e){
+            return "error";
+        }
     }
 
     /**
@@ -79,12 +86,16 @@ public class FilmsController {
      */
     @PostMapping(value = "/setShow")
     public String setShow(@RequestParam(value = "selectedShow") String selectedShow, HttpServletRequest request) {
-        int id = Integer.parseInt(selectedShow);
-        OperationService operationService = context.getBean(OperationService.class);
+        try{
+            int id = Integer.parseInt(selectedShow);
+            OperationService operationService = context.getBean(OperationService.class);
 
-        Showing chosenShow = operationService.findShowingById(id);
-        request.getSession().setAttribute("chosenShow", chosenShow);
+            Showing chosenShow = operationService.findShowingById(id);
+            request.getSession().setAttribute("chosenShow", chosenShow);
 
-        return "redirect:/reservation";
+            return "redirect:/reservation";
+        }catch (Exception e){
+            return "error";
+        }
     }
 }

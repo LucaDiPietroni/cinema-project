@@ -6,7 +6,19 @@
 </head>
 <body>
 Dziękujemy za rezerwację miejsc!
-
+<p th:text="${'Rezerwacja na film: ' + selectedFilm.getTitle()}"></p>
+<p th:text="${'Data: ' + selectedDate.getSelectedDate()}"></p>
+<p th:text="${'Godzina: ' + chosenShow.getTimeOfStart().toString()}"></p>
+<br>
+<p th:text="${'Sala ' + chosenShow.getCinemahallid()}"></p>
+<div th:each="oneSeat : ${seatsSelectedByUser}">
+    <p th:text="${'Miejsce: ' + oneSeat.getNumber() + ' Rząd: ' + oneSeat.getLine()}"></p>
+</div>
+<br>
+<p th:text="${'Cena: ' + price + ' zł '}"></p>
+<br>
+<p th:text="${'Kod rezerwacji: ' + userReservation.getToken()}"></p>
+<br>
 <form th:action="@{/goToStart}" method="post">
     <button>Wróć na stronę główną</button>
 </form>

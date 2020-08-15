@@ -1,6 +1,6 @@
 package com.cinemaproject.cinemaproject.Model;
 
-public class Seat {
+public class Seat implements Comparable<Seat>{
     private int id;
     private int number;
     private int cinemahallid;
@@ -75,5 +75,11 @@ public class Seat {
 
     public void setTaken(int taken) {
         this.taken = taken;
+    }
+
+    @Override
+    public int compareTo(Seat seat) {
+        int result = Integer.compare(this.id, seat.getId());
+        return result;
     }
 }

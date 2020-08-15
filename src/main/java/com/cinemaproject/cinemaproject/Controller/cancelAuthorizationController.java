@@ -26,45 +26,53 @@ public class cancelAuthorizationController {
 
     @GetMapping("/cancelAuthorization")
     public String getCancelAuthorization(Model model, HttpSession session){
-        AuthorizationData authorizationData = (AuthorizationData) session.getAttribute("authorizationData");
-        if(authorizationData == null){
-            authorizationData = new AuthorizationData();
+        try{
+            AuthorizationData authorizationData = (AuthorizationData) session.getAttribute("authorizationData");
+            if(authorizationData == null){
+                authorizationData = new AuthorizationData();
+            }
+            session.setAttribute("authorizationData", authorizationData);
+
+            model.addAttribute("authorizationData", authorizationData);
+
+            return "cancelAuthorization";
+        }catch (Exception e){
+            return "error";
         }
-        session.setAttribute("authorizationData", authorizationData);
-
-        model.addAttribute("authorizationData", authorizationData);
-
-        return "cancelAuthorization";
     }
 
     @PostMapping("/addAuthorization")
     public String addAuthorization(@ModelAttribute AuthorizationData newAuthorizationData, HttpServletRequest request){
-        String result;
-
-        AuthorizationData authorizationData = (AuthorizationData) request.getSession().getAttribute("authorizationData");
-        if(authorizationData == null){
-            authorizationData = new AuthorizationData();
-        }
-
-        authorizationData.setEmail(newAuthorizationData.getEmail());
-        authorizationData.setToken(newAuthorizationData.getToken());
-
-        OperationService operationService = context.getBean(OperationService.class);
-
-        Reservation reservationToDelete = new Reservation();
-
         try{
-            reservationToDelete = operationService.findReservationByMailAndToken(authorizationData.getEmail(),
-                    authorizationData.getToken());
-            result = "redirect:/cancel";
-        }catch (EmptyResultDataAccessException e){
-            result = "redirect:/cancelAuthorization";
-            authorizationData.setStatus(false);
+            String result;
+
+            AuthorizationData authorizationData = (AuthorizationData) request.getSession().getAttribute("authorizationData");
+            if(authorizationData == null){
+                authorizationData = new AuthorizationData();
+            }
+
+            authorizationData.setEmail(newAuthorizationData.getEmail());
+            authorizationData.setToken(newAuthorizationData.getToken());
+
+            OperationService operationService = context.getBean(OperationService.class);
+
+            Reservation reservationToDelete = new Reservation();
+
+            try{
+                reservationToDelete = operationService.findReservationByMailAndToken(authorizationData.getEmail(),
+                        authorizationData.getToken());
+                result = "redirect:/cancel";
+            }catch (EmptyResultDataAccessException e){
+                result = "redirect:/cancelAuthorization";
+                authorizationData.setStatus(false);
+            }
+
+            request.getSession().setAttribute("authorizationData", authorizationData);
+            request.getSession().setAttribute("reservationToDelete", reservationToDelete);
+
+            return result;
+        }catch (Exception e){
+            return "error";
         }
-
-        request.getSession().setAttribute("authorizationData", authorizationData);
-        request.getSession().setAttribute("reservationToDelete", reservationToDelete);
-
-        return result;
     }
 }

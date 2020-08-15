@@ -30,29 +30,33 @@ public class SeatsController {
      */
     @GetMapping("/seats")
     public String getSeats(Model model, HttpServletRequest request) {
-        Showing chosenShow = (Showing) request.getSession().getAttribute("selectedShow");
-        if(chosenShow == null){
-            chosenShow = new Showing();
+        try{
+            Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
+            if(chosenShow == null){
+                chosenShow = new Showing();
+            }
+
+            AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
+            if(seats == null){
+                seats = new AllSeats();
+            }
+
+            request.getSession().setAttribute("seats", seats);
+
+            model.addAttribute("chosenShow", chosenShow);
+            model.addAttribute("seats", seats);
+
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            if(selectedSeats == null){
+                selectedSeats = new ArrayList<ReservedSeat>();
+            }
+            request.getSession().setAttribute("selectedSeats", selectedSeats);
+            model.addAttribute("selectedSeats", selectedSeats);
+
+            return "seats";
+        }catch (Exception e){
+            return "error";
         }
-
-        AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
-        if(seats == null){
-            seats = new AllSeats();
-        }
-
-        request.getSession().setAttribute("seats", seats);
-
-        model.addAttribute("selectedShow", chosenShow);
-        model.addAttribute("seats", seats);
-
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
-        if(selectedSeats == null){
-            selectedSeats = new ArrayList<ReservedSeat>();
-        }
-        request.getSession().setAttribute("selectedSeats", selectedSeats);
-        model.addAttribute("selectedSeats", selectedSeats);
-
-        return "seats";
     }
 
     /**
@@ -65,26 +69,30 @@ public class SeatsController {
      */
     @PostMapping("/addSeat")
     public String addSeat(@RequestParam(value = "selectedSeat") String selectedSeat, HttpServletRequest request){
-        int id = Integer.parseInt(selectedSeat);
+        try{
+            int id = Integer.parseInt(selectedSeat);
 
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
 
-        AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
+            AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
 
-        if(additionalService.isSeatNextTo(selectedSeats, id) && additionalService.isSeatReservedAlready(seats.getSeats(), id)){
-            ReservedSeat newReservedSeat = new ReservedSeat();
-            newReservedSeat.setSeatId(id);
-            selectedSeats.add(newReservedSeat);
+            if(additionalService.isSeatNextTo(selectedSeats, id) && additionalService.isSeatReservedAlready(seats.getSeats(), id)){
+                ReservedSeat newReservedSeat = new ReservedSeat();
+                newReservedSeat.setSeatId(id);
+                selectedSeats.add(newReservedSeat);
 
-            seats.setSeatsSelected(id);
+                seats.setSeatsSelected(id);
 
+            }
+            Collections.sort(selectedSeats);
+
+            request.getSession().setAttribute("selectedSeats", selectedSeats);
+
+            return "redirect:/seats";
+        }catch (Exception e){
+            return "error";
         }
-        Collections.sort(selectedSeats);
-
-        request.getSession().setAttribute("selectedSeats", selectedSeats);
-
-        return "redirect:/seats";
     }
 
     /**
@@ -94,17 +102,20 @@ public class SeatsController {
      */
     @PostMapping("/removeSeats")
     public String removeSeats(HttpServletRequest request){
+        try{
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
-        AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
+            selectedSeats.clear();
+            seats.setAllSeatsAvailable();
 
-        selectedSeats.clear();
-        seats.setAllSeatsAvailable();
+            request.getSession().setAttribute("selectedSeats", selectedSeats);
+            request.getSession().setAttribute("sests", seats);
 
-        request.getSession().setAttribute("selectedSeats", selectedSeats);
-        request.getSession().setAttribute("sests", seats);
-
-        return "redirect:/seats";
+            return "redirect:/seats";
+        }catch (Exception e){
+            return "error";
+        }
     }
 
     /**
@@ -114,17 +125,21 @@ public class SeatsController {
      */
     @PostMapping("/goToReduction")
     public String goToReduction(HttpSession session){
-        Counter seatsWithDiscount = new Counter();
-        Counter normalSeats = new Counter();
-        List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
+        try{
+            Counter seatsWithDiscount = new Counter();
+            Counter normalSeats = new Counter();
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
 
-        seatsWithDiscount.setCounter(0);
-        normalSeats.setCounter(selectedSeats.size());
+            seatsWithDiscount.setCounter(0);
+            normalSeats.setCounter(selectedSeats.size());
 
-        session.setAttribute("seatsWithDiscount", seatsWithDiscount);
-        session.setAttribute("normalSeats", normalSeats);
+            session.setAttribute("seatsWithDiscount", seatsWithDiscount);
+            session.setAttribute("normalSeats", normalSeats);
 
-        return "redirect:/reduction";
+            return "redirect:/reduction";
+        }catch (Exception e){
+            return "error";
+        }
     }
 
 }

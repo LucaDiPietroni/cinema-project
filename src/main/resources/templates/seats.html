@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<a th:text="${selectedShow.getCinemahallid()}"/>
+<p th:text="${chosenShow.getCinemahallid()}"/>
 <form th:action="@{/addSeat}" method="post">
     <table>
         <tr th:each="seat: ${seats.getSeats()}">

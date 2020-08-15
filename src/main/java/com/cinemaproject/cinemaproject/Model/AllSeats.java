@@ -20,36 +20,51 @@ public class AllSeats {
         this.seats = seats;
     }
 
-    public void setAllSeatsAvailable(){
-        for (List<Seat> line: seats){
-            for (Seat seat:line) {
-                seat.setTaken(0);
-            }
-        }
-    }
-
-    public void setSeatsSelected(int selectedSeat){
-        for (List<Seat> line: seats){
-            for (Seat seat:line) {
-                if (seat.getId() == selectedSeat){
-                    seat.setTaken(2);
-                }
-            }
-        }
-    }
-
-    public void setSeatsNotAvailable(Showing reservedShow){
-        OperationService seatService = context.getBean(OperationService.class);
-
-        for (List<Seat> line: seats){
-            for (Seat seat:line) {
-                if (seatService.takenSeat(reservedShow.getId(), seat.getId()) == null && seat.getTaken() != 2){
+    public void setAllSeatsAvailable() throws Exception {
+        try{
+            for (List<Seat> line: seats){
+                for (Seat seat:line) {
                     seat.setTaken(0);
                 }
-                else if (seat.getTaken() != 2) {
-                    seat.setTaken(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+    }
+
+    public void setSeatsSelected(int selectedSeat) throws Exception {
+        try{
+            for (List<Seat> line: seats){
+                for (Seat seat:line) {
+                    if (seat.getId() == selectedSeat){
+                        seat.setTaken(2);
+                    }
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+    }
+
+    public void setSeatsNotAvailable(Showing reservedShow) throws Exception {
+        try{
+            OperationService seatService = context.getBean(OperationService.class);
+
+            for (List<Seat> line: seats){
+                for (Seat seat:line) {
+                    if (seatService.takenSeat(reservedShow.getId(), seat.getId()) == null && seat.getTaken() != 2){
+                        seat.setTaken(0);
+                    }
+                    else if (seat.getTaken() != 2) {
+                        seat.setTaken(1);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
         }
     }
 }

@@ -9,9 +9,13 @@
 <p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
 <p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
 <p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
-
-<div th:each="seatToDelete : ${seatsToDelete}">
-    <a th:text="${seatToDelete.getSeatId()}"/>
+<br/>
+<p th:text="'Data seansu: ' + ${reservedShowing.getDateOfShowing()}"></p>
+<p th:text="'Godzina rozpoczęcia seansu: ' + ${reservedShowing.getTimeOfStart()}"></p>
+<br/>
+<p th:text="'Sala kinowa: ' + ${reservedShowing.getCinemahallid()}"></p>
+<div th:each="reservedSeat : ${reservedSeats}">
+    <a th:text="${'Miejsce: ' + reservedSeat.getNumber() + ' Rząd: ' + reservedSeat.getLine()}"/>
 </div>
 
 <form th:action="@{/deleteReservation}" method="post">

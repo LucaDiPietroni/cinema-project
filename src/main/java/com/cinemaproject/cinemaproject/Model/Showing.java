@@ -3,7 +3,7 @@ package com.cinemaproject.cinemaproject.Model;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Showing {
+public class Showing implements Comparable<Showing>{
     private int id;
     private int filmid;
     private int cinemahallid;
@@ -52,5 +52,11 @@ public class Showing {
 
     public void setTimeOfStart(Time timeOfStart) {
         this.timeOfStart = timeOfStart;
+    }
+
+    @Override
+    public int compareTo(Showing showing) {
+        int result = this.timeOfStart.compareTo(showing.timeOfStart);
+        return result;
     }
 }

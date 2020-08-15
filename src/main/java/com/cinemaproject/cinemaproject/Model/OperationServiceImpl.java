@@ -14,17 +14,19 @@ public class OperationServiceImpl implements OperationService {
     OperationDao operationDao;
 
     @Override
-    public List<Film> findFilmByDate(LocalDate dateOfFilm) {
+    public List<Film> findFilmByDate(LocalDate dateOfFilm) throws Exception {
         return operationDao.findFilmByDate(dateOfFilm);
     }
 
     @Override
-    public List<Showing> findShowingsByDateAndId(int filmid, LocalDate date){
-        return operationDao.findShowingsByDateAndId(filmid, date);
+    public List<Showing> findShowingsByDateAndId(int filmid, LocalDate date) throws Exception {
+        List<Showing> result = operationDao.findShowingsByDateAndId(filmid, date);
+        Collections.sort(result);
+        return result;
     }
 
     @Override
-    public List<List<Seat>> findSeatsByCinemaHallId(int cinemaHallId){
+    public List<List<Seat>> findSeatsByCinemaHallId(int cinemaHallId) throws Exception {
         List<Integer> lines = operationDao.findRowsByCinemaHall(cinemaHallId);
         List<List<Seat>> result = new ArrayList<List<Seat>>();
         
@@ -37,42 +39,42 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public void insertReservation(String clientName, String clientSecondName, String clientMail, String token, int showingId){
+    public void insertReservation(String clientName, String clientSecondName, String clientMail, String token, int showingId) throws Exception {
         operationDao.insertReservation(clientName, clientSecondName, clientMail, token, showingId);
     }
 
     @Override
-    public void insertReservedSeats(List<ReservedSeat> rSeatList){
+    public void insertReservedSeats(List<ReservedSeat> rSeatList) throws Exception {
         operationDao.insertReservedSeats(rSeatList);
     }
 
     @Override
-    public Showing findShowingById(int id){
+    public Showing findShowingById(int id) throws Exception {
         return operationDao.findShowingById(id);
     }
 
     @Override
-    public Integer takenSeat(int showingId, int seatId) {return operationDao.takenSeat(showingId, seatId); }
+    public Integer takenSeat(int showingId, int seatId) throws Exception {return operationDao.takenSeat(showingId, seatId); }
 
     @Override
-    public List<Date> findDatesOfShowings(){
+    public List<Date> findDatesOfShowings() throws Exception {
         return operationDao.findDatesOfShowings();
     }
 
     @Override
-    public Seat findSeatById(int id){
+    public Seat findSeatById(int id) throws Exception {
         return operationDao.findSeatById(id);
     }
 
     @Override
-    public Reservation findReservationByMailAndToken(String email, String token){return operationDao.findReservationByMailAndToken(email, token); }
+    public Reservation findReservationByMailAndToken(String email, String token) throws Exception {return operationDao.findReservationByMailAndToken(email, token); }
 
     @Override
-    public List<ReservedSeat> findReservedSeatsByToken(String token){return operationDao.findReservedSeatsByToken(token);}
+    public List<ReservedSeat> findReservedSeatsByToken(String token) throws Exception {return operationDao.findReservedSeatsByToken(token);}
 
     @Override
-    public Film findFilmById(int id){return operationDao.findFilmById(id);}
+    public Film findFilmById(int id) throws Exception {return operationDao.findFilmById(id);}
 
     @Override
-    public void deleteReservation(int id){operationDao.deleteReservation(id);}
+    public void deleteReservation(int id) throws Exception {operationDao.deleteReservation(id);}
 }
