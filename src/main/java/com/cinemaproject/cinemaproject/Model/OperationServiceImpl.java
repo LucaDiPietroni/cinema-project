@@ -7,9 +7,18 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Serwis implemetujący interfejs obsługujący moduł DAO.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Service
 public class OperationServiceImpl implements OperationService {
 
+    /**
+     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
+     */
     @Autowired
     OperationDao operationDao;
 

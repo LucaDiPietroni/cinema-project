@@ -5,66 +5,28 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Klasa konfiguracyjna.
+ * Konfiguracja bean'ów w zakresie sesji
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Configuration
 public class FirstConfig {
 
-    @Bean
-    @SessionScope
-    public Showing reservedShow(){
-        return new Showing();
-    }
+//    @Bean
+//    @SessionScope
+//    public Reservation reservation(){
+//        return new Reservation();
+//    }
 
-    @Bean
-    @SessionScope
-    public Reservation reservation(){
-        return new Reservation();
-    }
-
+    /**
+     * Metoda tworząca obiekt wszystkich miejsc w sali kinowej.
+     * @author Marcin Pietroń
+     * @return Obiekt wszystkich miejsc w sali kinowej.
+     */
     @Bean
     @SessionScope
     public AllSeats seats(){ return new AllSeats(); }
-
-    @Bean
-    @SessionScope
-    public List<ReservedSeat> reservedSeats(){
-        return new ArrayList<ReservedSeat>();
-    }
-
-    @Bean
-    @SessionScope
-    public List<Integer> resSeatIds(){
-        return new ArrayList<Integer>();
-    }
-
-    @Bean
-    @SessionScope
-    public Counter seatsWithDiscount(){
-        return new Counter();
-    }
-
-    @Bean
-    @SessionScope
-    public Counter normalSeats(){
-        return new Counter();
-    }
-
-    @Bean
-    @SessionScope
-    public SelectedDate selectedDate(){
-        return new SelectedDate();
-    }
-
-    @Bean
-    @SessionScope
-    public AuthorizationData authorizationData() {return new AuthorizationData(); }
-
-    @Bean
-    @SessionScope
-    public Reservation reservationToDelete(){
-        return new Reservation();
-    }
 
 }

@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Kontroler podstrony autoryzacji użytkownika, który zarezerwował miejsca na film.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class cancelAuthorizationController {
 
@@ -24,6 +30,15 @@ public class cancelAuthorizationController {
     @Autowired
     private ApplicationContext context;
 
+    /**
+     * Metoda nawigująca do strony z autoryzacją użytkownika, który dokonał rezerwacji.
+     * W pierwszej kolejności pobierane są z obiektu sesji dane potrzebne do autoryzacji użytkownika.
+     * Jeżeli takie dane nie istnieją tworzony jest odpowiedni obiekt, który następnie zostaje ustawiony jako atrybut sesji i modelu.
+     * @author Marcin Pietroń
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
+     * @return Odnośnik do podstrony z autoryzacją użytkownika.
+     */
     @GetMapping("/cancelAuthorization")
     public String getCancelAuthorization(Model model, HttpSession session){
         try{
@@ -41,6 +56,14 @@ public class cancelAuthorizationController {
         }
     }
 
+    /**
+     * Metoda werfikująca dane autoryzcyjne wprowadzone przez użytkownika.
+     * Po pobraniu odpowiednich danych z obiektu sesji pobierane są z bazy informacje o rezerwacji i ustawiane jako atrybut modelu i sesji
+     * @author Marcin Pietroń
+     * @param newAuthorizationData atrybut obiektu dotyczący danych autoryzacyjnych.
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
+     * @return Odnośnik do podstrony z wyborem filmów.
+     */
     @PostMapping("/addAuthorization")
     public String addAuthorization(@ModelAttribute AuthorizationData newAuthorizationData, HttpServletRequest request){
         try{

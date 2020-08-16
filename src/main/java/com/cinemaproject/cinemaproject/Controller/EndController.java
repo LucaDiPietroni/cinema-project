@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Kontroler podstrony podsumowania dokonanej rezerwacji.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class EndController {
 
@@ -22,6 +28,15 @@ public class EndController {
     @Autowired
     private ApplicationContext context;
 
+    /**
+     * Metoda nawigująca do podstrony z podsumowaniem dokonanej rezerwacji.
+     * Po pobraniu wszystkich potrzebnych informacji z obiektu sesji pobierane są z bazy dane o filmie.
+     * Następnie obliczana jest cena biletu, pobierane są dodatkowe dane o miejscach na sali i wszystkie dane zostają ustawione jako atrybuty sesji i modelu.
+     * @author Marcin Pietroń
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
+     * @return Odnośnik do podstrony z podsumowaniem dokonanej rezerwacji.
+     */
     @GetMapping("/end")
     public String getEnd(Model model, HttpSession session){
         try{

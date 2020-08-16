@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Kontroler aplikacji, sterujący działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
- * @author Marcin&Rafał
+ * Kontroler podstrony startowej i obsługi nawigacji do innych podstron.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
  * @version 1.0
  */
 @Controller
@@ -17,6 +18,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do strony startowej.
+     * Po utworzeniu potrzebnych obiektów zostają one ustawione jako atrybuty sesji.
      * @author Marcin&Rafał
      * @return Odnośnik do podstrony startowej.
      */
@@ -39,17 +41,32 @@ public class FirstController {
         return "start";
     }
 
+    /**
+     * Metoda nawigująca do podstrony z wyborem filmów.
+     * @author Marcin&Rafał
+     * @return Odnośnik do metody nawigującej do podstrony z wyborem filmów.
+     */
     @PostMapping("/goToFilms")
     public String goToFilms(){
         return "redirect:/films";
     }
 
+    /**
+     * Metoda nawigująca do podstrony autoryzacji użytkownika, który zarezerwował miejsca na film.
+     * @author Marcin&Rafał
+     * @return Odnośnik do metody nawigującej do podstrony autoryzacji użytkownika, który zarezerwował miejsca na film.
+     */
     @PostMapping("/goToCancel")
     public String goToCancel(){
         return "redirect:/cancelAuthorization";
     }
 
-    @PostMapping("goToStart")
+    /**
+     * Metoda nawigująca do strony startowej.
+     * @author Marcin&Rafał
+     * @return Odnośnik do metody nawigującej do strony startowej.
+     */
+    @PostMapping("/goToStart")
     public String goToStart(){
         return "redirect:/";
     }

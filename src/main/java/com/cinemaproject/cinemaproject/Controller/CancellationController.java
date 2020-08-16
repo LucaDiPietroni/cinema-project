@@ -12,6 +12,12 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Kontroler podstrony z informacjami o dokonanej rezerwacji.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class CancellationController {
 
@@ -22,6 +28,15 @@ public class CancellationController {
     @Autowired
     private ApplicationContext context;
 
+    /**
+     * Metoda nawigująca do podstrony z informacjami o dokonanej rezerwacji.
+     * Po pobraniu informacji o rezerwacji z obiektu sesji pobierane są z bazy dane o seansie, filmie i zarezerwowanych miejscach.
+     * Następnie obliczana jest cena biletu i wszystkie dane zostają ustawione jako atrybuty sesji i modelu.
+     * @author Marcin Pietroń
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
+     * @return Odnośnik do podstrony z informacjami o dokonanej rezerwacji.
+     */
     @GetMapping("/cancel")
     public String getCancel(Model model, HttpSession session){
         try{
@@ -30,8 +45,8 @@ public class CancellationController {
             OperationService operationService = context.getBean(OperationService.class);
             Showing reservedShowing = operationService.findShowingById(reservationToDelete.getShowingId());
             Film film = operationService.findFilmById(reservedShowing.getFilmid());
-
             List<ReservedSeat> seatsToDelete = operationService.findReservedSeatsByToken(reservationToDelete.getToken());
+
             Double price = 0.0;
             List<Seat> reservedSeats = new ArrayList<Seat>();
 
@@ -63,8 +78,13 @@ public class CancellationController {
         }
     }
 
-
-
+    /**
+     * Metoda obsługująca anulowanie rezerwacji.
+     * Po pobraniu danych o rezerwacji z obiektu sesji zostaje ona usunięta z bazy danych
+     * @author Marcin Pietroń
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
+     * @return Odnośnik do podstrony potwierdzającej anulowanie rezerwacji.
+     */
     @PostMapping("/deleteReservation")
     public String deleteReservation(HttpServletRequest request){
         try{

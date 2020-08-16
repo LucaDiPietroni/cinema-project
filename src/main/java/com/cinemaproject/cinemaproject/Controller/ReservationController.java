@@ -13,6 +13,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Kontroler podstrony z formularzem użytkownika.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class ReservationController {
 
@@ -34,8 +40,10 @@ public class ReservationController {
 
     /**
      * Metoda nawigująca do strony z formularzem użytkownika.
+     * Po pobraniu informacji o rezerwacji z obiektu sesji zostają one ustawione jako atrybut modelu.
      * @author Marcin&Rafał
-     * @param model obiekt przechowujący atrybut nowej rezerwacji.
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
      * @return Odnośnik do podstrony z formularzem użytkownika.
      */
     @GetMapping("/reservation")
@@ -54,12 +62,15 @@ public class ReservationController {
     }
 
     /**
-     * Metoda zapisująca dane wprowadzone orzez użytkownika w formularzu rezerwacyjnym.
-     * Dane wprowadzone przez użytkownika są odbierane, a następnie zapisywane w odpowiednim obiekcie.
-     * Obiektowi rezerwacji przypisywany jest wygenerowany losowo token.
-     * @author Marcin&Rafał
-     * @param newReservation obiekt przechowujący identyfikator wybranego przez użytkownika seansu.
-     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     * Metoda obsługująca dodawanie danych niezbędnych do dokonania rezerwacji.
+     * Po pobraniu atrybutów rezerwacji użytkownika oraz wybranyego seansu z sesji ustawiane są nowe wartości tego pierwszego.
+     * Generowany jest również kod rezerwacji, a następnie informacje o rezerwacji użytkownika ustawiane są jako atrybut sesji.
+     * Kolejno pobierane są z bazy danych informacje o miejscach na konkretnej sali kinowej i sprawdzane jest, które z nich są zajęte.
+     * Na koniec informacje o wszystkich miejscach na sali kinowej ustawiane są jako atrybut sesji.
+     * @author Marcin Pietroń
+     * @param newReservation atrybut modelu dotyczący rezerwacji dokonywanej przez użytkownika.
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
+     * @return Odnośnik do podstrony z z wyborem miejsc na sali kinowej.
      */
     @PostMapping("/addRes")
     public String addRes(@ModelAttribute Reservation newReservation, HttpServletRequest request) {

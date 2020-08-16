@@ -18,6 +18,12 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * Kontroler podstrony z wyborem filmów.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class FilmsController {
 
@@ -30,10 +36,13 @@ public class FilmsController {
 
     /**
      * Metoda nawigująca do strony z wyborem filmów.
-     * W pierwszej kolejności pobierane z bazy danych są wszystkie filmy wyświetlane w kinie danego dnia.
+     * Wpierw z obiektu sesji pobierana jest data wybrana przez użytkownika. Jeżeli takowa nie istnieje tworzony jest nowy obiekt wybranej daty.
+     * Następnie z bazy danych pobierana jest lista wszystkich dat, gdy odbywają się seanse oraz lista filmów wyświetlanych w wybranym przez użytkownika dniu.
+     * Wszystkie niezbędne informacje ustawiane są jako atrybuty modelu.
      * Kolejno tworzone są atrybuty wyświetlane na stronie HTML i jeden przechowujący informację o wyborze seansu.
-     * @author Marcin&Rafał
-     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie z wyborem filmów
+     * @author Marcin Pietroń
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
      * @return Odnośnik do podstrony z wyborem filmów.
      */
     @GetMapping("/films")
@@ -60,6 +69,14 @@ public class FilmsController {
         }
     }
 
+    /**
+     * Metoda obsługująca wybór daty seansu.
+     * Po pobraniu atrybutu wybranej daty z obiektu sesji nadaje się mu wartość daty wybranej przez użytkownika i ponownie ustawia jako atrybut sesji.
+     * @author Marcin Pietroń
+     * @param newSelectedDate atrybut modelu dotyczący wybranej przez użytkownika daty.
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
+     * @return Odnośnik do podstrony z wyborem filmów.
+     */
     @PostMapping("/setDate")
     public String setDate(@ModelAttribute SelectedDate newSelectedDate, HttpServletRequest request){
         try{
@@ -78,10 +95,11 @@ public class FilmsController {
     }
 
     /**
-     * Metoda zapisująca wybór seansu przez użykownika.
-     * Po wyborze seansu przekazywany jest identyfikator na podstawie którego z bazy pobierane są szczegółowe informacje o wybranym seansie, a następnie zapisywane są one w odpowiednim obiekcie.
-     * @author Marcin&Rafał
+     * Metoda obsługująca wybór seansu.
+     * Informacje o wybranym seansie pobierane są z bazy danych i ustawiane jako atrybut obiektu sesji.
+     * @author Marcin Pietroń
      * @param selectedShow obiekt przechowujący identyfikator wybranego przez użytkownika seansu.
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony z formularzem użytkownika.
      */
     @PostMapping(value = "/setShow")

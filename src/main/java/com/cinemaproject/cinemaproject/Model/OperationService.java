@@ -4,6 +4,11 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Interfejs obsługujący moduł DAO.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 public interface OperationService {
     List<Film> findFilmByDate(LocalDate dateOfFilm) throws Exception;
     List<Showing> findShowingsByDateAndId(int filmid, LocalDate date) throws Exception;

@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Kontroler podstrony z wyborem miejsc na sali kinowej.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class SeatsController {
 
@@ -24,33 +30,36 @@ public class SeatsController {
 
     /**
      * Metoda nawigująca do strony z wyborem miejsc na sali kinowej.
-     * @author Marcin&Rafał
+     * Pobierane są informacje o wybranym seansie, wszystkich miejscach na sali kinowej i zajętych miejscach z obiektu sesji.
+     * Następnie informacje te są ustawiane jako atrybuty obiektów modelu i sesji.
+     * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty: wybrany seans oraz lista zarezerwowanych miejsc.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
      * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
      */
     @GetMapping("/seats")
-    public String getSeats(Model model, HttpServletRequest request) {
+    public String getSeats(Model model, HttpSession session) {
         try{
-            Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
+            Showing chosenShow = (Showing) session.getAttribute("chosenShow");
             if(chosenShow == null){
                 chosenShow = new Showing();
             }
 
-            AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
+            AllSeats seats = (AllSeats) session.getAttribute("seats");
             if(seats == null){
                 seats = new AllSeats();
             }
 
-            request.getSession().setAttribute("seats", seats);
+            session.setAttribute("seats", seats);
 
             model.addAttribute("chosenShow", chosenShow);
             model.addAttribute("seats", seats);
 
-            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
             if(selectedSeats == null){
                 selectedSeats = new ArrayList<ReservedSeat>();
             }
-            request.getSession().setAttribute("selectedSeats", selectedSeats);
+            session.setAttribute("selectedSeats", selectedSeats);
             model.addAttribute("selectedSeats", selectedSeats);
 
             return "seats";
@@ -60,11 +69,14 @@ public class SeatsController {
     }
 
     /**
-     * Metoda zapisująca do listy miejsce na sali konowej zarezerwowane przez użytkownika.
-     * Do metody przekazywany jest identyfikator miejsca w kinie. Jeżeli miejsce znajduje się obok miejsca wcześniej wybranego lub jest to pierwsze wybrane miejsce, to jest ono zapisywane do listy wybranych miejsc.
-     * Na koniec lista wybranych miejsc kinowych jest sortowana.
-     * @author Marcin&Rafał
+     * Metoda obsługująca zapis miejsc na sali konowej zarezerwowanych przez użytkownika.
+     * Wpierw pobierane są z sesji informacje o wybranych miejscach i wszystkich miejscach na sali.
+     * Jeżeli wybrane przez użytkownika miejsce nie jest zajęte i znajduje się obok któregoś z wcześniej wybranych miejsc to wybrane miejsce dodawane jest do listy.
+     * Wybrane miejsca na sali kinowej zyskują status zajętych.
+     * Na koniec lista wybranych miejsc kinowych jest sortowana i ustawiana jako atrybut sesji.
+     * @author Marcin Pietroń
      * @param selectedSeat obiekt przechowujący identyfikator wybranego przez użytkownika miejsca.
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
      */
     @PostMapping("/addSeat")
@@ -73,7 +85,6 @@ public class SeatsController {
             int id = Integer.parseInt(selectedSeat);
 
             List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
-
             AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
 
@@ -83,7 +94,6 @@ public class SeatsController {
                 selectedSeats.add(newReservedSeat);
 
                 seats.setSeatsSelected(id);
-
             }
             Collections.sort(selectedSeats);
 
@@ -96,8 +106,11 @@ public class SeatsController {
     }
 
     /**
-     * Metoda usuwająca wszystkie zarezerwowane miejsca z listy.
-     * @author Marcin&Rafał
+     * Metoda obsługująca usuwanie wszystkich zarezerwowane miejsc z listy.
+     * Po pobraniu niezbędnych informacji z sesji lista zarezerwowanych miejsc zostaje wyczyszczona, a poszczególne miejsca na sali kinowej tracą status zajętych.
+     * Następnie informacje te zostają ustawione jako atrybuty sesji.
+     * @author Marcin Pietroń
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
      */
     @PostMapping("/removeSeats")
@@ -119,22 +132,26 @@ public class SeatsController {
     }
 
     /**
-     * Metoda ustawijąca domyślną liczbę biletów ulgowych i normalnych.
-     * @author Marcin&Rafał
+     * Metoda obsługująca ustawienie domyślnej liczby biletów ulgowych i normalnych.
+     * Tworzone są odpowiednie obiekty, a następnie pobierane są informacje o wybranych przez użytkownika miejscach.
+     * Następnie ustawiana jest domyślna liczba biletów ulgowych i normalnych.
+     * Informacje te ustawione zostają jako atrybut sesji.
+     * @author Marcin Pietroń
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony z wyborem liczby biletów ulgowych.
      */
     @PostMapping("/goToReduction")
-    public String goToReduction(HttpSession session){
+    public String goToReduction(HttpServletRequest request){
         try{
             Counter seatsWithDiscount = new Counter();
             Counter normalSeats = new Counter();
-            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
 
             seatsWithDiscount.setCounter(0);
             normalSeats.setCounter(selectedSeats.size());
 
-            session.setAttribute("seatsWithDiscount", seatsWithDiscount);
-            session.setAttribute("normalSeats", normalSeats);
+            request.getSession().setAttribute("seatsWithDiscount", seatsWithDiscount);
+            request.getSession().setAttribute("normalSeats", normalSeats);
 
             return "redirect:/reduction";
         }catch (Exception e){

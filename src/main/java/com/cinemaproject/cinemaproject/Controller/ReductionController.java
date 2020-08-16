@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Kontroler podstrony z wyborem ilości biletów ulgowych.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class ReductionController {
 
@@ -27,10 +33,12 @@ public class ReductionController {
     private ApplicationContext context;
 
     /**
-     * Metoda nawigująca do strony z wyborem ilości biletów ulgowych.
-     * @author Marcin&Rafał
-     * @param model obiekt przechowujący atrybuty: liczba miejsc ze zniżką, liczba miejsc normalnych.
-     * @return Odnośnik do podstrony z wyborem miejsc na sali kinowej.
+     * Metoda nawigująca do podstrony z wyborem ilości biletów ulgowych.
+     * Po pobraniu informacji o ilości biletów normalnych z obiektu sesji zostają one ustawione jako atrybuty sesji i modelu
+     * @author Marcin Pietroń
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
+     * @return Odnośnik do podstrony z wyborem ilości biletów ulgowych.
      */
     @GetMapping("/reduction")
     public String getReduction(Model model, HttpSession session){
@@ -57,11 +65,12 @@ public class ReductionController {
     }
 
     /**
-     * Metoda ustawiająca liczbę biletów ulgowych i normalnych według użytkownika.
-     * Do metody przekazywany jest parametr definiujący, czy należy zwiększyć liczbę biletów ulgowych, czy normalnych
-     * Następnie jeżeli liczba biletów wybranej kategorii nie przekracza liczby wybranych miejsc dodawany jest kolejny bilet i odejmowany ten drugi.
-     * @author Marcin&Rafał
+     * Metoda obsługująca wybór liczby biletów ulgowych i normalnych według użytkownika.
+     * Po pobraniu potrzebnych informacji z sesji, w zależności od wyboru użytkownika zwiększa się liczba biletów ulgowych lub normalnych.
+     * Następnie informacje te ustawiane są jako atrybuty sesji.
+     * @author Marcin Pietroń
      * @param discount obiekt przechowujący identyfikator wybranego przez użytkownika seansu.
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony z wyborem liczby biletów ulgowych.
      */
     @PostMapping(value = "/setReduction")
@@ -73,14 +82,12 @@ public class ReductionController {
 
             if(discount.equals("1")){
                 if(normalSeats.getCounter() == (selectedSeats.size())){
-                    System.out.println("cokolwiek");
                 }else{
                     normalSeats.increment();
                     seatsWithDiscount.decrement();
                 }
             }else if (discount.equals("2")){
                 if(seatsWithDiscount.getCounter() == (selectedSeats.size())){
-                    System.out.println("cokolwiek");
                 }else{
                     normalSeats.decrement();
                     seatsWithDiscount.increment();
@@ -96,13 +103,13 @@ public class ReductionController {
     }
 
     /**
-     * Metoda zapisująca do bazy wszystkie informacje na temat dokonanej rezerwacji.
-     * Najpierw zapisywany jest obiekt rezerwacji.
-     * Następnie obiektom zarezerwowanych miejsc przypisywany jest token jednolity dla nich i samej rezerwacji.
-     * Następnie wybranej przez użytkownika liczbie zarezerwowanych miejsc przypisywana jest ulga.
-     * Na końcu lista zarezerwowanych miejsc jest zapisywana do bazy danych.
-     * @author Marcin&Rafał
-     * @return Odnośnik do podstrony końcowej.
+     * Metoda obsługująca zapis do bazy wszystkich informacji na temat dokonanej rezerwacji.
+     * Po pobraniu wszystkich niezbędnych informacji z sesji do bazy zapisywane są informacje o rezerwacji.
+     * Następnie kod rezerwacji jest przypisywany do zarezerwowanych miejsc oraz określona przez użytkownika ilość miejsc jest kategoryzowana jako objęte zniżką lub nie.
+     * Na kończu informacje o zarezerwowanych miejscach na sali kinowej zapisywane są w bazie danych,
+     * @author Marcin Pietroń
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
+     * @return Odnośnik do podstrony podsumowującej rezerwację.
      */
     @PostMapping(value = "/reserveSeats")
     public String reserveSeats(HttpServletRequest request){
