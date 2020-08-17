@@ -141,9 +141,9 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 seat.setId((int) row.get("id"));
                 seat.setNumber((int) row.get("number"));
                 seat.setCinemahallid((int) row.get("cinemahallid"));
-                seat.setNormlprice((double) row.get("normalprice"));
+                seat.setNormalprice((double) row.get("normalprice"));
                 seat.setReducedprice((double) row.get("reducedprice"));
-                seat.setRow((int) row.get("line"));
+                seat.setLine((int) row.get("line"));
                 result.add(seat);
             }
             return result;
@@ -366,7 +366,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                     seat.setId(rs.getInt("id"));
                     seat.setNumber(rs.getInt("number"));
                     seat.setCinemahallid(rs.getInt("cinemahallid"));
-                    seat.setNormlprice(rs.getDouble("normalprice"));
+                    seat.setNormalprice(rs.getDouble("normalprice"));
                     seat.setReducedprice(rs.getDouble("reducedprice"));
                     seat.setLine(rs.getInt("line"));
                     return seat;
