@@ -1,0 +1,99 @@
+body
+{
+    background-color: lightgrey ;
+    color: black;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+}
+
+#container
+{
+    width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rectangle
+{
+    width: 1760px;
+    margin: 20px;
+    text-align: center;
+}
+
+.square
+{
+    width: 50%;
+    float: left;
+}
+
+#logo
+{
+    float: left;
+    font-family: 'Rowdies', cursive;
+    font-size: 80px;
+    width: 1200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#zegar
+{
+    float: left;
+    font-family: 'Rowdies', cursive;
+    font-size: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+
+}
+
+.tile1
+{
+    margin: 10px;
+    width: 350px;
+    height: 350px;
+    background-color: chartreuse;
+    float: left;
+}
+
+.tile2
+{
+    margin: 10px;
+    width: 350px;
+    height: 350px;
+    background-color: rebeccapurple;
+    float: left;
+}
+
+.tile3
+{
+    margin: 10px;
+    width: 350px;
+    height: 350px;
+    background-color: darkblue;
+    float: left;
+}
+
+.tile4
+{
+    margin: 10px;
+    width: 720px;
+    height: 350px;
+    background-color: orange;
+    text-align: center;
+}
+
+.tile4:hover
+{
+    background-color: darkorange;
+}
+
+a.tilelink
+{
+    colot: white;
+    text-decoration: none;
+    display: block;
+    width: 720px;
+    height: 350px;
+}

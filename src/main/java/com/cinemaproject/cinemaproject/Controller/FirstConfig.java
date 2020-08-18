@@ -1,6 +1,6 @@
 package com.cinemaproject.cinemaproject.Controller;
 
-import com.cinemaproject.cinemaproject.Model.*;
+import com.cinemaproject.cinemaproject.Model.AllSeats;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.SessionScope;

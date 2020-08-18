@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
 <html xmlns:th="http://www.thymeleaf.org">
@@ -17,31 +14,40 @@
 <body onload="odliczanie()">
 
 
+
 <div id="container">
 
     <div class = "rectangle">
-        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY <a/></div>
-            <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
-            <div id="zegar"> 12:00:00</div>
-            <div id="kontakt"> Kontakt </div>
-            <div style="clear: both"></div>
+        <div id="logo"> MULTIKOMPLEKS KINOWY </div>
+        <div id="zegar"> 12:00:00</div>
+        <div id="help"> HELP</div>
+        <div style="clear: both"></div>
     </div>
 
 
     <div class = "rectanglePusty">
-        <div class = "tekst"> REZERWACJA ZOSTAŁA ANULOWANA </div>
-        <form th:action="@{/goToStart}" method="post">
-            <button>Wróć na stronę główną</button>
-        </form>
+        <div class = "tekst"> SHREK </div>
+        <div class="tile1">
+            <img src = "image/shrek.jpg" alt="shrek" style="max-width: 200px" />
+        </div>
     </div>
 
     <div class = "rectanglePusty">
-        <div id="giph"> OTO MIEJSCE ...... <img src = "image/adv.gif" alt="logo" style="height:80px"/> NA TWOJĄ REKLAMĘ!  </div>
+        <a href = "FilmListFirst"><div class="tile2">
+            POPRZEDNI FILM
+        </div></a>
+        <a href = "FirstScreen"><div class="tile2">
+            STRONA GŁÓWNA
+        </div></a>
+            <a href = "FilmListFirst"><div class="tile2">
+            NASTĘPNY FILM
+        </div></a>
+        <div style="clear: both"></div>
     </div>
 
 
     <div class = "rectangle">
-        @Strona Rafal&Marcin 2020
+        @Stron kinowa Rafal&Marcin 2020
     </div>
 
 </div>

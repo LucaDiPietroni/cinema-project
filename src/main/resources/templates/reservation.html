@@ -1,16 +1,77 @@
+
+
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
+    <meta charset="UTF-8">
     <title>Title</title>
-    <link href="../static/bootstrap.min.css" rel="stylesheet" th:href="@{bootstrap.min.css}"/>
+
+    <link rel="stylesheet" href="css/styleView.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
 </head>
-<body>
-<form th:action="@{/addRes}" th:object="${userReservation}" method="post">
-    <p>Imię: <input type="text" th:field="*{clientName}" required></p>
-    <p>Nazwisko: <input type="text" th:field="*{clientSecondName}" required></p>
-    <p>Adres e-mail: <input type="email" th:field="*{clientMail}" required></p>
-    <p><input type="submit" value="Dodaj rezerwację"></p>
-</form>
+<body onload="odliczanie()">
+
+
+
+<div id="container">
+
+    <div class = "rectangle">
+        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY <a/></div>
+            <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
+            <div id="zegar"> 12:00:00</div>
+            <div id="kontakt"> Kontakt </div>
+            <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectanglePusty">
+        <div class = "tekst"> UZUPEŁNIJ DANE ABY DOKONAĆ REZERWACJI </div>
+        <div class="tile1">
+         <div   class = "tekst4">
+             <div class = "tileleft">
+        <form th:action="@{/addRes}" th:object="${userReservation}" method="post">
+            <p>Imię: <input type="text" th:field="*{clientName}" required></p>
+            <p>Nazwisko: <input type="text" th:field="*{clientSecondName}" required></p>
+            <p>Adres e-mail: <input type="email" th:field="*{clientMail}" required></p>
+            <p><input type="submit" value="Rezerwuj" class="tile7"></p>
+        </form>
+             </div>
+
+             <div class = "tilecenter">
+
+                 <p th:text="${'Rezerwacja na film: ' }"></p>
+                 <p th:text="'Tytuł filmu: ' "></p>
+                 <p th:text="'Reżyser: ' "></p>
+                 <p th:text="'Gatunek filmu: ' "></p>
+                 <p th:text="'Rok produkcji: ' "></p>
+
+             </div>
+
+             <div class = "tileright">
+                 <div id="obraz"> <img src = "image/PF.png" alt="PF" style="width: 200px"/></div>
+             </div>
+         </div>
+    </div>
+    </div>
+
+    <div style="clear: both"></div>
+
+    <div class = "rectanglePusty">
+        <div id="giph"> OTO MIEJSCE ...... <img src = "image/adv.gif" alt="logo" style="height:80px"/> NA TWOJĄ REKLAMĘ!  </div>
+    </div>
+
+
+    <div class = "rectangle">
+        @Strona Rafal&Marcin 2020
+    </div>
+
+</div>
+
+
 </body>
 </html>

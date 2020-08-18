@@ -1,30 +1,69 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/styleView.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
 </head>
-<body>
+<body onload="odliczanie()">
 
-<form th:action="@{/setDate}" th:object="${newSelectedDate}" method="post">
 
-    <select th:field="*{selectedDate}">
-        <option th:each="oneDate : ${datesOfShowings}"
-                th:value="${oneDate}"
-                th:text="${oneDate.toString()}"></option>
-    </select>
-    <input type="submit" value="Wybierz datę">
+<div id="container">
 
-</form>
+    <div class = "rectangle">
+        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY <a/></div>
+            <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
+            <div id="zegar"> 12:00:00</div>
+            <div id="kontakt"> Kontakt </div>
+            <div style="clear: both"></div>
+    </div>
 
-<table th:each="film: ${filmList}">
-    <tr th:text="${film.getTitle()}"></tr>&nbsp
-<tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
-    <form th:action="@{/setShow}" method="post">
-        <button type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
-        &nbsp
-    </form>
-</tr>
-</table>
+
+    <div class = "rectanglePusty">
+        <div class = "tekst"> WYBIERZ DATĘ ORAZ GODZINĘ SEANSU </div>
+        <div class="tile1">
+        <form th:action="@{/setDate}" th:object="${newSelectedDate}" method="post">
+
+            <select th:field="*{selectedDate}" class="tile6">
+                <option th:each="oneDate : ${datesOfShowings}"
+                        th:value="${oneDate}"
+                        th:text="${oneDate.toString()}"></option>
+            </select>
+            <input type="submit" value="Wybierz datę" class="tile7">
+
+        </form>
+            <div class = "tekst4">
+        <table th:each="film: ${filmList}">
+            <tr th:text="${film.getTitle()}"></tr>&nbsp
+            <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
+                <form th:action="@{/setShow}" method="post">
+                    <button  class="tile5" type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
+                    &nbsp
+                </form>
+            </tr>
+        </table>
+            </div>
+    </div>
+    </div>
+
+    <div class = "rectanglePusty">
+        <div id="giph"> OTO MIEJSCE ...... <img src = "image/adv.gif" alt="logo" style="height:80px"/> NA TWOJĄ REKLAMĘ!  </div>
+    </div>
+
+
+    <div class = "rectangle">
+        @Strona Rafal&Marcin 2020
+    </div>
+
+</div>
+
+
 </body>
 </html>

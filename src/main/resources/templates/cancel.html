@@ -1,25 +1,59 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/styleView.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
 </head>
-<body>
-<p th:text="'Tytuł filmu: ' + ${film.getTitle()}"></p>
-<p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
-<p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
-<p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
-<br/>
-<p th:text="'Data seansu: ' + ${reservedShowing.getDateOfShowing()}"></p>
-<p th:text="'Godzina rozpoczęcia seansu: ' + ${reservedShowing.getTimeOfStart()}"></p>
-<br/>
-<p th:text="'Sala kinowa: ' + ${reservedShowing.getCinemahallid()}"></p>
-<div th:each="reservedSeat : ${reservedSeats}">
-    <a th:text="${'Miejsce: ' + reservedSeat.getNumber() + ' Rząd: ' + reservedSeat.getLine()}"/>
+<body onload="odliczanie()">
+
+
+<div id="container">
+    <div class = "rectangle">
+        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY <a/></div>
+            <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
+            <div id="zegar"> 12:00:00</div>
+            <div id="kontakt"> Kontakt </div>
+            <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectanglePusty">
+        <div class = "tekst"> PROCES ANULOWANIA REZERWACJI </div>
+        <div class="tile1">
+        <p th:text="'Tytuł filmu: ' + ${film.getTitle()}"></p>
+        <p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
+        <p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
+        <p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
+
+        <div th:each="seatToDelete : ${seatsToDelete}">
+            <a th:text="${seatToDelete.getSeatId()}"/>
+        </div>
+
+        <form th:action="@{/deleteReservation}" method="post">
+            <button type="submit">Anuluj rezerwację</button>
+        </form>
+    </div>
+    </div>
+
+    <div class = "rectanglePusty">
+        <div id="giph"> OTO MIEJSCE ...... <img src = "image/adv.gif" alt="logo" style="height:80px"/> NA TWOJĄ REKLAMĘ!  </div>
+    </div>
+
+
+    <div class = "rectangle">
+        @Strona Rafal&Marcin 2020
+    </div>
+
 </div>
 
-<form th:action="@{/deleteReservation}" method="post">
-    <button type="submit">Anuluj rezerwację</button>
-</form>
+
 </body>
 </html>

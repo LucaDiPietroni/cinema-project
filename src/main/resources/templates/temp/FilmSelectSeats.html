@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/styleView.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
+</head>
+<body onload="odliczanie()">
+
+
+
+<div id="container">
+
+    <div class = "rectangle">
+        <div id="logo"> MULTIKOMPLEKS KINOWY </div>
+        <div id="zegar"> 12:00:00</div>
+        <div id="help"> HELP</div>
+        <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectanglePusty">
+        <div class = "tekst"> WYBIERZ MIEJSCA </div>
+        <div class="tile1">
+
+
+
+
+            <a th:text="${reservedShow.getCinemahallid()}"/>
+            <form th:action="@{/addSeat}" method="post">
+                <table>
+                    <tr th:each="seat: ${seats}">
+                        <td th:each="oneSeat:${seat}">
+                            <button type="submit" th:style="${oneSeat.getTaken() == 1 ? 'background-color:red' : (oneSeat.getTaken() == 2 ? 'background-color:yellow' : 'background-color:green')}" name="chosenSeat" th:value="${oneSeat.getId()}" th:text="${oneSeat.getNumber()}"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+            <div th:each="resSeat: ${reservedSeats}">
+                <a th:text="${resSeat.getSeatId()}"/>
+            </div>
+
+            <form th:action="@{/removeSeats}" method="post">
+                <button type="submit" name="remove">Usuń miejsca</button>
+                &nbsp
+            </form>
+            <form th:action="@{/goToReduction}" th:object="${reservedSeats}" method="post">
+                <button type="submit" name="action">Zarezerwuj</button>
+                &nbsp
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+    <div class = "rectanglePusty">
+        <a href = "javascript:history.back();"><div class="tile2">
+            COFNIJ
+        </div></a>
+        <a href = "FirstScreen"><div class="tile2">
+            STRONA GŁÓWNA
+        </div></a>
+        <a href = "FilmListFirst"><div class="tile2">
+            NASTĘPNY FILM
+        </div></a>
+        <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectangle">
+        @Stron kinowa Rafal&Marcin 2020
+    </div>
+
+</div>
+
+
+</body>
+</html>

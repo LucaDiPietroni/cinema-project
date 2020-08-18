@@ -1,18 +1,55 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="css/styleView.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
 </head>
-<body>
+<body onload="odliczanie()">
 
-<a th:text="${!authorizationData.isStatus() ? 'Nie znaleziono takiej rezerwacji!': ''}"></a>
 
-<form th:action="@{/addAuthorization}" th:object="${authorizationData}" method="post">
-    <p>Adres e-mail: <input type="text" th:field="*{email}" required></p>
-    <p>Kod rezerwacji: <input type="text" th:field="*{token}" required></p>
-    <p><input type="submit" value="Znajdź rezerwację"></p>
-</form>
+<div id="container">
+
+    <div class = "rectangle">
+        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY <a/></div>
+            <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
+            <div id="zegar"> 12:00:00</div>
+            <div id="kontakt"> Kontakt </div>
+            <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectanglePusty">
+        <div class = "tekst"> WPISZ DANE ABY ANULOWAĆ REZERWACJĘ </div>
+        <div class="tile1">
+        <a th:text="${!authorizationData.isStatus() ? 'Nie znaleziono takiej rezerwacji!': ''}"></a>
+
+        <form th:action="@{/addAuthorization}" th:object="${authorizationData}" method="post">
+            <p>Adres e-mail: <input type="text" th:field="*{email}" required></p>
+            <p>Kod rezerwacji: <input type="text" th:field="*{token}" required></p>
+            <p><input type="submit" value="Znajdź rezerwację"></p>
+        </form>
+    </div>
+    </div>
+
+    <div class = "rectanglePusty">
+        <div id="giph"> OTO MIEJSCE ...... <img src = "image/adv.gif" alt="logo" style="height:80px"/> NA TWOJĄ REKLAMĘ!  </div>
+    </div>
+
+
+    <div class = "rectangle">
+        @Strona Rafal&Marcin 2020
+    </div>
+
+</div>
+
 
 </body>
 </html>

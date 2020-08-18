@@ -23,35 +23,26 @@
         <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
         <div id="zegar"> 12:00:00</div>
         <div id="kontakt"> Kontakt </div>
-
-
-
         <div style="clear: both"></div>
     </div>
 
 
 
     <div class = "rectanglePusty">
-        <div class = "tekst"> WITAJ WYBIERZ JEDNĄ Z CZYNNOŚCI </div>
+        <div class = "tekst"> AKTUALNE PROMOCJE </div>
         <div class="tile1">
-        <form th:action="@{/goToFilms}" method="post">
-            <button class="tile3">Zarezerwuj miejsca</button>
-        </form>
-        <form th:action="@{/goToCancel}" method="post">
-            <button class="tile3">Anuluj rezerwację</button>
-        </form>
+
+            <div class = "tileProm">
+                <div> <img src = "image/prom1.JPG" alt="prom1" style="height: 400px"/></div>
+            </div>
+
+
+            <div class = "tileProm">
+                <div> <img src = "image/prom2.JPG" alt="prom2" style="height: 400px"/></div>
+            </div>
 
             <div style="clear: both"></div>
 
-
-            <form th:action="@{/goToRepertuar}" method="post">
-                <button class="tile3">Sprawdź repertuar</button>
-            </form>
-            <form th:action="@{/goToPromocje}" method="post">
-                <button class="tile3">Promocje</button>
-            </form>
-
-            <div id="giph"> <img src = "image/giph.gif" alt="logo" style="width: 350px"/></div>
 
         </div>
         </div>
