@@ -47,6 +47,8 @@ public class Film {
      */
     private String production;
 
+    private String image;
+
     public Film(){
 
     }
@@ -193,5 +195,13 @@ public class Film {
      */
     public void setProduction(String production) {
         this.production = production;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

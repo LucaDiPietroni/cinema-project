@@ -85,12 +85,13 @@ public class cancelAuthorizationController {
                 reservationToDelete = operationService.findReservationByMailAndToken(authorizationData.getEmail(),
                         authorizationData.getToken());
                 result = "redirect:/cancel";
-            }catch (EmptyResultDataAccessException e){
+            }catch (Exception e){
                 result = "redirect:/cancelAuthorization";
+                authorizationData = new AuthorizationData();
                 authorizationData.setStatus(false);
             }
 
-            request.getSession().setAttribute("authorizationData", authorizationData);
+            request.getSession().setAttribute("authorizationData", new AuthorizationData());
             request.getSession().setAttribute("reservationToDelete", reservationToDelete);
 
             return result;

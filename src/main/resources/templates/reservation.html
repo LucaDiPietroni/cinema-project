@@ -6,6 +6,7 @@
     <link href="../static/bootstrap.min.css" rel="stylesheet" th:href="@{bootstrap.min.css}"/>
 </head>
 <body>
+<p th:text="${userFilm.getTitle()}"></p>
 <form th:action="@{/addRes}" th:object="${userReservation}" method="post">
     <p>Imię: <input type="text" th:field="*{clientName}" required></p>
     <p>Nazwisko: <input type="text" th:field="*{clientSecondName}" required></p>

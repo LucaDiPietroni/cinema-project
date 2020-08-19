@@ -2,6 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <script type="text/javascript">
+        function preventBack() {window.history.forward();}
+        setTimeout("preventBack()", 0);
+        window.onunload = function () {null};
+    </script>
+
     <title>Title</title>
 </head>
 <body>
@@ -20,6 +27,10 @@
 
 <form th:action="@{/deleteReservation}" method="post">
     <button type="submit">Anuluj rezerwację</button>
+</form>
+
+<form th:action="@{/goToStart}" method="post">
+    <button type="submit">Wróć na stronę główną</button>
 </form>
 </body>
 </html>

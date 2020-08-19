@@ -41,24 +41,17 @@ public class SeatsController {
     public String getSeats(Model model, HttpSession session) {
         try{
             Showing chosenShow = (Showing) session.getAttribute("chosenShow");
-            if(chosenShow == null){
-                chosenShow = new Showing();
-            }
-
             AllSeats seats = (AllSeats) session.getAttribute("seats");
-            if(seats == null){
-                seats = new AllSeats();
+            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
+
+            for (ReservedSeat selecedSeat: selectedSeats) {
+                seats.setSeatsSelected(selecedSeat.getSeatId());
             }
 
             session.setAttribute("seats", seats);
-
             model.addAttribute("chosenShow", chosenShow);
             model.addAttribute("seats", seats);
 
-            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");
-            if(selectedSeats == null){
-                selectedSeats = new ArrayList<ReservedSeat>();
-            }
             session.setAttribute("selectedSeats", selectedSeats);
             model.addAttribute("selectedSeats", selectedSeats);
 
@@ -92,8 +85,6 @@ public class SeatsController {
                 ReservedSeat newReservedSeat = new ReservedSeat();
                 newReservedSeat.setSeatId(id);
                 selectedSeats.add(newReservedSeat);
-
-                seats.setSeatsSelected(id);
             }
             Collections.sort(selectedSeats);
 
@@ -118,9 +109,11 @@ public class SeatsController {
         try{
             List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
             AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
+            Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
 
             selectedSeats.clear();
             seats.setAllSeatsAvailable();
+            seats.setSeatsNotAvailable(chosenShow);
 
             request.getSession().setAttribute("selectedSeats", selectedSeats);
             request.getSession().setAttribute("sests", seats);

@@ -130,4 +130,6 @@ public interface OperationService {
      * @throws Exception Jakikolwiek błąd.
      */
     void deleteReservation(int id) throws Exception;
+
+    List<Film> findAllFilms() throws Exception;
 }
