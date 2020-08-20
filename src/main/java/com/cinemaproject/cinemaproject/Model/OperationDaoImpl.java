@@ -480,6 +480,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                     film.setFilmGenre(rs.getString("filmGenre"));
                     film.setScenarist(rs.getString("scenarist"));
                     film.setProduction(rs.getString("production"));
+                    film.setImage(rs.getString("image"));
 
                     return film;
                 }
