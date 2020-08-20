@@ -111,31 +111,11 @@ public class ReductionController {
      * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony podsumowującej rezerwację.
      */
-    @PostMapping(value = "/reserveSeats")
-    public String reserveSeats(HttpServletRequest request){
+    @PostMapping(value = "/goToSummary")
+    public String goToSummary(){
         try{
-            OperationService filmService = context.getBean(OperationService.class);
 
-            Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
-            List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
-            Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
-
-            filmService.insertReservation(userReservation.getClientName(),
-                    userReservation.getClientSecondName(),
-                    userReservation.getClientMail(),
-                    userReservation.getToken(),
-                    userReservation.getShowingId());
-
-            for (ReservedSeat resSeat : selectedSeats) {
-                resSeat.setToken(userReservation.getToken());
-            }
-
-            for (int i = 0; i < seatsWithDiscount.getCounter(); i++){
-                selectedSeats.get(i).setReduced(true);
-            }
-            filmService.insertReservedSeats(selectedSeats);
-
-            return "redirect:/end";
+            return "redirect:/summary";
         }catch (Exception e){
             return "error";
         }

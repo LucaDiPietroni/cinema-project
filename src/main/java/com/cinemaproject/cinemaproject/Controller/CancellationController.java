@@ -60,17 +60,17 @@ public class CancellationController {
                 reservedSeats.add(seat);
             }
 
-            session.setAttribute("film", film);
-            session.setAttribute("seatsToDelete", seatsToDelete);
-            session.setAttribute("price", price);
-            session.setAttribute("reservedSeats", reservedSeats);
-            session.setAttribute("reservedShowing", reservedShowing);
-
             model.addAttribute("film", film);
             model.addAttribute("seatsToDelete", seatsToDelete);
             model.addAttribute("price", price);
             model.addAttribute("reservedSeats", reservedSeats);
             model.addAttribute("reservedShowing", reservedShowing);
+
+            session.setAttribute("film", null);
+            session.setAttribute("seatsToDelete", null);
+            session.setAttribute("price", null);
+            session.setAttribute("reservedSeats", null);
+            session.setAttribute("reservedShowing", null);
 
             return "cancel";
         }catch (Exception e){

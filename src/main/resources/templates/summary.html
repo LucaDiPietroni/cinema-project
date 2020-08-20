@@ -4,7 +4,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
     <title>Title</title>
 
     <link rel="stylesheet" href="css/styleView.css" type="text/css" />
@@ -13,6 +13,7 @@
     <script src="css/timer.js"></script>
 </head>
 <body onload="odliczanie()">
+
 
 
 <div id="container">
@@ -26,20 +27,40 @@
     </div>
 
 
+
     <div class = "rectanglePusty">
-        <div class = "tekst"> DZIĘKUJEMY ZA REZERWACJĘ MIEJSC </div>
+        <div class = "tekst"> PODSUMOWANIE REZERWACJI </div>
         <div class="tile1">
-            <div class="tekst4">
+            <div   class = "tekst4">
 
-            <p th:text="${'Kod rezerwacji: ' + userReservation.getToken()}"></p>
-            </div>
+                <div class = "tileleft">
+                    <p th:text="${'Rezerwacja na film: ' + selectedFilm.getTitle()}"></p>
+                    <p th:text="${'Data: ' + selectedDate.getSelectedDate()}"></p>
+                    <p th:text="${'Godzina: ' + chosenShow.getTimeOfStart().toString()}"></p>
+                    <p th:text="${'Cena: ' + price + ' zł '}"></p>
+                </div>
 
-            <form th:action="@{/goToStart}" method="post">
-                    <button class="tile7">POWRÓT</button>
+
+                <div class = "tileleft">
+                    <p th:text="${'Sala ' + chosenShow.getCinemahallid()}"></p>
+                    <div th:each="oneSeat : ${seatsSelectedByUser}">
+                        <p th:text="${'Miejsce: ' + oneSeat.getNumber() + ' Rząd: ' + oneSeat.getLine()}"></p>
+                    </div>
+                </div>
+
+
+                <div class = "tileright">
+                    <div> <img th:src="@{${selectedFilm.getImage()}}" style="height: 250px"/></div>
+                </div>
+
+                <div style="clear: both"></div>
+
+            <form th:action="@{/confirmReservation}" method="post">
+                <button class="tile7">Potwierdź rezerwację</button>
+            </form>
+
+        </div>
     </div>
-    </div>
-
-
 
 
     <div class = "rectanglePusty">
@@ -48,7 +69,6 @@
         <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div style="clear: both"></div>
     </div>
-
 
     <div class = "rectangle">
         @Strona Rafal&Marcin 2020
