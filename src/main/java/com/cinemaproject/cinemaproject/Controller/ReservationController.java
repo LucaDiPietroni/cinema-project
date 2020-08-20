@@ -54,9 +54,15 @@ public class ReservationController {
                 userReservation = new Reservation();
             }
 
+            Showing chosenShow = (Showing) session.getAttribute("chosenShow");
+            OperationService operationService = context.getBean(OperationService.class);
+            Film userFilm = operationService.findFilmById(chosenShow.getFilmid());
+            model.addAttribute("userFilm",userFilm);
+
             model.addAttribute("userReservation", userReservation);
             return "reservation";
         }catch (Exception e){
+            e.printStackTrace();
             return "error";
         }
     }

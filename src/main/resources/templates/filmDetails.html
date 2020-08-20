@@ -4,7 +4,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
+    <meta charset="UTF-8">
     <title>Title</title>
 
     <link rel="stylesheet" href="css/styleView.css" type="text/css" />
@@ -13,6 +13,7 @@
     <script src="css/timer.js"></script>
 </head>
 <body onload="odliczanie()">
+
 
 
 <div id="container">
@@ -27,31 +28,17 @@
 
 
     <div class = "rectanglePusty">
-        <div class = "tekst"> WYBIERZ DATĘ ORAZ GODZINĘ SEANSU </div>
+        <div class = "tekst"> INFORMACJE O FILMIE </div>
         <div class="tile1">
-        <form th:action="@{/setDate}" th:object="${newSelectedDate}" method="post">
 
-            <select th:field="*{selectedDate}" class="tile6">
-                <option th:each="oneDate : ${datesOfShowings}"
-                        th:value="${oneDate}"
-                        th:text="${oneDate.toString()}"></option>
-            </select>
-            <input type="submit" value="Wybierz datę" class="tile7">
 
-        </form>
-            <div class = "tekst4">
-        <table th:each="film: ${filmList}">
-            <tr th:text="${film.getTitle()}"></tr>&nbsp
-            <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
-                <form th:action="@{/setShow}" method="post">
-                    <button  class="tile5" type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
-                    &nbsp
-                </form>
-            </tr>
-        </table>
-            </div>
+            <p th:text="${'Film: ' + userFilm.getTitle() }"></p>
+
+
+
+        </div>
     </div>
-    </div>
+
 
     <div class = "rectanglePusty">
         <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>

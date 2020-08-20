@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Serwis implemetujący interfejs obsługujący moduł DAO.
@@ -185,4 +183,8 @@ public class OperationServiceImpl implements OperationService {
      */
     @Override
     public void deleteReservation(int id) throws Exception {operationDao.deleteReservation(id);}
+
+    @Override
+    public List<Film> findAllFilms() throws Exception{return operationDao.findAllFilms();}
+
 }

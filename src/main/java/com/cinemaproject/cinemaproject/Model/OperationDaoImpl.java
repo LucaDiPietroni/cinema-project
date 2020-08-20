@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.*;
@@ -69,6 +68,8 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 film.setFilmGenre((String) row.get("filmGenre"));
                 film.setScenarist((String) row.get("scenarist"));
                 film.setProduction((String) row.get("production"));
+                film.setImage((String) row.get("image"));
+
                 result.add(film);
             }
             return result;
@@ -480,6 +481,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                     film.setFilmGenre(rs.getString("filmGenre"));
                     film.setScenarist(rs.getString("scenarist"));
                     film.setProduction(rs.getString("production"));
+                    film.setImage(rs.getString("image"));
 
                     return film;
                 }
@@ -509,4 +511,32 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             throw new Exception();
         }
     }
+
+    @Override
+    public List<Film> findAllFilms() throws Exception {
+        try{
+            String sql = "SELECT * FROM \"CinemaMng\".\"Film\"";
+            assert getJdbcTemplate() != null;
+            List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
+            List<Film> result = new ArrayList<Film>();
+            for (Map<String, Object> row : rows) {
+                Film film = new Film();
+                film.setId((int) row.get("id"));
+                film.setTitle((String) row.get("title"));
+                film.setYearOfPremiere((int) row.get("yearOfPremiere"));
+                film.setDirector((String) row.get("director"));
+                film.setMainRole((String) row.get("mainRole"));
+                film.setFilmGenre((String) row.get("filmGenre"));
+                film.setScenarist((String) row.get("scenarist"));
+                film.setProduction((String) row.get("production"));
+                film.setImage((String) row.get("image"));
+                result.add(film);
+            }
+            return result;
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+    }
+
 }

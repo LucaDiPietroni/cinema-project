@@ -47,6 +47,11 @@ public class Film {
      */
     private String production;
 
+    /**
+     * Pole ścieżki do okładki filmu.
+     */
+    private String image;
+
     public Film(){
 
     }
@@ -194,4 +199,18 @@ public class Film {
     public void setProduction(String production) {
         this.production = production;
     }
+
+    /**
+     * Getter pola "production".
+     * @author Marcin Pietroń
+     * @return Link do okładki filmu.
+     */
+    public String getImage() { return image; }
+
+    /**
+     * Setter pola "production".
+     * @author Marcin Pietroń
+     * @param image Nowy link do okładki filmu.
+     */
+    public void setImage(String image) { this.image = image; }
 }

@@ -21,11 +21,11 @@
 <div id="container">
 
     <div class = "rectangle">
-        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY <a/></div>
-            <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
-            <div id="zegar"> 12:00:00</div>
-            <div id="kontakt"> Kontakt </div>
-            <div style="clear: both"></div>
+        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY </div></a>
+        <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
+        <div id="zegar"> 12:00:00</div>
+        <a href = "kontakt" style="text-decoration:none">  <div id="kontakt"> Kontakt </div></a>
+        <div style="clear: both"></div>
     </div>
 
 
@@ -38,22 +38,26 @@
             <p>Imię: <input type="text" th:field="*{clientName}" required></p>
             <p>Nazwisko: <input type="text" th:field="*{clientSecondName}" required></p>
             <p>Adres e-mail: <input type="email" th:field="*{clientMail}" required></p>
-            <p><input type="submit" value="Rezerwuj" class="tile7"></p>
+            <p><input type="submit" value="Zarezerwuj" class="tile7"></p>
         </form>
              </div>
 
              <div class = "tilecenter">
 
-                 <p th:text="${'Rezerwacja na film: ' }"></p>
-                 <p th:text="'Tytuł filmu: ' "></p>
-                 <p th:text="'Reżyser: ' "></p>
-                 <p th:text="'Gatunek filmu: ' "></p>
-                 <p th:text="'Rok produkcji: ' "></p>
+                 <p th:text="${'Film: ' + userFilm.getTitle() }"></p>
+                 <p th:text="${'Główna rola: ' + userFilm.getMainRole() }"></p>
+                 <p th:text="${'Reżyser: ' + userFilm.getDirector() }"></p>
+                 <p th:text="${'Scenarzysta: ' + userFilm.getScenarist() }"></p>
+                 <p th:text="${'Gatunek: ' + userFilm.getFilmGenre() }"></p>
+                 <p th:text="${'Produkcja: ' + userFilm.getProduction() }"></p>
+                 <p th:text="${'Data premiery: ' + userFilm.getYearOfPremiere() }"></p>
 
              </div>
 
+
              <div class = "tileright">
-                 <div id="obraz"> <img src = "image/PF.png" alt="PF" style="width: 200px"/></div>
+                 <div> <img th:src="@{${userFilm.getImage()}}" style="height: 250px"/></div>
+
              </div>
          </div>
     </div>
@@ -62,7 +66,10 @@
     <div style="clear: both"></div>
 
     <div class = "rectanglePusty">
-        <div id="giph"> OTO MIEJSCE ...... <img src = "image/adv.gif" alt="logo" style="height:80px"/> NA TWOJĄ REKLAMĘ!  </div>
+        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div id="giph3" > Oto miejsce na Twoją reklamę!  </div>
+        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div style="clear: both"></div>
     </div>
 
 

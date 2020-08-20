@@ -141,4 +141,6 @@ public interface OperationDao {
      */
     void deleteReservation(int id) throws Exception;
 
+    List<Film> findAllFilms() throws Exception;
+
 }
