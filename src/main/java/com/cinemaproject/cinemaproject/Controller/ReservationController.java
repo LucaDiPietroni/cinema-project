@@ -62,6 +62,7 @@ public class ReservationController {
             model.addAttribute("userReservation", userReservation);
             return "reservation";
         }catch (Exception e){
+            e.printStackTrace();
             return "error";
         }
     }

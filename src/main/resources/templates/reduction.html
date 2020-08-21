@@ -1,29 +1,74 @@
+
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
-<form th:action="@{/setReduction}" method="post">
-    <table>
-        <tr>
-            <td>Bilety normalne: </td>
-            <td><button th:text="${normalSeats.getCounter()}"/></td>
-            <td><button type="submit" name="discount" th:value="${1}">+</button></td>
-        </tr>
-        <tr>
-            <td>Bilety ulgowe: </td>
-            <td><button th:text="${seatsWithDiscount.getCounter()}"/></td>
-            <td><button type="submit" name="discount" th:value="${2}">+</button></td>
-        </tr>
-    </table>
-</form>
 
-<form th:action="@{/goToSummary}" method="post">
-    <button type="submit" name="action">Zarezerwuj</button>
-    &nbsp
-</form>
+    <link rel="stylesheet" href="css/styleView.css" type="text/css" />
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
+    <script src="css/timer.js"></script>
+</head>
+<body onload="odliczanie()">
+
+
+
+<div id="container">
+
+    <div class = "rectangle">
+        <a href = "/" style="text-decoration:none">  <div id="logo"> MULTIKOMPLEKS KINOWY </div></a>
+        <div id="logoObraz"> <img src = "image/giphlogo.gif" alt="logo" style="max-width: 90px"/></div>
+        <div id="zegar"> 12:00:00</div>
+        <a href = "kontakt" style="text-decoration:none">  <div id="kontakt"> Kontakt </div></a>
+        <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectanglePusty">
+        <div class = "tekst"> WYBIERZ RODZAJ BILETÓW </div>
+        <div class="tile1">
+        <form th:action="@{/setReduction}" method="post">
+            <table>
+                <tr>
+
+                    <td><div class = "tekst4">Bilety normalne: </div></td>
+                    <td><button class="tile7" th:text="${normalSeats.getCounter()}"/></td>
+                    <td><button class="tile7" type="submit" name="discount" th:value="${1}">+</button></td>
+
+                </tr>
+                <tr>
+                    <td><div class = "tekst4">Bilety ulgowe: </div></td>
+                    <td><button class="tile7" th:text="${seatsWithDiscount.getCounter()}"/></td>
+                    <td><button class="tile7" type="submit" name="discount" th:value="${2}">+</button></td>
+                </tr>
+            </table>
+        </form>
+
+        <form th:action="@{/goToSummary}" method="post">
+            <button class="tile7" type="submit" name="action">Zarezerwuj</button>
+            &nbsp
+        </form>
+    </div>
+    </div>
+
+    <div class = "rectanglePusty">
+        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div id="giph3" > Oto miejsce na Twoją reklamę!  </div>
+        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div style="clear: both"></div>
+    </div>
+
+
+    <div class = "rectangle">
+        @Strona Rafal&Marcin 2020
+    </div>
+
+</div>
+
 
 </body>
 </html>

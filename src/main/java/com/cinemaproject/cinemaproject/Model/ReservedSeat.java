@@ -27,6 +27,8 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      */
     private boolean isReduced;
 
+    private int showingId;
+
     public ReservedSeat(){
 
     }
@@ -101,6 +103,14 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      */
     public void setReduced(boolean reduced) {
         isReduced = reduced;
+    }
+
+    public int getShowingId() {
+        return showingId;
+    }
+
+    public void setShowingId(int showingId) {
+        this.showingId = showingId;
     }
 
     /**

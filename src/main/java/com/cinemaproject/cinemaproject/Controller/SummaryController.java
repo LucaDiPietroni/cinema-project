@@ -30,6 +30,9 @@ public class SummaryController {
     @Autowired
     private ApplicationContext context;
 
+    @Autowired
+    private FullReservationService fullReservationService;
+
     /**
      * Metoda nawigująca do podstrony z podsumowaniem dokonanej rezerwacji.
      * Po pobraniu wszystkich potrzebnych informacji z obiektu sesji pobierane są z bazy dane o filmie.
@@ -78,17 +81,9 @@ public class SummaryController {
     @PostMapping("/confirmReservation")
     public String confirmReservation(HttpServletRequest request){
         try{
-            OperationService operationService = context.getBean(OperationService.class);
-
             Reservation userReservation = (Reservation) request.getSession().getAttribute("userReservation");
             List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
             Counter seatsWithDiscount = (Counter) request.getSession().getAttribute("seatsWithDiscount");
-
-            operationService.insertReservation(userReservation.getClientName(),
-                    userReservation.getClientSecondName(),
-                    userReservation.getClientMail(),
-                    userReservation.getToken(),
-                    userReservation.getShowingId());
 
             for (ReservedSeat resSeat : selectedSeats) {
                 resSeat.setToken(userReservation.getToken());
@@ -97,7 +92,8 @@ public class SummaryController {
             for (int i = 0; i < seatsWithDiscount.getCounter(); i++){
                 selectedSeats.get(i).setReduced(true);
             }
-            operationService.insertReservedSeats(selectedSeats);
+
+            fullReservationService.makeFullReservation(userReservation, selectedSeats);
 
             request.getSession().setAttribute("selectedDate", null);
             request.getSession().setAttribute("chosenShow", null);

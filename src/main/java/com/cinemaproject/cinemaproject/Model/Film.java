@@ -47,6 +47,9 @@ public class Film {
      */
     private String production;
 
+    /**
+     * Pole ścieżki do okładki filmu.
+     */
     private String image;
 
     public Film(){

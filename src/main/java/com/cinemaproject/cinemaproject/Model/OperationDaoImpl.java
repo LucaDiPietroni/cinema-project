@@ -223,8 +223,8 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     public void insertReservedSeats(List<ReservedSeat> rSeatList) throws Exception {
         try{
             String sql = "INSERT INTO \"CinemaMng\".\"ReservedSeat\" \n" +
-                    "(token, seatid, isreduced)\n" +
-                    "VALUES (?, ?, ?)";
+                    "(token, seatid, isreduced, showingid)\n" +
+                    "VALUES (?, ?, ?, ?)";
 
             getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
                 public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -232,6 +232,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                     ps.setString(1, rSeat.getToken());
                     ps.setInt(2, rSeat.getSeatId());
                     ps.setBoolean(3, rSeat.isReduced());
+                    ps.setInt(4, rSeat.getShowingId());
                 }
 
                 @Override
@@ -442,6 +443,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 reservedSeat.setSeatId((int) row.get("seatid"));
                 reservedSeat.setReduced((boolean) row.get("isreduced"));
                 reservedSeat.setToken((String) row.get("token"));
+                reservedSeat.setShowingId((int) row.get("showingid"));
 
                 result.add(reservedSeat);
             }

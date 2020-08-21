@@ -15,6 +15,7 @@
 <body onload="odliczanie()">
 
 
+
 <div id="container">
 
     <div class = "rectangle">
@@ -26,32 +27,18 @@
     </div>
 
 
+
     <div class = "rectanglePusty">
-        <div class = "tekst"> WYBIERZ DATĘ ORAZ GODZINĘ SEANSU </div>
+        <div class = "tekst"> KONTAKT  Z KINEM </div>
         <div class="tile1">
-        <form th:action="@{/setDate}" th:object="${newSelectedDate}" method="post">
 
-            <select th:field="*{selectedDate}" class="tile6">
-                <option th:each="oneDate : ${datesOfShowings}"
-                        th:value="${oneDate}"
-                        th:text="${oneDate.toString()}"></option>
-            </select>
-            <input type="submit" value="Wybierz datę" class="tile7">
+            <div class = "tekst4"> Numer telefonu: 777 777 777</div>
+            <div class = "tekst4"> Adres: ul.Kinowa 999 </div>
+            <div class = "tekst4"> Mail: kino@kino.pl </div>
 
-        </form>
-            <div class = "tekst4">
-        <table th:each="film: ${filmList}">
-            <tr th:text="${film.getTitle()}"></tr>&nbsp
-            <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
-                <form th:action="@{/setShow}" method="post">
-                    <button  class="tile5" type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
-                    &nbsp
-                </form>
-            </tr>
-        </table>
-            </div>
-    </div>
-    </div>
+        </div>
+        </div>
+
 
     <div class = "rectanglePusty">
         <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
@@ -59,7 +46,6 @@
         <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div style="clear: both"></div>
     </div>
-
 
     <div class = "rectangle">
         @Strona Rafal&Marcin 2020

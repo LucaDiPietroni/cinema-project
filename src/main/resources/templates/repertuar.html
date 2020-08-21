@@ -15,6 +15,7 @@
 <body onload="odliczanie()">
 
 
+
 <div id="container">
 
     <div class = "rectangle">
@@ -26,32 +27,29 @@
     </div>
 
 
+
     <div class = "rectanglePusty">
-        <div class = "tekst"> WYBIERZ DATĘ ORAZ GODZINĘ SEANSU </div>
+        <div class = "tekst"> AKTUALNY REPERTUAR </div>
         <div class="tile1">
-        <form th:action="@{/setDate}" th:object="${newSelectedDate}" method="post">
 
-            <select th:field="*{selectedDate}" class="tile6">
-                <option th:each="oneDate : ${datesOfShowings}"
-                        th:value="${oneDate}"
-                        th:text="${oneDate.toString()}"></option>
-            </select>
-            <input type="submit" value="Wybierz datę" class="tile7">
-
-        </form>
-            <div class = "tekst4">
-        <table th:each="film: ${filmList}">
-            <tr th:text="${film.getTitle()}"></tr>&nbsp
-            <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
-                <form th:action="@{/setShow}" method="post">
-                    <button  class="tile5" type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
-                    &nbsp
-                </form>
-            </tr>
-        </table>
+<!--
+            <div class = "tileObraz" th:each="film:${allFilms}">
+                <div> <img th:src="@{${film.getImage()}}" style="height: 180px"/></div>
+                <p th:text="${ film.getTitle() }"></p>
             </div>
-    </div>
-    </div>
+-->
+            <form th:action="@{/goToFilmDetails}" method="post">
+            <div class = "tileObraz" th:each="film:${allFilms}">
+                <div> <button type="submit" name="selectedShow"> <img th:src="@{${film.getImage()}}" style="height: 180px"/> </button> </div>
+                <p th:text="${ film.getTitle() }"></p>
+            </div>
+            </form>
+
+
+        </div>
+        </div>
+
+
 
     <div class = "rectanglePusty">
         <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
@@ -59,7 +57,6 @@
         <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div style="clear: both"></div>
     </div>
-
 
     <div class = "rectangle">
         @Strona Rafal&Marcin 2020
