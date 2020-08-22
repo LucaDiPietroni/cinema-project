@@ -56,6 +56,18 @@ public class Film {
 
     }
 
+    public Film(int id, String title, int yearOfPremiere, String director, String mainRole, String filmGenre, String scenarist, String production, String image) {
+        this.id = id;
+        this.title = title;
+        this.yearOfPremiere = yearOfPremiere;
+        this.director = director;
+        this.mainRole = mainRole;
+        this.filmGenre = filmGenre;
+        this.scenarist = scenarist;
+        this.production = production;
+        this.image = image;
+    }
+
     /**
      * Getter pola "id".
      * @author Marcin Pietroń

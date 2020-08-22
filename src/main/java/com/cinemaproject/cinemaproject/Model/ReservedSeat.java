@@ -7,6 +7,13 @@ package com.cinemaproject.cinemaproject.Model;
  */
 public class ReservedSeat implements Comparable<ReservedSeat>{
 
+    public ReservedSeat(int id, String token, int seatId, boolean isReduced) {
+        this.id = id;
+        this.token = token;
+        this.seatId = seatId;
+        this.isReduced = isReduced;
+    }
+
     /**
      * Pole identyfikatora zarezerwowanego miejsca.
      */
@@ -26,6 +33,8 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      * Pole statusu ulgi.
      */
     private boolean isReduced;
+
+    private int showingId;
 
     public ReservedSeat(){
 
@@ -101,6 +110,14 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      */
     public void setReduced(boolean reduced) {
         isReduced = reduced;
+    }
+
+    public int getShowingId() {
+        return showingId;
+    }
+
+    public void setShowingId(int showingId) {
+        this.showingId = showingId;
     }
 
     /**

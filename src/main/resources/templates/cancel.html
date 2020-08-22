@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
     <script src="css/timer.js"></script>
+
+    <script type="text/javascript">
+        function preventBack() {window.history.forward();}
+        setTimeout("preventBack()", 0);
+        window.onunload = function () {null};
+    </script>
+
 </head>
 <body onload="odliczanie()">
 
@@ -27,7 +34,7 @@
 
 
     <div class = "rectanglePusty">
-        <div class = "tekst"> PROCES ANULOWANIA REZERWACJI </div>
+        <div class = "tekst"> INFORMACJE O TWOJEJ REZERWACJI </div>
         <div class="tile1">
             <div   class = "tekst4">
 
@@ -35,16 +42,25 @@
         <p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
         <p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
         <p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
-
+        <p th:text="'Miejsca: ' "></p>
         <div th:each="seatToDelete : ${seatsToDelete}">
             <a th:text="${seatToDelete.getSeatId()}"/>
         </div>
             </div>
 
+
+            <form th:action="@{/goToStart}" method="post">
+                <button class="tile12">Powrót</button>
+            </form>
         <form th:action="@{/deleteReservation}" method="post">
-            <button class="tile7">Anulacja</button>
+            <button class="tile12">Anuluj rezerwację</button>
         </form>
-    </div>
+
+
+            <div style="clear: both"></div>
+
+
+        </div>
     </div>
 
     <div class = "rectanglePusty">

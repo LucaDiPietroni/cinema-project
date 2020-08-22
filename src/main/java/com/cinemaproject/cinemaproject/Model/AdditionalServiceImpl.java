@@ -14,6 +14,13 @@ import java.util.List;
 @Service
 public class AdditionalServiceImpl implements AdditionalService {
 
+    public AdditionalServiceImpl() {
+    }
+
+    public AdditionalServiceImpl(ApplicationContext context) {
+        this.context = context;
+    }
+
     /**
      * Wstrzyknięcie interfejsu ApplicationContext.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.

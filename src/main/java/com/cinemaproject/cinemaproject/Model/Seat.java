@@ -7,6 +7,19 @@ package com.cinemaproject.cinemaproject.Model;
  */
 public class Seat implements Comparable<Seat>{
 
+    public Seat() {
+    }
+
+    public Seat(int id, int number, int cinemahallid, double normalprice, double reducedprice, int line, int taken) {
+        this.id = id;
+        this.number = number;
+        this.cinemahallid = cinemahallid;
+        this.normalprice = normalprice;
+        this.reducedprice = reducedprice;
+        this.line = line;
+        this.taken = taken;
+    }
+
     /**
      * Pole identyfikatora miejsca na sali kinowej.
      */
@@ -42,9 +55,7 @@ public class Seat implements Comparable<Seat>{
      */
     private int taken = 0;
 
-    public Seat(){
 
-    }
 
     /**
      * Getter pola "id".

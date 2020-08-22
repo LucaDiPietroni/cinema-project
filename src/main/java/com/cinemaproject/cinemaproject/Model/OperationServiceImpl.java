@@ -185,5 +185,5 @@ public class OperationServiceImpl implements OperationService {
     public void deleteReservation(int id) throws Exception {operationDao.deleteReservation(id);}
 
     @Override
-    public List<Film> findAllFilms() throws Exception{return operationDao.findAllFilms();}
+    public List<Film> findAllFilms() throws Exception {return operationDao.findAllFilms();}
 }

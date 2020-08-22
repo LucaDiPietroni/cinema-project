@@ -108,7 +108,6 @@ public class ReductionController {
      * Następnie kod rezerwacji jest przypisywany do zarezerwowanych miejsc oraz określona przez użytkownika ilość miejsc jest kategoryzowana jako objęte zniżką lub nie.
      * Na kończu informacje o zarezerwowanych miejscach na sali kinowej zapisywane są w bazie danych,
      * @author Marcin Pietroń
-     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony podsumowującej rezerwację.
      */
     @PostMapping(value = "/goToSummary")

@@ -7,6 +7,15 @@ package com.cinemaproject.cinemaproject.Model;
  */
 public class Reservation {
 
+    public Reservation(int id, String clientName, String clientSecondName, String clientMail, String token, int showingId) {
+        this.id = id;
+        this.clientName = clientName;
+        this.clientSecondName = clientSecondName;
+        this.clientMail = clientMail;
+        this.token = token;
+        this.showingId = showingId;
+    }
+
     /**
      * Pole identyfikatora rezerwacji.
      */

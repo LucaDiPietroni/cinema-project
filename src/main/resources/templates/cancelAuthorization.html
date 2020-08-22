@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
     <script src="css/timer.js"></script>
+    <script type="text/javascript">
+        function preventBack() {window.history.forward();}
+        setTimeout("preventBack()", 0);
+        window.onunload = function () {null};
+    </script>
 </head>
 <body onload="odliczanie()">
 
@@ -27,7 +32,7 @@
 
 
     <div class = "rectanglePusty">
-        <div class = "tekst"> WPISZ DANE ABY ANULOWAĆ REZERWACJĘ </div>
+        <div class = "tekst"> WPISZ DANE SWOJEJ REZERWACJI </div>
         <div class="tile1">
             <div   class = "tekst4">
         <a th:text="${!authorizationData.isStatus() ? 'Nie znaleziono takiej rezerwacji!': ''}"></a>

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,12 +77,14 @@ public class SeatsController {
             int id = Integer.parseInt(selectedSeat);
 
             List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
+            Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
             AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
 
             if(additionalService.isSeatNextTo(selectedSeats, id) && additionalService.isSeatReservedAlready(seats.getSeats(), id)){
                 ReservedSeat newReservedSeat = new ReservedSeat();
                 newReservedSeat.setSeatId(id);
+                newReservedSeat.setShowingId(chosenShow.getId());
                 selectedSeats.add(newReservedSeat);
             }
             Collections.sort(selectedSeats);

@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="css/fontello.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet"/>
     <script src="css/timer.js"></script>
+    <script type="text/javascript">
+        function preventBack() {window.history.forward();}
+        setTimeout("preventBack()", 0);
+        window.onunload = function () {null};
+    </script>
 </head>
 <body onload="odliczanie()">
 
@@ -35,7 +40,7 @@
             <button class="tile3">Zarezerwuj miejsca</button>
         </form>
         <form th:action="@{/goToCancel}" method="post">
-            <button class="tile3">Anuluj rezerwację</button>
+            <button class="tile3">Sprawdź swoją rezerwację</button>
         </form>
 
             <div style="clear: both"></div>

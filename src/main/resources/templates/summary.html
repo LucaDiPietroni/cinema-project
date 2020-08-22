@@ -55,9 +55,13 @@
 
                 <div style="clear: both"></div>
 
+                <form th:action="@{/goToStart}" method="post">
+                    <button class="tile12">Anuluj/Powrót</button>
+                </form>
             <form th:action="@{/confirmReservation}" method="post">
-                <button class="tile7">Potwierdź rezerwację</button>
+                <button class="tile12">Potwierdź rezerwację</button>
             </form>
+                <div style="clear: both"></div>
 
         </div>
     </div>
