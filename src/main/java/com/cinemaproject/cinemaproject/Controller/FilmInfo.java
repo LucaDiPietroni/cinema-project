@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -79,28 +81,14 @@ public class FilmInfo {
         return "redirect:/promocje";
     }
 
-
-    @GetMapping("/filmDetails")
-    public String getFilmDetails(Model model, HttpSession session)
-    {
-        try{
-
-            OperationService operationService = context.getBean(OperationService.class);
-            Showing chosenShow = (Showing) session.getAttribute("chosenShow");
-            Film userFilm = operationService.findFilmById(chosenShow.getFilmid());
-            model.addAttribute("userFilm",userFilm);
-
-
-            return "filmDetails";
-        }
-        catch(Exception e)
-        {
-            return "error";
-        }
-    }
-
     @PostMapping("/goToFilmDetails")
-    public String goToFilmDetails(){
+    public String goToFilmDetails(@RequestParam(value = "displayedFilm") String displayedFilm, HttpServletRequest request) throws Exception {
+        int id = Integer.parseInt(displayedFilm);
+
+        OperationService operationService = context.getBean(OperationService.class);
+        Film selectedDisplayedFilm = operationService.findFilmById(id);
+        request.getSession().setAttribute("selectedDisplayedFilm", selectedDisplayedFilm);
+
         return "redirect:/filmDetails";
     }
 

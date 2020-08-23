@@ -23,8 +23,7 @@ import java.util.Map;
 public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
-     * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
+     *
      */
     @Autowired
     DataSource dataSource;
@@ -541,4 +540,6 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             throw new Exception();
         }
     }
+
+
 }

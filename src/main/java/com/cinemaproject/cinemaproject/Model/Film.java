@@ -53,7 +53,6 @@ public class Film {
     private String image;
 
     public Film(){
-
     }
 
     /**

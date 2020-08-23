@@ -40,7 +40,7 @@
 -->
             <form th:action="@{/goToFilmDetails}" method="post">
             <div class = "tileObraz" th:each="film:${allFilms}">
-                <div> <button type="submit" name="selectedShow"> <img th:src="@{${film.getImage()}}" style="height: 180px"/> </button> </div>
+                <div> <button type="submit" name="displayedFilm" th:value="${film.getId()}"> <img th:src="@{${film.getImage()}}" style="height: 180px"/> </button> </div>
                 <p th:text="${ film.getTitle() }"></p>
             </div>
             </form>
@@ -63,7 +63,6 @@
     </div>
 
 </div>
-
 
 </body>
 </html>
