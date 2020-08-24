@@ -39,7 +39,6 @@ public class FilmsController {
      * Wpierw z obiektu sesji pobierana jest data wybrana przez użytkownika. Jeżeli takowa nie istnieje tworzony jest nowy obiekt wybranej daty.
      * Następnie z bazy danych pobierana jest lista wszystkich dat, gdy odbywają się seanse oraz lista filmów wyświetlanych w wybranym przez użytkownika dniu.
      * Wszystkie niezbędne informacje ustawiane są jako atrybuty modelu.
-     * Kolejno tworzone są atrybuty wyświetlane na stronie HTML i jeden przechowujący informację o wyborze seansu.
      * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
      * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.

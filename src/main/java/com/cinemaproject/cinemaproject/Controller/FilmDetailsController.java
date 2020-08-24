@@ -1,27 +1,30 @@
 package com.cinemaproject.cinemaproject.Controller;
 
 import com.cinemaproject.cinemaproject.Model.Film;
-import com.cinemaproject.cinemaproject.Model.OperationService;
-import com.cinemaproject.cinemaproject.Model.Showing;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Kontroler podstrony ze szczegółowymi informacjami o filmie.
+ * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Controller
 public class FilmDetailsController {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
-     * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
+     * Metoda nawigująca do podstrony ze szczegółowymi informacjami o filmie.
+     * Z obiektu sesji pobierane są informacje o wybranym przez użytkownika filmie.
+     * Następnie zapisywane są one w modelu.
+     * @author Marcin Pietroń
+     * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
+     * @return Odnośnik do podstrony ze szczegółowymi informacjami o filmie.
      */
-    @Autowired
-    private ApplicationContext context;
-
     @GetMapping("/filmDetails")
     public String getFilmDetails(Model model, HttpSession session)
     {

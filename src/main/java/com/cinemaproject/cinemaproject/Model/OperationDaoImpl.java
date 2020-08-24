@@ -17,13 +17,13 @@ import java.util.Map;
 /**
  * Klasa implementująca interfejs DAO obsługujący interakcje z bazą danych.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 @Repository
 public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
 
     /**
-     *
+     * Wstrzyknięcie interfejsu odpowiedzialnego z połączenie z fizycznym źródłem danych.
      */
     @Autowired
     DataSource dataSource;
@@ -512,6 +512,14 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
         }
     }
 
+    /**
+     * Implementacja metody pobierającej z bazy danych listę wszystkich filmów wyświetlanych w kinie.
+     * Po stworzeniu zapytania jest ono wywoływane.
+     * Jego wyniki zapisywane są do wcześniej utworzonego obiektu.
+     * @author Marcin Pietroń
+     * @throws Exception Jakikolwiek błąd.
+     * @return Lista wszystkich filmów wyświetlanych w kinie.
+     */
     @Override
     public List<Film> findAllFilms() throws Exception {
         try{
@@ -540,6 +548,4 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
             throw new Exception();
         }
     }
-
-
 }

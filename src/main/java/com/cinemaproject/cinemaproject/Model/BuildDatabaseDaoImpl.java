@@ -12,11 +12,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/**
+ * Klasa implementująca interfejs DAO obsługującego warunkowe tworzenie bazy danych.
+ * @author Marcin Pietroń
+ * @version 1.0
+ */
 @Repository
 public class BuildDatabaseDaoImpl extends JdbcDaoSupport implements BuildDatabaseDao{
 
     /**
-     *
+     * Wstrzyknięcie interfejsu odpowiedzialnego z połączenie z fizycznym źródłem danych.
      */
     @Autowired
     DataSource dataSource;
@@ -29,7 +34,14 @@ public class BuildDatabaseDaoImpl extends JdbcDaoSupport implements BuildDatabas
         setDataSource(dataSource);
     }
 
-
+    /**
+     * Implementacja metody sprawdzającej istnienie odpowiedniego schematu w bazie danych.
+     * Po utworzeniu zapytania jest ono wywoływane, a jego wynik zostaje zapisany w odpowiednim obiekcie.
+     * Na koniec zwracana jest wartość logiczna przechowywana w odpowiednim obiekcie.
+     * @author Marcin Pietroń
+     * @throws Exception Jakikolwiek błąd.
+     * @return Wartość logiczna "true", jeżeli istnieje schemat o właściwej nazwie lub "false" w przeciwnym wypadku.
+     */
     @Override
     public boolean checkSchema() throws Exception {
         try{
@@ -50,6 +62,13 @@ public class BuildDatabaseDaoImpl extends JdbcDaoSupport implements BuildDatabas
         }
     }
 
+    /**
+     * Implementacja metody tworzącej odpowiedni schemat w bazie danych.
+     * Treść skryptu DDL jest pobierana linijka po linjijce, a następnie wywoływana.
+     * @author Marcin Pietroń
+     * @param file Struktura bazy danych zapisana w formie tekstu w pliku .sql
+     * @throws Exception Jakikolwiek błąd.
+     */
     @Override
     public void createDatabase(File file) throws Exception {
         try(Scanner scanner = new Scanner(file);){

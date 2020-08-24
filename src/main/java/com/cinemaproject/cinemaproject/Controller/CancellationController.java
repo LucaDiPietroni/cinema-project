@@ -16,7 +16,7 @@ import java.util.List;
  * Kontroler podstrony z informacjami o dokonanej rezerwacji.
  * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 @Controller
 public class CancellationController {
@@ -31,7 +31,8 @@ public class CancellationController {
     /**
      * Metoda nawigująca do podstrony z informacjami o dokonanej rezerwacji.
      * Po pobraniu informacji o rezerwacji z obiektu sesji pobierane są z bazy dane o seansie, filmie i zarezerwowanych miejscach.
-     * Następnie obliczana jest cena biletu i wszystkie dane zostają ustawione jako atrybuty sesji i modelu.
+     * Następnie obliczana jest cena biletu i wszystkie dane zostają ustawione jako atrybuty modelu.
+     * Atrybuty sesji zostają wyczyszczone.
      * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
      * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.

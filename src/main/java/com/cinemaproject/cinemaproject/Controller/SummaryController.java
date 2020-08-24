@@ -78,6 +78,15 @@ public class SummaryController {
         }
     }
 
+    /**
+     * Metoda obsługująca zapis do bazy wszystkich informacji na temat dokonanej rezerwacji.
+     * Po pobraniu wszystkich niezbędnych informacji z sesji, każdemu zarezerwowanemu miejscu przypisywany jest kod rezerwacji.
+     * Następnie określona przez użytkownika ilość miejsc jest kategoryzowana jako objęte zniżką lub nie.
+     * Kolejno wszystkie informacje zostają zapisane w bazie, a atrybuty sesji zostają wyczyszczone.
+     * @author Marcin Pietroń
+     * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
+     * @return Odnośnik do podstrony z zakończeniem rezerwacji.
+     */
     @PostMapping("/confirmReservation")
     public String confirmReservation(HttpServletRequest request){
         try{

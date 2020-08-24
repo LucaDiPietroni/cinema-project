@@ -14,12 +14,6 @@ import org.springframework.web.context.annotation.SessionScope;
 @Configuration
 public class FirstConfig {
 
-//    @Bean
-//    @SessionScope
-//    public Reservation reservation(){
-//        return new Reservation();
-//    }
-
     /**
      * Metoda tworząca obiekt wszystkich miejsc w sali kinowej.
      * @author Marcin Pietroń

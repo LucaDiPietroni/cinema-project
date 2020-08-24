@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Serwis implemetujący interfejs obsługujący metody pomocnicze wspomagające proces rezerwacji miejsc.
+ * Serwis implemetujący interfejs obsługujący metody pomocnicze, które wspomagają proces rezerwacji miejsc.
  * @author Marcin Pietroń
  * @version 1.0
  */
@@ -93,6 +93,8 @@ public class AdditionalServiceImpl implements AdditionalService {
 
     /**
      * Metoda sprawdzająca, czy wybrane przez użytkownika miejsce zostało już zajęte.
+     * Najpierw w obiekcie przechowującym wszystkie miejsca na sali kinowej wyszukiwane jest miejsce wybrane przez użytkownika.
+     * Jeżeli status jego dostępności jest równy 1 - "niedostępny" zwracana jest wartość "false".
      * @author Marcin Pietroń
      * @param seats Lista wszystkich miejsc na sali kinowej.
      * @param selectedSeatId miejsce wybrane przez użytkownika.
