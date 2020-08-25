@@ -361,6 +361,16 @@ body
     font-size: 20px;
 }
 
+.tilemin
+{
+    float: left;
+    text-align: left;
+    font-weight: bold;
+    padding: 5px;
+    width: 150px;
+    height: 100px;
+    font-size: 20px;
+}
 
 
 .tekst

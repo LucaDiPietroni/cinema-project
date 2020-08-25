@@ -1,11 +1,7 @@
 package com.cinemaproject.cinemaproject.Controller;
 
 import com.cinemaproject.cinemaproject.Model.Counter;
-import com.cinemaproject.cinemaproject.Model.OperationService;
-import com.cinemaproject.cinemaproject.Model.Reservation;
 import com.cinemaproject.cinemaproject.Model.ReservedSeat;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +16,10 @@ import java.util.List;
  * Kontroler podstrony z wyborem ilości biletów ulgowych.
  * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 @Controller
 public class ReductionController {
-
-    /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
-     * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
-     */
-    @Autowired
-    private ApplicationContext context;
 
     /**
      * Metoda nawigująca do podstrony z wyborem ilości biletów ulgowych.

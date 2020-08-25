@@ -3,7 +3,7 @@ package com.cinemaproject.cinemaproject.Model;
 /**
  * Klasa rezerwacji.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 public class ReservedSeat implements Comparable<ReservedSeat>{
 
@@ -34,6 +34,9 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      */
     private boolean isReduced;
 
+    /**
+     * Pole seansu, na który użytkownik rezerwuje miejsca.
+     */
     private int showingId;
 
     public ReservedSeat(){
@@ -112,10 +115,20 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
         isReduced = reduced;
     }
 
+    /**
+     * Getter pola "showingId".
+     * @author Marcin Pietroń
+     * @return Identyfikator seansu, na który użytkownik rezerwuje miejsca.
+     */
     public int getShowingId() {
         return showingId;
     }
 
+    /**
+     * Setter pola "showingId".
+     * @author Marcin Pietroń
+     * @param showingId Nowy identyfikator seansu, na który użytkownik rezerwuje miejsca.
+     */
     public void setShowingId(int showingId) {
         this.showingId = showingId;
     }

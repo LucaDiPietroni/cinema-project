@@ -43,7 +43,6 @@
              </div>
 
              <div class = "tilecenter">
-
                  <p th:text="${'Film: ' + userFilm.getTitle() }"></p>
                  <p th:text="${'Główna rola: ' + userFilm.getMainRole() }"></p>
                  <p th:text="${'Reżyser: ' + userFilm.getDirector() }"></p>
@@ -51,14 +50,12 @@
                  <p th:text="${'Gatunek: ' + userFilm.getFilmGenre() }"></p>
                  <p th:text="${'Produkcja: ' + userFilm.getProduction() }"></p>
                  <p th:text="${'Data premiery: ' + userFilm.getYearOfPremiere() }"></p>
-
              </div>
-
 
              <div class = "tileright">
                  <div> <img th:src="@{${userFilm.getImage()}}" style="height: 250px"/></div>
-
              </div>
+
          </div>
     </div>
     </div>

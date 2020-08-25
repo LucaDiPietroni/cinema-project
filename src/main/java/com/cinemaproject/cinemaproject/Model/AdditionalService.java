@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Interfejs obsługujący metody pomocnicze wspomagające proces rezerwacji miejsc.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 public interface AdditionalService {
 
@@ -15,7 +15,7 @@ public interface AdditionalService {
      * @throws Exception Jakikolwiek błąd.
      * @return Kod rezerwacji złożony z 10 znaków.
      */
-    public String createToken() throws Exception;
+    String createToken() throws Exception;
 
     /**
      * Metoda sprawdzająca, czy miejsce o podanym Id znajduje się obok jednego z wcześniej wybranych miejsc.
@@ -25,7 +25,7 @@ public interface AdditionalService {
      * @throws Exception Jakikolwiek błąd.
      * @return Wartość logiczna "true" jeśli miejsce znajduje się obok któregoś z wcześniej wybranych miejsc lub "false" w innym przypadku.
      */
-    public boolean isSeatNextTo(List<ReservedSeat> reservedSeats, Integer seatNumber) throws Exception;
+    boolean isSeatNextTo(List<ReservedSeat> reservedSeats, Integer seatNumber) throws Exception;
 
     /**
      * Metoda sprawdzająca, czy wybrane przez użytkownika miejsce zostało już zajęte.
@@ -35,5 +35,5 @@ public interface AdditionalService {
      * @throws Exception Jakikolwiek błąd.
      * @return Wartość logiczna "true" jeżeli miejsce nie zostało zajęte lub "false" w przeciwnym przypadku.
      */
-    public boolean isSeatReservedAlready(List<List<Seat>> seats, int selectedSeatId) throws Exception;
+    boolean isSeatReservedAlready(List<List<Seat>> seats, int selectedSeatId) throws Exception;
 }

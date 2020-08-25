@@ -71,4 +71,65 @@ public class FirstController {
         return "redirect:/";
     }
 
+    /**
+     * Metoda nawigująca do podstrony z informacjami kontaktowymi.
+     * @author Marcin&Rafał
+     * @return Odnośnik do podstrony z informacjami kontaktowymi.
+     */
+    @GetMapping("/kontakt")
+    public String getKontakt()
+    {
+        try{
+            return "kontakt";
+        }
+        catch(Exception e)
+        {
+            return "error";
+        }
+    }
+
+//    /**
+//     * Metoda nawigująca do podstrony z informacjami kontaktowymi.
+//     * @author Marcin&Rafał
+//     * @return Odnośnik do podstrony z informacjami kontaktowymi.
+//     */
+//    @PostMapping("/goToKontakt")
+//    public String goToKontakt(){
+//        return "/kontakt";
+//    }
+
+
+//    @GetMapping("/promocje")
+//    public String getPromocje()
+//    {
+//        try{
+//            return "promocje";
+//        }
+//        catch(Exception e)
+//        {
+//            return "error";
+//        }
+//    }
+
+//    /**
+//     * Metoda nawigująca do podstrony z informacjami o promocjach.
+//     * @author Marcin&Rafał
+//     * @return Odnośnik do podstrony z informacjami o promocjach.
+//     */
+//    @PostMapping("/goToPromocje")
+//    public String goToPromocje(){
+//        return "/promocje";
+//    }
+
+    /**
+     * Metoda nawigująca do podstrony z repertuarem kina.
+     * @author Marcin Pietroń
+     * @return Odnośnik do podstrony z repertuarem kina.
+     */
+    @PostMapping("/goToRepertuar")
+    public String goToRepertuar(){
+
+        return "redirect:/repertuar";
+    }
+
 }

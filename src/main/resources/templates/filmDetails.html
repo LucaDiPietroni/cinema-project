@@ -31,13 +31,27 @@
         <div class = "tekst"> INFORMACJE O FILMIE </div>
         <div class="tile1">
 
+            <div class = "tilemin">
+            </div>
+            <div class = "tilecenter">
+                <p th:text="${'Film: ' + selectedDisplayedFilm.getTitle() }"></p>
+                <p th:text="${'Główna rola: ' + selectedDisplayedFilm.getMainRole() }"></p>
+                <p th:text="${'Reżyser: ' + selectedDisplayedFilm.getDirector() }"></p>
+                <p th:text="${'Scenarzysta: ' + selectedDisplayedFilm.getScenarist() }"></p>
+                <p th:text="${'Gatunek: ' + selectedDisplayedFilm.getFilmGenre() }"></p>
+                <p th:text="${'Produkcja: ' + selectedDisplayedFilm.getProduction() }"></p>
+                <p th:text="${'Data premiery: ' + selectedDisplayedFilm.getYearOfPremiere() }"></p>
+            </div>
 
-            <p th:text="${'Film: ' + userFilm.getTitle() }"></p>
-
+            <div class = "tileright">
+                <div> <img th:src="@{${selectedDisplayedFilm.getImage()}}" style="height: 400px"/></div>
+            </div>
 
 
         </div>
     </div>
+
+    <div style="clear: both"></div>
 
 
     <div class = "rectanglePusty">

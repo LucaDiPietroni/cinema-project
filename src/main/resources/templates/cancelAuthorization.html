@@ -35,11 +35,13 @@
         <div class = "tekst"> WPISZ DANE SWOJEJ REZERWACJI </div>
         <div class="tile1">
             <div   class = "tekst4">
+
         <a th:text="${!authorizationData.isStatus() ? 'Nie znaleziono takiej rezerwacji!': ''}"></a>
 
         <form th:action="@{/addAuthorization}" th:object="${authorizationData}" method="post">
             <p>Adres e-mail: <input type="text" th:field="*{email}" required></p>
             <p>Kod rezerwacji: <input type="text" th:field="*{token}" required></p>
+
             <p><input type="submit" class="tile7" value="Znajdź rezerwację"></p>
         </form>
     </div>

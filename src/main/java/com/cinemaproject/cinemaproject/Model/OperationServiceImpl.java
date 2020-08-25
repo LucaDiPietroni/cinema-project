@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Serwis implemetujący interfejs obsługujący moduł DAO.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 @Service
 public class OperationServiceImpl implements OperationService {
@@ -184,6 +184,12 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public void deleteReservation(int id) throws Exception {operationDao.deleteReservation(id);}
 
+    /**
+     * Implementacja metody pobierającej z bazy danych listę wszystkich filmów wyświetlanych w kinie.
+     * @author Marcin Pietroń
+     * @throws Exception Jakikolwiek błąd.
+     * @return Lista wszystkich filmów wyświetlanych w kinie.
+     */
     @Override
     public List<Film> findAllFilms() throws Exception {return operationDao.findAllFilms();}
 }

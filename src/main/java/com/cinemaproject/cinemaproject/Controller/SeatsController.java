@@ -16,7 +16,7 @@ import java.util.List;
  * Kontroler podstrony z wyborem miejsc na sali kinowej.
  * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 @Controller
 public class SeatsController {
@@ -30,6 +30,7 @@ public class SeatsController {
     /**
      * Metoda nawigująca do strony z wyborem miejsc na sali kinowej.
      * Pobierane są informacje o wybranym seansie, wszystkich miejscach na sali kinowej i zajętych miejscach z obiektu sesji.
+     * Ustawiany jest odpowiedni status dostępności zajętych miejsc.
      * Następnie informacje te są ustawiane jako atrybuty obiektów modelu i sesji.
      * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty: wybrany seans oraz lista zarezerwowanych miejsc.
@@ -100,6 +101,7 @@ public class SeatsController {
     /**
      * Metoda obsługująca usuwanie wszystkich zarezerwowane miejsc z listy.
      * Po pobraniu niezbędnych informacji z sesji lista zarezerwowanych miejsc zostaje wyczyszczona, a poszczególne miejsca na sali kinowej tracą status zajętych.
+     * Miejsca niedostępnie otrzymują odpowiedni status.
      * Następnie informacje te zostają ustawione jako atrybuty sesji.
      * @author Marcin Pietroń
      * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.

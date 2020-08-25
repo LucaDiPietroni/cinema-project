@@ -35,13 +35,17 @@ public class ReservationController {
     @Autowired
     private AdditionalService additionalService;
 
+    /**
+     * Obiekt przechowujący zbiór wszystkich miejsc na sali kinowej, na której odbywa się wybrany przez użytkownika seans.
+     */
     @Resource(name = "seats")
     AllSeats seats;
 
     /**
      * Metoda nawigująca do strony z formularzem użytkownika.
-     * Po pobraniu informacji o rezerwacji z obiektu sesji zostają one ustawione jako atrybut modelu.
-     * @author Marcin&Rafał
+     * Po pobraniu informacji o rezerwacji i wybranym seansie pobierane są informacje o wyświetlanym w trakcie seansu filmie.
+     * Następnie informacje o filmie i rezerwacji ustawiane są jako atrybuty modelu.
+     * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
      * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
      * @return Odnośnik do podstrony z formularzem użytkownika.

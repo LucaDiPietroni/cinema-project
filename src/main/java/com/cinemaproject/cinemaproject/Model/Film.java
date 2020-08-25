@@ -3,7 +3,7 @@ package com.cinemaproject.cinemaproject.Model;
 /**
  * Klasa filmu.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 public class Film {
 
@@ -213,16 +213,20 @@ public class Film {
     }
 
     /**
-     * Getter pola "production".
+     * Getter pola "image".
      * @author Marcin Pietroń
-     * @return Link do okładki filmu.
+     * @return Lokalizacja okładki filmu.
      */
-    public String getImage() { return image; }
+    public String getImage() {
+        return image;
+    }
 
     /**
-     * Setter pola "production".
+     * Setter pola "image".
      * @author Marcin Pietroń
-     * @param image Nowy link do okładki filmu.
+     * @param image Nowa lokalizacja okłądki filmu.
      */
-    public void setImage(String image) { this.image = image; }
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

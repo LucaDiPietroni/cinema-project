@@ -62,6 +62,8 @@ public class AllSeats {
 
     /**
      * Metoda zmieniająca status wybranego przez użytkownika miejsca na "zajęte".
+     * Najpierw w zbiorze wszystkich miejsc na sali kinowej wyszukiwane jest miejsce wybrane przez użytkownika.
+     * Następnie status jego dostępności jest zmieniany na 2 - "zajęte".
      * @author Marcin Pietroń
      * @param selectedSeat Miejsce wybrane przez użytkownika.
      * @throws Exception Jakikolwiek błąd.
@@ -85,7 +87,7 @@ public class AllSeats {
      * Metoda zmieniająca status miejsc na sali kinowej w trakcie konkretnego seansu na "niedostępne".
      * Metoda sprawdza na które miejsca na sali kinowej dokonano rezerwacji.
      * Sprawdzanie odbywa się dla każdego miejsca.
-     * Jeżeli w bazie danych zostanie znaleziona rezerwacja na jakieś miejsce w trakcie konkretnego seansu to status miejsca zmienia się na "niedostępne"
+     * Jeżeli w bazie danych zostanie znaleziona rezerwacja na jakieś miejsce w trakcie konkretnego seansu to status miejsca zmienia się na "niedostępne".
      * @author Marcin Pietroń
      * @param reservedShow Seans wybrany przez użytkownika.
      * @throws Exception Jakikolwiek błąd.

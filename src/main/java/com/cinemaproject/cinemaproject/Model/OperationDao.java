@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Interfejs DAO obsługujący interakcje z bazą danych.
  * @author Marcin Pietroń
- * @version 1.0
+ * @version 1.1
  */
 public interface OperationDao {
 
@@ -141,5 +141,11 @@ public interface OperationDao {
      */
     void deleteReservation(int id) throws Exception;
 
+    /**
+     * Metoda pobierająca z bazy danych listę wszystkich filmów wyświetlanych w kinie.
+     * @author Marcin Pietroń
+     * @throws Exception Jakikolwiek błąd.
+     * @return Lista wszystkich filmów wyświetlanych w kinie.
+     */
     List<Film> findAllFilms() throws Exception;
 }
