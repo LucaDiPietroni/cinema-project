@@ -20,6 +20,15 @@ public class Seat implements Comparable<Seat>{
         this.taken = taken;
     }
 
+    public Seat( int number, int cinemahallid, double normalprice, double reducedprice, int line, int taken) {
+        this.number = number;
+        this.cinemahallid = cinemahallid;
+        this.normalprice = normalprice;
+        this.reducedprice = reducedprice;
+        this.line = line;
+        this.taken = taken;
+    }
+
     /**
      * Pole identyfikatora miejsca na sali kinowej.
      */

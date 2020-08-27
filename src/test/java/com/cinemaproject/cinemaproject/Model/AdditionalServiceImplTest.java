@@ -1,147 +1,47 @@
 package com.cinemaproject.cinemaproject.Model;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.context.ApplicationContext;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+@SpringBootTest
 class AdditionalServiceImplTest{
 
-    AdditionalServiceImpl additionalServiceImpl = new AdditionalServiceImpl();
+
+    @Autowired
+    AdditionalService additionalService;
 
 
     @Test
-    void createToken() throws Exception {
-    assertNotEquals(additionalServiceImpl.createToken(), null);
+    void isTokenNull() throws Exception {
+    assertNotEquals(null, additionalService.createToken());
     }
 
     @Test
     void isSeatNextTo() throws Exception {
 
-        List<ReservedSeat> list = new List<ReservedSeat>() {
-            @Override
-            public int size() {
-                return 0;
-            }
+        ReservedSeat reservedSeat1 = new ReservedSeat(1, "ASDFWER", 1, true);
 
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
+        List<ReservedSeat> reservedSeat = new ArrayList<ReservedSeat>() ;
+        reservedSeat.add(reservedSeat1);
 
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<ReservedSeat> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(ReservedSeat reservedSeat) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends ReservedSeat> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends ReservedSeat> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public ReservedSeat get(int index) {
-                return null;
-            }
-
-            @Override
-            public ReservedSeat set(int index, ReservedSeat element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, ReservedSeat element) {
-
-            }
-
-            @Override
-            public ReservedSeat remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<ReservedSeat> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<ReservedSeat> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<ReservedSeat> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-
-        assertFalse(additionalServiceImpl.isSeatNextTo(list,  1));
-
+        assertFalse( additionalService.isSeatNextTo(reservedSeat,1));
     }
 
     @Test
-    void isSeatReservedAlready() {
+    void isSeatReservedAlready() throws Exception {
+
+        Seat seat1 = new Seat(1,1,1,20,40,1,1);
+        List<Seat> seat = new ArrayList<Seat>() ;
+        seat.add(seat1);
+
+        List<List<Seat>> seats = new ArrayList<List<Seat>>() ;
+        seats.add(0,seat);
+
+        assertFalse(additionalService.isSeatReservedAlready( seats ,1));
     }
 }

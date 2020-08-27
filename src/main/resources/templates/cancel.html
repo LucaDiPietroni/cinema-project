@@ -36,18 +36,35 @@
 
     <div class = "rectanglePusty">
         <div class = "tekst"> INFORMACJE O TWOJEJ REZERWACJI </div>
+
+
         <div class="tile1">
             <div   class = "tekst4">
+                <div class = "tileleft">
+                    <p th:text="'Tytuł filmu: ' + ${film.getTitle()}"></p>
+                    <p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
+                    <p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
+                    <p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
+                </div>
 
-        <p th:text="'Tytuł filmu: ' + ${film.getTitle()}"></p>
-        <p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
-        <p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
-        <p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
-        <p th:text="'Miejsca: ' "></p>
-        <div th:each="seatToDelete : ${seatsToDelete}">
-            <a th:text="${seatToDelete.getSeatId()}"/>
+                <div class = "tileleft">
+                    <p th:text="'Sala kinowa: ' "></p>
+                    <p th:text=" ${reservedShowing.getCinemahallid()}"></p>
+                    <p th:text="'Miejsca: ' "></p>
+                    <div th:each="seatToDelete : ${seatsToDelete}">
+                        <a th:text="${seatToDelete.getSeatId()}"/>
+                </div>
+                </div>
+
+                <div class = "tileright">
+                    <div> <img th:src="@{${film.getImage()}}" style="height: 250px"/></div>
+                </div>
+
+
         </div>
-            </div>
+
+
+    <div style="clear: both"></div>
 
 
             <form th:action="@{/goToStart}" method="post">

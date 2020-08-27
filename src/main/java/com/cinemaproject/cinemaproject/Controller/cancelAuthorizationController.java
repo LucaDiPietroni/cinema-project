@@ -90,7 +90,7 @@ public class cancelAuthorizationController {
                 authorizationData.setStatus(false);
             }
 
-            request.getSession().setAttribute("authorizationData", new AuthorizationData());
+            request.getSession().setAttribute("authorizationData", authorizationData);
             request.getSession().setAttribute("reservationToDelete", reservationToDelete);
 
             return result;

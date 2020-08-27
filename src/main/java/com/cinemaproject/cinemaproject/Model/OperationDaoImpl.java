@@ -22,13 +22,6 @@ import java.util.Map;
 @Repository
 public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
 
-    public OperationDaoImpl() {
-    }
-
-    public OperationDaoImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
     /**
      * Wstrzyknięcie interfejsu odpowiedzialnego z połączenie z fizycznym źródłem danych.
      */
