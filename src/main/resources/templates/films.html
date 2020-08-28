@@ -44,7 +44,7 @@
             <tr th:text="${film.getTitle()}"></tr>&nbsp
             <tr th:each="hour: ${Service.findShowingsByDateAndId(film.getId(), newSelectedDate.getSelectedDate().toLocalDate())}">
                 <form th:action="@{/setShow}" method="post">
-                    <button  class="tile5" type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().toString()}"></button>
+                    <button  class="tile5" type="submit" name="selectedShow" th:value="${hour.getId()}" th:text="${hour.getTimeOfStart().getMinutes()==0 ? hour.getTimeOfStart().getHours() + ':00' : hour.getTimeOfStart().getHours() + ':' + hour.getTimeOfStart().getMinutes()}"></button>
                     &nbsp
                 </form>
             </tr>

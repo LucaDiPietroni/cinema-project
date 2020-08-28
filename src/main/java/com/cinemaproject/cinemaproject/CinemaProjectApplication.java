@@ -1,7 +1,7 @@
 package com.cinemaproject.cinemaproject;
 
-import com.cinemaproject.cinemaproject.Model.BuildDatabaseService;
-import com.cinemaproject.cinemaproject.Model.OperationService;
+import com.cinemaproject.cinemaproject.service.BuildDatabaseService;
+import com.cinemaproject.cinemaproject.service.OperationService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

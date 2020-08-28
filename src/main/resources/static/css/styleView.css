@@ -335,7 +335,7 @@ body
     font-weight: bold;
     padding: 5px;
     width: 450px;
-    height: 400px;
+    min-height: 400px;
 }
 
 .tilecenter

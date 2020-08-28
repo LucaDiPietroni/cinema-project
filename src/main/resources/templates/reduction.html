@@ -36,13 +36,13 @@
                 <tr>
 
                     <td><div class = "tekst4">Bilety normalne: </div></td>
-                    <td><button class="tile7" th:text="${normalSeats.getCounter()}"/></td>
+                    <td><button type="button" class="tile7" th:text="${normalSeats.getCounter()}"/></td>
                     <td><button class="tile7" type="submit" name="discount" th:value="${1}">+</button></td>
 
                 </tr>
                 <tr>
                     <td><div class = "tekst4">Bilety ulgowe: </div></td>
-                    <td><button class="tile7" th:text="${seatsWithDiscount.getCounter()}"/></td>
+                    <td><button type="button" class="tile7" th:text="${seatsWithDiscount.getCounter()}"/></td>
                     <td><button class="tile7" type="submit" name="discount" th:value="${2}">+</button></td>
                 </tr>
             </table>

@@ -45,14 +45,16 @@
                     <p th:text="'Reżyser: ' + ${film.getDirector()}"></p>
                     <p th:text="'Gatunek filmu: ' + ${film.getFilmGenre()}"></p>
                     <p th:text="'Rok produkcji: ' + ${film.getYearOfPremiere()}"></p>
+                    <p th:text="${'Cena biletu: ' + price + ' zł'}"></p>
                 </div>
 
                 <div class = "tileleft">
-                    <p th:text="'Sala kinowa: ' "></p>
-                    <p th:text=" ${reservedShowing.getCinemahallid()}"></p>
+                    <p th:text="${'Data seansu: ' + reservedShowing.getDateOfShowing().toString()}"></p>
+                    <p th:text=" ${'Godzina seansu: ' + (reservedShowing.getTimeOfStart().getMinutes()==0 ? reservedShowing.getTimeOfStart().getHours() + ':00' : reservedShowing.getTimeOfStart().getHours() + ':' + reservedShowing.getTimeOfStart().getMinutes())}"></p>
+                    <p th:text="${'Sala kinowa: ' + reservedShowing.getCinemahallid()}"></p>
                     <p th:text="'Miejsca: ' "></p>
-                    <div th:each="seatToDelete : ${seatsToDelete}">
-                        <a th:text="${seatToDelete.getSeatId()}"/>
+                    <div th:each="reservedSeat : ${reservedSeats}">
+                        <a th:text="${'Nr ' + reservedSeat.getNumber() + ' rząd ' + reservedSeat.getLine()}"/>
                 </div>
                 </div>
 
