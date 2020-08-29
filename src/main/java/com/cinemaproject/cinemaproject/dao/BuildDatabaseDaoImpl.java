@@ -1,5 +1,7 @@
-package com.cinemaproject.cinemaproject.model;
+package com.cinemaproject.cinemaproject.dao;
 
+import com.cinemaproject.cinemaproject.dao.BuildDatabaseDao;
+import com.cinemaproject.cinemaproject.model.Exists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -18,7 +20,7 @@ import java.util.Scanner;
  * @version 1.0
  */
 @Repository
-public class BuildDatabaseDaoImpl extends JdbcDaoSupport implements BuildDatabaseDao{
+public class BuildDatabaseDaoImpl extends JdbcDaoSupport implements BuildDatabaseDao {
 
     /**
      * Wstrzyknięcie interfejsu odpowiedzialnego z połączenie z fizycznym źródłem danych.

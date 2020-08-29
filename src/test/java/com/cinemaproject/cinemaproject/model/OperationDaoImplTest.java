@@ -1,5 +1,6 @@
 package com.cinemaproject.cinemaproject.model;
 
+import com.cinemaproject.cinemaproject.dao.OperationDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,7 +58,6 @@ class OperationDaoImplTest {
     @Test
     void insertReservation() throws Exception {
        // op.insertReservation("Joe", "Smith", "js@g.com","ASDFQWER", 1);
-
     }
 
     @Test

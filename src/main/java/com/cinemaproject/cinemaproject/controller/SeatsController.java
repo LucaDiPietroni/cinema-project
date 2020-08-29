@@ -86,7 +86,6 @@ public class SeatsController {
             if(additionalService.isSeatNextTo(selectedSeats, id) && additionalService.isSeatReservedAlready(seats.getSeats(), id)){
                 ReservedSeat newReservedSeat = new ReservedSeat();
                 newReservedSeat.setSeatId(id);
-                newReservedSeat.setShowingId(chosenShow.getId());
                 selectedSeats.add(newReservedSeat);
             }
             Collections.sort(selectedSeats);

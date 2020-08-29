@@ -14,8 +14,6 @@ public class Seat implements Comparable<Seat>{
         this.id = id;
         this.number = number;
         this.cinemahallid = cinemahallid;
-        this.normalprice = normalprice;
-        this.reducedprice = reducedprice;
         this.line = line;
         this.taken = taken;
     }
@@ -23,8 +21,6 @@ public class Seat implements Comparable<Seat>{
     public Seat( int number, int cinemahallid, double normalprice, double reducedprice, int line, int taken) {
         this.number = number;
         this.cinemahallid = cinemahallid;
-        this.normalprice = normalprice;
-        this.reducedprice = reducedprice;
         this.line = line;
         this.taken = taken;
     }
@@ -43,16 +39,6 @@ public class Seat implements Comparable<Seat>{
      * Pole identyfikatora sali kinowej.
      */
     private int cinemahallid;
-
-    /**
-     * Pole wartości pełnej ceny za miejsce.
-     */
-    private double normalprice;
-
-    /**
-     * Pole wartości ulgowej ceny za miejsce.
-     */
-    private double reducedprice;
 
     /**
      * Pole numeru rzędu.
@@ -118,42 +104,6 @@ public class Seat implements Comparable<Seat>{
      */
     public void setCinemahallid(int cinemahallid) {
         this.cinemahallid = cinemahallid;
-    }
-
-    /**
-     * Getter pola "normalprice".
-     * @author Marcin Pietroń
-     * @return Wartość pełnej ceny za miejsce.
-     */
-    public double getNormalprice() {
-        return normalprice;
-    }
-
-    /**
-     * Setter pola "normlprice".
-     * @author Marcin Pietroń
-     * @param normalprice Nowa wartość pełnej ceny za miejsce na sali kinowej.
-     */
-    public void setNormalprice(double normalprice) {
-        this.normalprice = normalprice;
-    }
-
-    /**
-     * Getter pola "reducedprice".
-     * @author Marcin Pietroń
-     * @return Wartość ulgowej ceny za miejsce.
-     */
-    public double getReducedprice() {
-        return reducedprice;
-    }
-
-    /**
-     * Setter pola "reducedprice".
-     * @author Marcin Pietroń
-     * @param reducedprice Nowa wartość ulgowej ceny za miejsce na sali kinowej.
-     */
-    public void setReducedprice(double reducedprice) {
-        this.reducedprice = reducedprice;
     }
 
     /**

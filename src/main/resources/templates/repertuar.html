@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" http-equiv="Cache-control" content="no-cache">
@@ -32,12 +31,6 @@
         <div class = "tekst"> AKTUALNY REPERTUAR </div>
         <div class="tile1">
 
-<!--
-            <div class = "tileObraz" th:each="film:${allFilms}">
-                <div> <img th:src="@{${film.getImage()}}" style="height: 180px"/></div>
-                <p th:text="${ film.getTitle() }"></p>
-            </div>
--->
             <form th:action="@{/goToFilmDetails}" method="post">
             <div class = "tileObraz" th:each="film:${allFilms}">
                 <div> <button type="submit" name="displayedFilm" th:value="${film.getId()}"> <img th:src="@{${film.getImage()}}" style="height: 180px"/> </button> </div>
@@ -52,9 +45,9 @@
 
 
     <div class = "rectanglePusty">
-        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div class="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div id="giph3" > Oto miejsce na Twoją reklamę!  </div>
-        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div class="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div style="clear: both"></div>
     </div>
 

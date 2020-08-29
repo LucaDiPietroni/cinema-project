@@ -34,11 +34,6 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      */
     private boolean isReduced;
 
-    /**
-     * Pole seansu, na który użytkownik rezerwuje miejsca.
-     */
-    private int showingId;
-
     public ReservedSeat(){
 
     }
@@ -113,24 +108,6 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
      */
     public void setReduced(boolean reduced) {
         isReduced = reduced;
-    }
-
-    /**
-     * Getter pola "showingId".
-     * @author Marcin Pietroń
-     * @return Identyfikator seansu, na który użytkownik rezerwuje miejsca.
-     */
-    public int getShowingId() {
-        return showingId;
-    }
-
-    /**
-     * Setter pola "showingId".
-     * @author Marcin Pietroń
-     * @param showingId Nowy identyfikator seansu, na który użytkownik rezerwuje miejsca.
-     */
-    public void setShowingId(int showingId) {
-        this.showingId = showingId;
     }
 
     /**

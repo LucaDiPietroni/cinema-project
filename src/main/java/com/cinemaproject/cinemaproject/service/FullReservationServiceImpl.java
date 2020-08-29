@@ -39,6 +39,10 @@ public class FullReservationServiceImpl implements FullReservationService {
                 reservation.getToken(),
                 reservation.getShowingId());
 
-        operationService.insertReservedSeats(reservedList);
+        for (ReservedSeat reservedSeat : reservedList){
+            if(operationService.takenSeat(reservation.getShowingId(), reservedSeat.getSeatId()) == null){
+                operationService.insertReservedSeats(reservedSeat);
+            } else {throw new Exception();}
+        }
     }
 }

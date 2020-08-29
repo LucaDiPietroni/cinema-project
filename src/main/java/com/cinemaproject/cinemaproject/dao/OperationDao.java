@@ -1,4 +1,6 @@
-package com.cinemaproject.cinemaproject.model;
+package com.cinemaproject.cinemaproject.dao;
+
+import com.cinemaproject.cinemaproject.model.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -73,10 +75,10 @@ public interface OperationDao {
     /**
      * Metoda zapisująca do bazy listę wybranych przez użytkownika miejsc.
      * @author Marcin Pietroń
-     * @param rSeatList Lista wybranych miejsc.
+     * @param reservedSeat Lista wybranych miejsc.
      * @throws Exception Jakikolwiek błąd.
      */
-    void insertReservedSeats(List<ReservedSeat> rSeatList) throws Exception;
+    void insertReservedSeats(ReservedSeat reservedSeat) throws Exception;
 
     /**
      * Metoda pobierająca z bazy danych identyfikator miejsca zarezerwowanego na konkretny seans.

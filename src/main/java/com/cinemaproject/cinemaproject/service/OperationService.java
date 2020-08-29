@@ -59,7 +59,7 @@ public interface OperationService {
      * @param rSeatList Lista wybranych miejsc.
      * @throws Exception Jakikolwiek błąd.
      */
-    void insertReservedSeats(List<ReservedSeat> rSeatList) throws Exception;
+    void insertReservedSeats(ReservedSeat reservedSeat) throws Exception;
 
     /**
      * Metoda pobierająca z bazy danych seans określony przez podany identyfikator.

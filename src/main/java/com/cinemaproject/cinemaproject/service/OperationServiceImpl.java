@@ -1,7 +1,7 @@
 package com.cinemaproject.cinemaproject.service;
 
+import com.cinemaproject.cinemaproject.dao.OperationDao;
 import com.cinemaproject.cinemaproject.model.*;
-import com.cinemaproject.cinemaproject.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,8 +96,8 @@ public class OperationServiceImpl implements OperationService {
      * @throws Exception Jakikolwiek błąd.
      */
     @Override
-    public void insertReservedSeats(List<ReservedSeat> rSeatList) throws Exception {
-        operationDao.insertReservedSeats(rSeatList);
+    public void insertReservedSeats(ReservedSeat reservedSeat) throws Exception {
+        operationDao.insertReservedSeats(reservedSeat);
     }
 
     /**

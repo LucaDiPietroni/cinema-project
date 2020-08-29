@@ -1,8 +1,9 @@
-package com.cinemaproject.cinemaproject.model;
+package com.cinemaproject.cinemaproject.dao;
 
+import com.cinemaproject.cinemaproject.dao.OperationDao;
+import com.cinemaproject.cinemaproject.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -141,8 +142,6 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 seat.setId((int) row.get("id"));
                 seat.setNumber((int) row.get("number"));
                 seat.setCinemahallid((int) row.get("cinemahallid"));
-                seat.setNormalprice((double) row.get("normalprice"));
-                seat.setReducedprice((double) row.get("reducedprice"));
                 seat.setLine((int) row.get("line"));
                 result.add(seat);
             }
@@ -215,30 +214,21 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
      * Po stworzeniu zapytania jest ono wywoływane w trybie batchowym.
      * Kolejno każde miejsce zostaje zapisane do bazy danych.
      * @author Marcin Pietroń
-     * @param rSeatList Lista wybranych miejsc.
+     * @param reservedSeat Lista wybranych miejsc.
      * @throws Exception Jakikolwiek błąd.
      */
     @Override
-    public void insertReservedSeats(List<ReservedSeat> rSeatList) throws Exception {
+    public void insertReservedSeats(ReservedSeat reservedSeat) throws Exception {
         try{
             String sql = "INSERT INTO \"CinemaMng\".\"ReservedSeat\" \n" +
-                    "(token, seatid, isreduced, showingid)\n" +
-                    "VALUES (?, ?, ?, ?)";
+                    "(token, seatid, isreduced)\n" +
+                    "VALUES (?, ?, ?)";
 
-            getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
-                public void setValues(PreparedStatement ps, int i) throws SQLException {
-                    ReservedSeat rSeat = rSeatList.get(i);
-                    ps.setString(1, rSeat.getToken());
-                    ps.setInt(2, rSeat.getSeatId());
-                    ps.setBoolean(3, rSeat.isReduced());
-                    ps.setInt(4, rSeat.getShowingId());
-                }
+            getJdbcTemplate().update(sql,
+                    reservedSeat.getToken(),
+                    reservedSeat.getSeatId(),
+                    reservedSeat.isReduced());
 
-                @Override
-                public int getBatchSize() {
-                    return rSeatList.size();
-                }
-            });
         }catch (Exception e){
             e.printStackTrace();
             throw new Exception();
@@ -292,15 +282,11 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     @Override
     public Integer takenSeat(int showingId, int seatId) throws Exception {
         try{
-            String sql = "SELECT se.seatid\n" +
-                    "FROM (\"CinemaMng\".\"Showing\" AS sh \n" +
-                    "\t  LEFT JOIN \n" +
-                    "\t  (SELECT clientname, clientmail, showingid, token\n" +
-                    "\t  FROM \"CinemaMng\".\"Reservation\") AS re \n" +
-                    "\t  ON sh.id = re.showingid) AS t1\n" +
-                    "LEFT JOIN \"CinemaMng\".\"ReservedSeat\" AS se ON t1.token = se.token\n" +
-                    "WHERE t1.id = ?\n" +
-                    "AND seatid = ?;";
+            String sql = "SELECT se.seatid \n" +
+                    "FROM \"CinemaMng\".\"Reservation\" AS re \n" +
+                    "LEFT JOIN \"CinemaMng\".\"ReservedSeat\" AS se ON re.token = se.token\n" +
+                    "WHERE re.showingid = ?\n" +
+                    "AND se.seatid = ?;";
 
             assert getJdbcTemplate() != null;
             try{
@@ -367,8 +353,6 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                     seat.setId(rs.getInt("id"));
                     seat.setNumber(rs.getInt("number"));
                     seat.setCinemahallid(rs.getInt("cinemahallid"));
-                    seat.setNormalprice(rs.getDouble("normalprice"));
-                    seat.setReducedprice(rs.getDouble("reducedprice"));
                     seat.setLine(rs.getInt("line"));
                     return seat;
                 }
@@ -442,7 +426,6 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 reservedSeat.setSeatId((int) row.get("seatid"));
                 reservedSeat.setReduced((boolean) row.get("isreduced"));
                 reservedSeat.setToken((String) row.get("token"));
-                reservedSeat.setShowingId((int) row.get("showingid"));
 
                 result.add(reservedSeat);
             }

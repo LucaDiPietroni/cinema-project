@@ -1,4 +1,4 @@
-package com.cinemaproject.cinemaproject.model;
+package com.cinemaproject.cinemaproject.dao;
 
 import java.io.File;
 

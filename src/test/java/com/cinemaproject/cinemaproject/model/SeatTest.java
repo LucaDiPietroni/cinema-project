@@ -45,30 +45,6 @@ class SeatTest {
     }
 
     @Test
-    void getNormalprice() {
-        assertEquals(40, seat.getNormalprice());
-
-    }
-
-    @Test
-    void setNormalprice() {
-        test.setNormalprice(50);
-        assertEquals(50,test.getNormalprice());
-    }
-
-    @Test
-    void getReducedprice() {
-        assertEquals(20, seat.getReducedprice());
-
-    }
-
-    @Test
-    void setReducedprice() {
-        test.setReducedprice(25);
-        assertEquals(25,test.getReducedprice());
-    }
-
-    @Test
     void getLine() {
         assertEquals(10, seat.getLine());
 

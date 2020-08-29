@@ -2,8 +2,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -35,9 +34,9 @@
          <div   class = "tekst4">
              <div class = "tileleft">
         <form th:action="@{/addRes}" th:object="${userReservation}" method="post">
-            <p>Imię: <input type="text" th:field="*{clientName}" required></p>
-            <p>Nazwisko: <input type="text" th:field="*{clientSecondName}" required></p>
-            <p>Adres e-mail: <input type="email" th:field="*{clientMail}" required></p>
+            <p>Imię: <input class = "tekst4" type="text" th:field="*{clientName}" required></p>
+            <p>Nazwisko: <input class = "tekst4" type="text" th:field="*{clientSecondName}" required></p>
+            <p>Adres e-mail: <input class = "tekst4" type="email" th:field="*{clientMail}" required></p>
             <p><input type="submit" value="Zarezerwuj" class="tile7"></p>
         </form>
              </div>
@@ -63,9 +62,9 @@
     <div style="clear: both"></div>
 
     <div class = "rectanglePusty">
-        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div class="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div id="giph3" > Oto miejsce na Twoją reklamę!  </div>
-        <div id="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
+        <div class="giph"> <img src = "image/adv.gif" alt="logo" style="height:80px"/> </div>
         <div style="clear: both"></div>
     </div>
 
