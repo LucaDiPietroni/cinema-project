@@ -10,6 +10,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Klasa testująca AllSeats
+ * @author Rafal Rybarczyk
+ * @version 1.0
+ */
+
 @SpringBootTest
 class AllSeatsTest {
 
@@ -110,8 +116,6 @@ class AllSeatsTest {
 
         Showing show = new Showing();
         allSeats.setSeatsNotAvailable(show);
-
-     //   assertEquals(1, seat1.getTaken());
 
     }
 }

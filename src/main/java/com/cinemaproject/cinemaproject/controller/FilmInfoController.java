@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @Controller
-public class FilmInfo {
+public class FilmInfoController {
 
     /**
      * Wstrzyknięcie interfejsu OperationService.

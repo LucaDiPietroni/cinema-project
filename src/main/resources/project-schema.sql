@@ -202,32 +202,6 @@ INSERT INTO "CinemaMng"."Film" VALUES (9, 'Wojna światów', 2005, 'Steven Spiel
 INSERT INTO "CinemaMng"."Film" VALUES (10, 'Zaplątani', 2010, 'Nathan Greno', 'Mandy Moore', 'animacja', 'Dan Fogelman', 'USA', 'image/zaplatani.jpg');
 INSERT INTO "CinemaMng"."Film" VALUES (11, 'Big Short', 2015, 'Adam McKay', 'Christian Bale', 'dramat', 'Adam McKay', 'USA', 'image/big.jpg');
 
-
-INSERT INTO "CinemaMng"."Reservation" VALUES (84, 'Marcin', 'mar5011@o2.pl', 1, 'HVPL48IH9Q', 'Pietroń');
-INSERT INTO "CinemaMng"."Reservation" VALUES (85, 'Marcin', 'mar5011@o2.pl', 1, 'ABFCT69LJ2', 'Pietroń');
-INSERT INTO "CinemaMng"."Reservation" VALUES (86, 'cxgb', 'mar5011@dfg', 1, 'M1JCO5MQA5', 'fdgnnd');
-INSERT INTO "CinemaMng"."Reservation" VALUES (87, 'Wojtek', 'woj@woj', 1, '0L59TSQK0G', 'Wojtek');
-INSERT INTO "CinemaMng"."Reservation" VALUES (88, 'mar', 'mar@mar', 1, '90UL2JIR1Z', 'mar');
-INSERT INTO "CinemaMng"."Reservation" VALUES (89, 'Marcin1111111', 'mar5011@o2.pl', 1, 'QAC1BZ9FG2', 'Pietroń111111');
-INSERT INTO "CinemaMng"."Reservation" VALUES (90, '123', '12@3', 1, 'U60HQBO5MO', '123');
-
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (168, 1, true, 'ABFCT69LJ2');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (169, 2, false, 'ABFCT69LJ2');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (170, 3, false, 'ABFCT69LJ2');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (171, 23, false, 'M1JCO5MQA5');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (172, 24, false, 'M1JCO5MQA5');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (173, 25, false, 'M1JCO5MQA5');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (174, 45, false, '0L59TSQK0G');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (175, 46, false, '0L59TSQK0G');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (176, 47, false, '0L59TSQK0G');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (178, 67, false, 'QAC1BZ9FG2');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (179, 68, false, 'QAC1BZ9FG2');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (180, 69, false, 'QAC1BZ9FG2');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (181, 89, false, 'U60HQBO5MO');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (182, 90, false, 'U60HQBO5MO');
-INSERT INTO "CinemaMng"."ReservedSeat" VALUES (183, 91, false, 'U60HQBO5MO');
-
-
 INSERT INTO "CinemaMng"."Seat" VALUES (565, 165, 3, 9);
 INSERT INTO "CinemaMng"."Seat" VALUES (566, 166, 3, 9);
 INSERT INTO "CinemaMng"."Seat" VALUES (567, 167, 3, 9);
