@@ -11,6 +11,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Klasa testująca OperationDaoImpl
+ * @author Rafal Rybarczyk
+ * @version 1.0
+ */
+
 @SpringBootTest
 class OperationDaoImplTest {
 
@@ -54,15 +60,6 @@ class OperationDaoImplTest {
 
     }
 
-    @Test
-    void insertReservation() throws Exception {
-       // op.insertReservation("Joe", "Smith", "js@g.com","ASDFQWER", 1);
-
-    }
-
-    @Test
-    void insertReservedSeats() {
-    }
 
     @Test
     void isShowingIdCorrect() throws Exception {
@@ -96,13 +93,6 @@ class OperationDaoImplTest {
 
     }
 
-    @Test
-    void hasReservationByMailAndTokenCorrectToken() throws Exception {
-
-//        Reservation res = op.findReservationByMailAndToken("mail@g.com","1234");
-//        assertEquals(res.getToken(), 1234);
-
-    }
 
     @Test
     void findReservedSeatsByTokenIsEmpty() throws Exception {
@@ -120,10 +110,6 @@ class OperationDaoImplTest {
 
     }
 
-    @Test
-    void deleteReservation() {
-
-    }
 
     @Test
     void findAllFilmsIsNotEmpty() throws Exception {

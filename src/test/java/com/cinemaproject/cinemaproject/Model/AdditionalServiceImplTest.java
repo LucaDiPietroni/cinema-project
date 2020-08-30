@@ -7,6 +7,11 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Klasa testująca AdditionalServiceImpl
+ * @author Rafal Rybarczyk
+ * @version 1.0
+ */
 
 @SpringBootTest
 class AdditionalServiceImplTest{
