@@ -72,7 +72,7 @@ public class BuildDatabaseDaoImpl extends JdbcDaoSupport implements BuildDatabas
      */
     @Override
     public void createDatabase(File file) throws Exception {
-        try(Scanner scanner = new Scanner(file);){
+        try(Scanner scanner = new Scanner(file, "UTF-8");){
             String sql = "";
             while (scanner.hasNextLine()){
                 sql += scanner.nextLine();

@@ -1009,7 +1009,7 @@ INSERT INTO "CinemaMng"."Showing" VALUES (3, 2, 1, '2020-09-07', '20:15:00');
 INSERT INTO "CinemaMng"."Showing" VALUES (4, 4, 2, '2020-09-07', '12:15:00');
 INSERT INTO "CinemaMng"."Showing" VALUES (5, 4, 2, '2020-09-07', '16:15:00');
 INSERT INTO "CinemaMng"."Showing" VALUES (6, 5, 2, '2020-09-07', '20:15:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (7, 9, 3, '2020-09-07', '12:05:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (7, 9, 3, '2020-09-07', '12:15:00');
 INSERT INTO "CinemaMng"."Showing" VALUES (8, 9, 3, '2020-09-07', '16:15:00');
 INSERT INTO "CinemaMng"."Showing" VALUES (9, 9, 3, '2020-09-07', '20:15:00');
 INSERT INTO "CinemaMng"."Showing" VALUES (10, 11, 4, '2020-09-07', '12:15:00');
