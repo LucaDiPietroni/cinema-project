@@ -1,6 +1,5 @@
 package com.cinemaproject.cinemaproject.dao;
 
-import com.cinemaproject.cinemaproject.dao.BuildDatabaseDao;
 import com.cinemaproject.cinemaproject.model.Exists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;

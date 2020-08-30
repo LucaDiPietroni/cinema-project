@@ -4,7 +4,6 @@ import com.cinemaproject.cinemaproject.model.*;
 import com.cinemaproject.cinemaproject.service.AdditionalService;
 import com.cinemaproject.cinemaproject.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +24,11 @@ import javax.servlet.http.HttpSession;
 public class ReservationController {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Wstrzyknięcie interfejsu OperationService.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
      */
     @Autowired
-    private ApplicationContext context;
+    private OperationService operationService;
 
     /**
      * Wstrzyknięcie interfejsu obsługującego dodatkowe funkcjonalności takie jak: tworzenie tokenów, sprawdzanie sąsiedztwa miejsc na sali kinowej.
@@ -61,7 +60,6 @@ public class ReservationController {
             }
             Showing chosenShow = (Showing) session.getAttribute("chosenShow");
 
-            OperationService operationService = context.getBean(OperationService.class);
             Film userFilm = operationService.findFilmById(chosenShow.getFilmid());
 
             model.addAttribute("userFilm", userFilm);
@@ -100,9 +98,7 @@ public class ReservationController {
 
             request.getSession().setAttribute("userReservation", userReservation);
 
-            OperationService seatService = context.getBean(OperationService.class);
-
-            seats.setSeats(seatService.findSeatsByCinemaHallId(chosenShow.getCinemahallid()));
+            seats.setSeats(operationService.findSeatsByCinemaHallId(chosenShow.getCinemahallid()));
             seats.setSeatsNotAvailable(chosenShow);
             request.getSession().setAttribute("seats", seats);
 

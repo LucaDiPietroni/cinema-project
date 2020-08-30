@@ -66,7 +66,6 @@ public class SeatsController {
      * Metoda obsługująca zapis miejsc na sali konowej zarezerwowanych przez użytkownika.
      * Wpierw pobierane są z sesji informacje o wybranych miejscach i wszystkich miejscach na sali.
      * Jeżeli wybrane przez użytkownika miejsce nie jest zajęte i znajduje się obok któregoś z wcześniej wybranych miejsc to wybrane miejsce dodawane jest do listy.
-     * Wybrane miejsca na sali kinowej zyskują status zajętych.
      * Na koniec lista wybranych miejsc kinowych jest sortowana i ustawiana jako atrybut sesji.
      * @author Marcin Pietroń
      * @param selectedSeat obiekt przechowujący identyfikator wybranego przez użytkownika miejsca.
@@ -79,7 +78,6 @@ public class SeatsController {
             int id = Integer.parseInt(selectedSeat);
 
             List<ReservedSeat> selectedSeats = (List<ReservedSeat>) request.getSession().getAttribute("selectedSeats");
-            Showing chosenShow = (Showing) request.getSession().getAttribute("chosenShow");
             AllSeats seats = (AllSeats) request.getSession().getAttribute("seats");
 
 

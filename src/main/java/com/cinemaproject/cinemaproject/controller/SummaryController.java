@@ -26,11 +26,11 @@ import java.util.List;
 public class SummaryController {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Wstrzyknięcie interfejsu OperationService.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
      */
     @Autowired
-    private ApplicationContext context;
+    private OperationService operationService;
 
     @Autowired
     private FullReservationService fullReservationService;
@@ -47,8 +47,6 @@ public class SummaryController {
     @GetMapping("/summary")
     public String getSummary(Model model, HttpSession session){
         try{
-            OperationService operationService = context.getBean(OperationService.class);
-
             SelectedDate selectedDate = (SelectedDate) session.getAttribute("selectedDate");
             Showing chosenShow = (Showing) session.getAttribute("chosenShow");
             List<ReservedSeat> selectedSeats = (List<ReservedSeat>) session.getAttribute("selectedSeats");

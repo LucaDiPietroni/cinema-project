@@ -1,6 +1,5 @@
 package com.cinemaproject.cinemaproject.dao;
 
-import com.cinemaproject.cinemaproject.dao.OperationDao;
 import com.cinemaproject.cinemaproject.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -62,10 +61,10 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 Film film = new Film();
                 film.setId((int) row.get("id"));
                 film.setTitle((String) row.get("title"));
-                film.setYearOfPremiere((int) row.get("yearOfPremiere"));
+                film.setYearOfPremiere((int) row.get("yearofpremiere"));
                 film.setDirector((String) row.get("director"));
-                film.setMainRole((String) row.get("mainRole"));
-                film.setFilmGenre((String) row.get("filmGenre"));
+                film.setMainRole((String) row.get("mainrole"));
+                film.setFilmGenre((String) row.get("filmgenre"));
                 film.setScenarist((String) row.get("scenarist"));
                 film.setProduction((String) row.get("production"));
                 film.setImage((String) row.get("image"));
@@ -210,11 +209,11 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
     }
 
     /**
-     * Implementacja metody zapisującej do bazy listę wybranych przez użytkownika miejsc.
-     * Po stworzeniu zapytania jest ono wywoływane w trybie batchowym.
-     * Kolejno każde miejsce zostaje zapisane do bazy danych.
+     * Implementacja metody zapisującej do bazy wybrane przez użytkownika miejsce.
+     * Po stworzeniu zapytania jest ono wywoływane.
+     * Miejsce zostaje zapisane do bazy danych.
      * @author Marcin Pietroń
-     * @param reservedSeat Lista wybranych miejsc.
+     * @param reservedSeat Wybrane przez użytkownika miejsce.
      * @throws Exception Jakikolwiek błąd.
      */
     @Override
@@ -271,7 +270,7 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
 
     /**
      * Implementacja metody pobierającej z bazy danych identyfikator miejsca zarezerwowanego na konkretny seans.
-     * Metoda zwróci wartość identyfikatora jeżeli rezerwacja miejsca nastąpiła.
+     * Metoda zwróci wartość identyfikatora jeżeli nastąpiła rezerwacja miejsca.
      * W przeciwnym wypadku zwrócony zostanie "null".
      * @author Marcin Pietroń
      * @param showingId Identyfikator seansu.
@@ -458,10 +457,10 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                     Film film = new Film();
                     film.setId(rs.getInt("id"));
                     film.setTitle(rs.getString("title"));
-                    film.setYearOfPremiere(rs.getInt("yearOfPremiere"));
+                    film.setYearOfPremiere(rs.getInt("yearofpremiere"));
                     film.setDirector(rs.getString("director"));
                     film.setMainRole(rs.getString("mainRole"));
-                    film.setFilmGenre(rs.getString("filmGenre"));
+                    film.setFilmGenre(rs.getString("filmgenre"));
                     film.setScenarist(rs.getString("scenarist"));
                     film.setProduction(rs.getString("production"));
                     film.setImage(rs.getString("image"));
@@ -516,10 +515,10 @@ public class OperationDaoImpl extends JdbcDaoSupport implements OperationDao {
                 Film film = new Film();
                 film.setId((int) row.get("id"));
                 film.setTitle((String) row.get("title"));
-                film.setYearOfPremiere((int) row.get("yearOfPremiere"));
+                film.setYearOfPremiere((int) row.get("yearofpremiere"));
                 film.setDirector((String) row.get("director"));
-                film.setMainRole((String) row.get("mainRole"));
-                film.setFilmGenre((String) row.get("filmGenre"));
+                film.setMainRole((String) row.get("mainrole"));
+                film.setFilmGenre((String) row.get("filmgenre"));
                 film.setScenarist((String) row.get("scenarist"));
                 film.setProduction((String) row.get("production"));
                 film.setImage((String) row.get("image"));

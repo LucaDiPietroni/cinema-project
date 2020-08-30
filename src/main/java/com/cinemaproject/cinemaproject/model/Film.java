@@ -2,7 +2,7 @@ package com.cinemaproject.cinemaproject.model;
 
 /**
  * Klasa filmu.
- * @author Marcin Pietroń
+ * @author Rafał Rybarczyk
  * @version 1.1
  */
 public class Film {
@@ -70,7 +70,7 @@ public class Film {
 
     /**
      * Getter pola "id".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Identyfikator filmu.
      */
     public int getId() {
@@ -79,7 +79,7 @@ public class Film {
 
     /**
      * Getter pola "title".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Tytuł filmu.
      */
     public String getTitle() {
@@ -88,7 +88,7 @@ public class Film {
 
     /**
      * Getter pola "yearOfPremiere".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Rok premiery filmu.
      */
     public int getYearOfPremiere() {
@@ -97,7 +97,7 @@ public class Film {
 
     /**
      * Getter pola "director".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Reżyser filmu.
      */
     public String getDirector() {
@@ -106,7 +106,7 @@ public class Film {
 
     /**
      * Getter pola "mainRole".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Aktor odgrywający główną rolę.
      */
     public String getMainRole() {
@@ -115,7 +115,7 @@ public class Film {
 
     /**
      * Getter pola "filmGenre".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Gatunek filmu.
      */
     public String getFilmGenre() {
@@ -124,7 +124,7 @@ public class Film {
 
     /**
      * Getter pola "scenarist".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Scenażysta filmu.
      */
     public String getScenarist() {
@@ -133,7 +133,7 @@ public class Film {
 
     /**
      * Getter pola "production".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Producent filmu.
      */
     public String getProduction() {
@@ -142,7 +142,7 @@ public class Film {
 
     /**
      * Setter pola "id".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param id Nowy identyfikator filmu.
      */
     public void setId(int id) {
@@ -151,7 +151,7 @@ public class Film {
 
     /**
      * Setter pola "title".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param title Nowy tytuł filmu.
      */
     public void setTitle(String title) {
@@ -160,7 +160,7 @@ public class Film {
 
     /**
      * Setter pola "yearOfPremiere".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param yearOfPremiere Nowy rok premiery filmu.
      */
     public void setYearOfPremiere(int yearOfPremiere) {
@@ -169,7 +169,7 @@ public class Film {
 
     /**
      * Setter pola "director".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param director Nowy reżyser filmu.
      */
     public void setDirector(String director) {
@@ -178,7 +178,7 @@ public class Film {
 
     /**
      * Setter pola "mainRole".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param mainRole Nowy aktor odgrywający główną rolę.
      */
     public void setMainRole(String mainRole) {
@@ -187,7 +187,7 @@ public class Film {
 
     /**
      * Setter pola "filmGenre".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param filmGenre Nowy gatunek filmowy.
      */
     public void setFilmGenre(String filmGenre) {
@@ -196,7 +196,7 @@ public class Film {
 
     /**
      * Setter pola "scenarist".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param scenarist Nowy scenarzysta filmu.
      */
     public void setScenarist(String scenarist) {
@@ -205,7 +205,7 @@ public class Film {
 
     /**
      * Setter pola "production".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param production Nowy producent filmu.
      */
     public void setProduction(String production) {
@@ -214,7 +214,7 @@ public class Film {
 
     /**
      * Getter pola "image".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Lokalizacja okładki filmu.
      */
     public String getImage() {
@@ -223,7 +223,7 @@ public class Film {
 
     /**
      * Setter pola "image".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param image Nowa lokalizacja okłądki filmu.
      */
     public void setImage(String image) {

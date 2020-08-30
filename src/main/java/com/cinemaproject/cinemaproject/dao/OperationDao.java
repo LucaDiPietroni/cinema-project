@@ -73,9 +73,9 @@ public interface OperationDao {
     void insertReservation(String clientName, String clientSecondName, String clientMail, String token, int showingId) throws Exception;
 
     /**
-     * Metoda zapisująca do bazy listę wybranych przez użytkownika miejsc.
+     * Metoda zapisująca do wybrane przez użytkownika miejsce.
      * @author Marcin Pietroń
-     * @param reservedSeat Lista wybranych miejsc.
+     * @param reservedSeat Wybrane przez użytkownika miejsce.
      * @throws Exception Jakikolwiek błąd.
      */
     void insertReservedSeats(ReservedSeat reservedSeat) throws Exception;

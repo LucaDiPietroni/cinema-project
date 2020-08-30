@@ -5,7 +5,6 @@ import com.cinemaproject.cinemaproject.service.OperationService;
 import com.cinemaproject.cinemaproject.model.SelectedDate;
 import com.cinemaproject.cinemaproject.model.Showing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,21 +27,21 @@ import java.util.List;
 public class FilmsController {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Wstrzyknięcie interfejsu OperationService.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
      */
     @Autowired
-    private ApplicationContext context;
+    private OperationService operationService;
 
     /**
-     * Metoda nawigująca do strony z wyborem filmów.
+     * Metoda nawigująca do strony z wyborem seansu.
      * Wpierw z obiektu sesji pobierana jest data wybrana przez użytkownika. Jeżeli takowa nie istnieje tworzony jest nowy obiekt wybranej daty.
      * Następnie z bazy danych pobierana jest lista wszystkich dat, gdy odbywają się seanse oraz lista filmów wyświetlanych w wybranym przez użytkownika dniu.
      * Wszystkie niezbędne informacje ustawiane są jako atrybuty modelu.
      * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
      * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
-     * @return Odnośnik do podstrony z wyborem filmów.
+     * @return Odnośnik do podstrony z wyborem seansu.
      */
     @GetMapping("/films")
     public String getFilms(Model model, HttpSession session) {
@@ -52,13 +51,11 @@ public class FilmsController {
                 selectedDate = new SelectedDate();
             }
 
-            OperationService filmService = context.getBean(OperationService.class);
-
-            List<Date> datesOfShowings = filmService.findDatesOfShowings();
-            List<Film> filmList = filmService.findFilmByDate(selectedDate.getSelectedDate().toLocalDate());
+            List<Date> datesOfShowings = operationService.findDatesOfShowings();
+            List<Film> filmList = operationService.findFilmByDate(selectedDate.getSelectedDate().toLocalDate());
 
             model.addAttribute("filmList", filmList);
-            model.addAttribute("Service", filmService);
+            model.addAttribute("Service", operationService);
             model.addAttribute("newSelectedDate", selectedDate);
             model.addAttribute("showing", new Showing());
             model.addAttribute("datesOfShowings", datesOfShowings);
@@ -105,7 +102,6 @@ public class FilmsController {
     public String setShow(@RequestParam(value = "selectedShow") String selectedShow, HttpServletRequest request) {
         try{
             int id = Integer.parseInt(selectedShow);
-            OperationService operationService = context.getBean(OperationService.class);
 
             Showing chosenShow = operationService.findShowingById(id);
             request.getSession().setAttribute("chosenShow", chosenShow);

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Kontroler podstrony startowej i obsługi nawigacji do innych podstron.
  * Steruje on działaniami użytkownika oraz wykorzystujący klasy modelu w celu wyświetlenia odpowiedniego widoku.
- * @author Marcin Pietroń
+ * @author Rafał Rybarczyk
  * @version 1.0
  */
 @Controller
@@ -19,7 +19,7 @@ public class FirstController {
     /**
      * Metoda nawigująca do strony startowej.
      * Po utworzeniu potrzebnych obiektów zostają one ustawione jako atrybuty sesji.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do podstrony startowej.
      */
     @GetMapping("/")
@@ -43,7 +43,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do podstrony z wyborem filmów.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do metody nawigującej do podstrony z wyborem filmów.
      */
     @PostMapping("/goToFilms")
@@ -53,7 +53,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do podstrony autoryzacji użytkownika, który zarezerwował miejsca na film.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do metody nawigującej do podstrony autoryzacji użytkownika, który zarezerwował miejsca na film.
      */
     @PostMapping("/goToCancel")
@@ -63,7 +63,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do strony startowej.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do metody nawigującej do strony startowej.
      */
     @PostMapping("/goToStart")
@@ -73,7 +73,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do podstrony z informacjami kontaktowymi.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do podstrony z informacjami kontaktowymi.
      */
     @GetMapping("/kontakt")
@@ -90,7 +90,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do podstrony z informacjami kontaktowymi.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do podstrony z informacjami kontaktowymi.
      */
     @PostMapping("/goToKontakt")
@@ -113,7 +113,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do podstrony z informacjami o promocjach.
-     * @author Marcin&Rafał
+     * @author Rafał Rybarczyk
      * @return Odnośnik do podstrony z informacjami o promocjach.
      */
     @PostMapping("/goToPromocje")
@@ -123,7 +123,7 @@ public class FirstController {
 
     /**
      * Metoda nawigująca do podstrony z repertuarem kina.
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Odnośnik do podstrony z repertuarem kina.
      */
     @PostMapping("/goToRepertuar")

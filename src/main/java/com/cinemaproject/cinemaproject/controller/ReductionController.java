@@ -23,7 +23,7 @@ public class ReductionController {
 
     /**
      * Metoda nawigująca do podstrony z wyborem ilości biletów ulgowych.
-     * Po pobraniu informacji o ilości biletów normalnych z obiektu sesji zostają one ustawione jako atrybuty sesji i modelu
+     * Po pobraniu informacji o ilości biletów normalnych z obiektu sesji zostają one ustawione jako atrybuty sesji i modelu.
      * @author Marcin Pietroń
      * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
      * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.

@@ -2,7 +2,7 @@ package com.cinemaproject.cinemaproject.model;
 
 /**
  * Klasa rezerwacji.
- * @author Marcin Pietroń
+ * @author Rafał Rybarczyk
  * @version 1.1
  */
 public class ReservedSeat implements Comparable<ReservedSeat>{
@@ -40,7 +40,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Getter pola "id".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Identyfikator zarezerwowanego miejsca.
      */
     public int getId() {
@@ -49,7 +49,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Setter pola "id".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param id Nowy identyfikator zarezerwowanego miejsca.
      */
     public void setId(int id) {
@@ -58,7 +58,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Getter pola "token".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Kod rezerwacji.
      */
     public String getToken() {
@@ -67,7 +67,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Setter pola "token".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param token Nowy kod rezerwacji.
      */
     public void setToken(String token) {
@@ -76,7 +76,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Getter pola "seatId".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Identyfikator miejsca na sali kinowej.
      */
     public int getSeatId() {
@@ -85,7 +85,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Setter pola "seatId".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param seatId Nowy identyfikator miejsca na sali kinowej.
      */
     public void setSeatId(int seatId) {
@@ -94,7 +94,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Getter pola "isReduced".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Wartość "true" jeżeli miejsce jest objęte zniżką lub "false" w przeciwnym przypadku.
      */
     public boolean isReduced() {
@@ -103,7 +103,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Setter pola "reduced".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param reduced Nowy status ulgi.
      */
     public void setReduced(boolean reduced) {
@@ -112,7 +112,7 @@ public class ReservedSeat implements Comparable<ReservedSeat>{
 
     /**
      * Metoda obsługująca porównywanie obiektów klasy "ReservedSeat"
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param reservedSeat Nowy status ulgi.
      * @return Wartość 0 jeżeli obiekty są takie same; Wartość mniejszą od 0 jeżeli jeden obiekt jest mniejszy od drugiego; Wartość większą niż 0 jeżeli drugi obiekt jest mniejszy od pierwszego.
      */

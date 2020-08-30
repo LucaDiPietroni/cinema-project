@@ -1,4 +1,4 @@
-
+<!-- Autor: Rafał Rybarczyk -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -35,7 +35,7 @@
                 <div class = "tileleft">
                     <p th:text="${'Rezerwacja na film: ' + selectedFilm.getTitle()}"></p>
                     <p th:text="${'Data: ' + selectedDate.getSelectedDate()}"></p>
-                    <p th:text="${'Godzina: ' + chosenShow.getTimeOfStart().toString()}"></p>
+                    <p th:text=" ${'Godzina: ' + (chosenShow.getTimeOfStart().getMinutes()==0 ? chosenShow.getTimeOfStart().getHours() + ':00' : chosenShow.getTimeOfStart().getHours() + ':' + chosenShow.getTimeOfStart().getMinutes())}"></p>
                     <p th:text="${'Cena: ' + price + ' zł '}"></p>
                 </div>
 

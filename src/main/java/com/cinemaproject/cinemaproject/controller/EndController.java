@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Kontroler podstrony zakończenia rezerwacji.
  * Steruje on działaniami użytkownika oraz wykorzystujący klasy i interfejsy modelu w celu wyświetlenia odpowiedniego widoku.
- * @author Marcin Pietroń
+ * @author Rafał Rybarczyk
  * @version 1.0
  */
 @Controller
@@ -21,7 +21,7 @@ public class EndController {
      * Metoda nawigująca do podstrony kończącej rezerwację.
      * Z obiektu sesji pobierane są informacje o rezerwacji użytkownika w celu wyświetlenia kodu rezerwacji.
      * Następnie zapisywane są one w modelu i sesji.
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param model obiekt przechowujący atrybuty wyświetlane na podstronie.
      * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
      * @return Odnośnik do podstrony z zakończeniem rezerwacji.

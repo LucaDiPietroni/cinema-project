@@ -2,7 +2,7 @@ package com.cinemaproject.cinemaproject.model;
 
 /**
  * Klasa rezerwacji.
- * @author Marcin Pietroń
+ * @author Rafał Rybarczyk
  * @version 1.0
  */
 public class Reservation {
@@ -52,7 +52,7 @@ public class Reservation {
 
     /**
      * Getter pola "id".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Identyfikator rezerwacji.
      */
     public int getId() {
@@ -61,7 +61,7 @@ public class Reservation {
 
     /**
      * Setter pola "id".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param id Nowy identyfikator rezerwacji.
      */
     public void setId(int id) {
@@ -70,7 +70,7 @@ public class Reservation {
 
     /**
      * Getter pola "clientName".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Imię klienta dokonującego rezerwacji.
      */
     public String getClientName() {
@@ -79,7 +79,7 @@ public class Reservation {
 
     /**
      * Setter pola "clientName".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param clientName Nowe imię klienta dokonującego rezerwacji.
      */
     public void setClientName(String clientName) {
@@ -88,7 +88,7 @@ public class Reservation {
 
     /**
      * Getter pola "clientMail".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Adres e-mail klienta dokonującego rezerwacji.
      */
     public String getClientMail() {
@@ -97,7 +97,7 @@ public class Reservation {
 
     /**
      * Setter pola "clientMail".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param clientMail Nowy adres e-mail klienta dokonującego rezerwacji.
      */
     public void setClientMail(String clientMail) {
@@ -106,7 +106,7 @@ public class Reservation {
 
     /**
      * Getter pola "token".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Kod rezerwacji.
      */
     public String getToken() {
@@ -115,7 +115,7 @@ public class Reservation {
 
     /**
      * Setter pola "token".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param token Nowy kod rezerwacji.
      */
     public void setToken(String token) {
@@ -124,7 +124,7 @@ public class Reservation {
 
     /**
      * Getter pola "showingId".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Identyfikator seansu.
      */
     public int getShowingId() {
@@ -133,7 +133,7 @@ public class Reservation {
 
     /**
      * Setter pola "showingId".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param showingId Nowy identyfikator seansu.
      */
     public void setShowingId(int showingId) {
@@ -142,7 +142,7 @@ public class Reservation {
 
     /**
      * Getter pola "clientSecondName".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @return Nazwisko klienta dokonującego rezerwacji.
      */
     public String getClientSecondName() {
@@ -151,7 +151,7 @@ public class Reservation {
 
     /**
      * Setter pola "clientSecondName".
-     * @author Marcin Pietroń
+     * @author Rafał Rybarczyk
      * @param clientSecondName Nowe nazwisko klienta dokonującego rezerwacji.
      */
     public void setClientSecondName(String clientSecondName) {

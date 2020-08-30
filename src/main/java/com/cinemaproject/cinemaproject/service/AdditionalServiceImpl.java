@@ -17,11 +17,11 @@ import java.util.List;
 public class AdditionalServiceImpl implements AdditionalService {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Wstrzyknięcie interfejsu OperationService.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
      */
     @Autowired
-    private ApplicationContext context;
+    private OperationService operationService;
 
     /**
      * Metoda generująca kod rezerwacji.
@@ -63,19 +63,18 @@ public class AdditionalServiceImpl implements AdditionalService {
     public boolean isSeatNextTo(List<ReservedSeat> reservedSeats, Integer seatNumber) throws Exception {
         try{
             boolean checker;
-            OperationService seatService = context.getBean(OperationService.class);
             Seat leftSeat;
             Seat rightSeat;
 
             if(!reservedSeats.isEmpty()){
-                leftSeat = seatService.findSeatById(reservedSeats.get(0).getSeatId());
-                rightSeat = seatService.findSeatById(reservedSeats.get(reservedSeats.size() - 1).getSeatId());
+                leftSeat = operationService.findSeatById(reservedSeats.get(0).getSeatId());
+                rightSeat = operationService.findSeatById(reservedSeats.get(reservedSeats.size() - 1).getSeatId());
             }else{
                 leftSeat = new Seat();
                 rightSeat = new Seat();
             }
 
-            Seat selectedSeat = seatService.findSeatById(seatNumber);
+            Seat selectedSeat = operationService.findSeatById(seatNumber);
 
             if(reservedSeats.isEmpty()){
                 checker = true;

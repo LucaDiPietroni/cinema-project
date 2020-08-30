@@ -28,10 +28,10 @@ SET default_with_oids = false;
 CREATE TABLE "CinemaMng"."Film" (
     id integer NOT NULL,
     title text,
-    "yearOfPremiere" integer,
+    yearofpremiere integer,
     director text,
-    "mainRole" text,
-    "filmGenre" text,
+    mainrole text,
+    filmgenre text,
     scenarist text,
     production text,
     image text
@@ -1029,43 +1029,79 @@ INSERT INTO "CinemaMng"."Seat" VALUES (798, 198, 4, 10);
 INSERT INTO "CinemaMng"."Seat" VALUES (799, 199, 4, 10);
 INSERT INTO "CinemaMng"."Seat" VALUES (800, 200, 4, 10);
 
+INSERT INTO "CinemaMng"."Showing" VALUES (1, 1, 1, '2020-09-07', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (2, 1, 1, '2020-09-07', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (3, 2, 1, '2020-09-07', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (4, 4, 2, '2020-09-07', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (5, 4, 2, '2020-09-07', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (6, 5, 2, '2020-09-07', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (7, 9, 3, '2020-09-07', '12:05:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (8, 9, 3, '2020-09-07', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (9, 9, 3, '2020-09-07', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (10, 11, 4, '2020-09-07', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (11, 11, 4, '2020-09-07', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (12, 11, 4, '2020-09-07', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (13, 1, 1, '2020-09-08', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (14, 1, 1, '2020-09-08', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (15, 2, 1, '2020-09-08', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (16, 2, 1, '2020-09-08', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (17, 4, 2, '2020-09-08', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (18, 4, 2, '2020-09-08', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (19, 5, 2, '2020-09-08', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (20, 5, 2, '2020-09-08', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (21, 10, 3, '2020-09-08', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (22, 9, 3, '2020-09-08', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (23, 9, 3, '2020-09-08', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (24, 9, 3, '2020-09-08', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (25, 11, 4, '2020-09-08', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (26, 11, 4, '2020-09-08', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (27, 11, 4, '2020-09-08', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (28, 11, 4, '2020-09-08', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (29, 1, 1, '2020-09-09', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (30, 1, 1, '2020-09-09', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (31, 2, 1, '2020-09-09', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (32, 2, 1, '2020-09-09', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (33, 4, 2, '2020-09-09', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (34, 4, 2, '2020-09-09', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (35, 5, 2, '2020-09-09', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (36, 5, 2, '2020-09-09', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (37, 10, 3, '2020-09-09', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (38, 10, 3, '2020-09-09', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (39, 4, 3, '2020-09-09', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (40, 3, 3, '2020-09-09', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (41, 6, 4, '2020-09-09', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (42, 6, 4, '2020-09-09', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (43, 6, 4, '2020-09-09', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (44, 6, 4, '2020-09-09', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (45, 1, 1, '2020-09-10', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (46, 8, 1, '2020-09-10', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (47, 8, 1, '2020-09-10', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (48, 8, 1, '2020-09-10', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (49, 7, 2, '2020-09-10', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (50, 7, 2, '2020-09-10', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (51, 7, 2, '2020-09-10', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (52, 6, 2, '2020-09-10', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (53, 10, 3, '2020-09-10', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (54, 10, 3, '2020-09-10', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (55, 6, 3, '2020-09-10', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (56, 2, 3, '2020-09-10', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (57, 3, 4, '2020-09-10', '09:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (58, 3, 4, '2020-09-10', '13:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (59, 3, 4, '2020-09-10', '17:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (60, 5, 4, '2020-09-10', '21:30:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (61, 8, 1, '2020-09-11', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (62, 8, 1, '2020-09-11', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (63, 8, 1, '2020-09-11', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (64, 7, 2, '2020-09-11', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (65, 7, 2, '2020-09-11', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (66, 7, 2, '2020-09-11', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (67, 10, 3, '2020-09-11', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (68, 10, 3, '2020-09-11', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (69, 6, 3, '2020-09-11', '20:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (70, 3, 4, '2020-09-11', '12:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (71, 3, 4, '2020-09-11', '16:15:00');
+INSERT INTO "CinemaMng"."Showing" VALUES (72, 3, 4, '2020-09-11', '20:15:00');
 
-INSERT INTO "CinemaMng"."Showing" VALUES (1, 1, 1, '2020-09-07', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (2, 2, 1, '2020-09-07', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (4, 4, 2, '2020-09-07', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (5, 5, 2, '2020-09-07', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (6, 6, 2, '2020-09-07', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (8, 3, 3, '2020-09-07', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (9, 2, 3, '2020-09-07', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (10, 10, 4, '2020-09-07', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (11, 6, 4, '2020-09-07', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (3, 3, 1, '2020-09-07', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (12, 5, 4, '2020-09-07', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (7, 8, 3, '2020-09-07', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (13, 10, 1, '2020-09-08', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (14, 7, 1, '2020-09-08', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (15, 11, 1, '2020-09-08', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (16, 1, 2, '2020-09-08', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (17, 9, 2, '2020-09-08', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (18, 8, 2, '2020-09-08', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (19, 10, 3, '2020-09-08', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (20, 11, 3, '2020-09-08', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (21, 7, 3, '2020-09-08', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (22, 4, 4, '2020-09-08', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (23, 8, 4, '2020-09-08', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (24, 9, 4, '2020-09-08', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (25, 1, 1, '2020-09-09', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (26, 3, 1, '2020-09-09', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (27, 7, 1, '2020-09-09', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (28, 8, 2, '2020-09-09', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (29, 10, 2, '2020-09-09', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (30, 5, 2, '2020-09-09', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (31, 4, 3, '2020-09-09', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (33, 1, 3, '2020-09-09', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (34, 3, 3, '2020-09-09', '18:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (35, 10, 4, '2020-09-09', '10:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (36, 5, 4, '2020-09-09', '14:00:00');
-INSERT INTO "CinemaMng"."Showing" VALUES (37, 3, 4, '2020-09-09', '18:00:00');
 
 SELECT pg_catalog.setval('"CinemaMng"."Film_id_seq"', 1, false);
 

@@ -23,11 +23,11 @@ import java.util.List;
 public class CancellationController {
 
     /**
-     * Wstrzyknięcie interfejsu ApplicationContext.
+     * Wstrzyknięcie interfejsu OperationService.
      * Umożliwia on korzystanie z interfejsów obsługujących pobieranie zasobów z bazy danych oraz zapisywanie w niej nowych rekordów.
      */
     @Autowired
-    private ApplicationContext context;
+    private OperationService operationService;
 
     /**
      * Metoda nawigująca do podstrony z informacjami o dokonanej rezerwacji.
@@ -44,7 +44,6 @@ public class CancellationController {
         try{
             Reservation reservationToDelete = (Reservation) session.getAttribute("reservationToDelete");
 
-            OperationService operationService = context.getBean(OperationService.class);
             Showing reservedShowing = operationService.findShowingById(reservationToDelete.getShowingId());
             Film film = operationService.findFilmById(reservedShowing.getFilmid());
             List<ReservedSeat> seatsToDelete = operationService.findReservedSeatsByToken(reservationToDelete.getToken());
@@ -82,7 +81,7 @@ public class CancellationController {
 
     /**
      * Metoda obsługująca anulowanie rezerwacji.
-     * Po pobraniu danych o rezerwacji z obiektu sesji zostaje ona usunięta z bazy danych
+     * Po pobraniu danych o rezerwacji z obiektu sesji zostaje ona usunięta z bazy danych.
      * @author Marcin Pietroń
      * @param request obiekt zawierający informacje o żądaniach klienta. Pozwala pobierać atrybuty z sesji i je do niej dodawać.
      * @return Odnośnik do podstrony potwierdzającej anulowanie rezerwacji.
@@ -92,7 +91,6 @@ public class CancellationController {
         try{
             Reservation reservationToDelete = (Reservation) request.getSession().getAttribute("reservationToDelete");
 
-            OperationService operationService = context.getBean(OperationService.class);
             operationService.deleteReservation(reservationToDelete.getId());
 
             return "endOfCancellation";

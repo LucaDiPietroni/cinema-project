@@ -90,9 +90,9 @@ public class OperationServiceImpl implements OperationService {
     }
 
     /**
-     * Implementacja metody zapisującej do bazy listę wybranych przez użytkownika miejsc.
+     * Implementacja metody zapisującej do bazy wybrane przez użytkownika miejsce.
      * @author Marcin Pietroń
-     * @param rSeatList Lista wybranych miejsc.
+     * @param reservedSeat Miejsce wybrane przez użytkownika.
      * @throws Exception Jakikolwiek błąd.
      */
     @Override
