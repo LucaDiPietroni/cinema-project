@@ -20,6 +20,7 @@ public class FirstController {
      * Metoda nawigująca do strony startowej.
      * Po utworzeniu potrzebnych obiektów zostają one ustawione jako atrybuty sesji.
      * @author Rafał Rybarczyk
+     * @param session obiekt sesji przechowujący atrybuty unikalne dla każdego użytkownika.
      * @return Odnośnik do podstrony startowej.
      */
     @GetMapping("/")
